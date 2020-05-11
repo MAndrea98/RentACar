@@ -1,81 +1,100 @@
 package com.example.demo.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class EndUser {
-
-	private String username;
-	private String password;
-	private UserType uloga;
-	private List<Message> inbox = new ArrayList<Message>();
-	private List<Message> outbox = new ArrayList<Message>();
-	private Set<Permissions> permissions = new HashSet<Permissions>();
+	
+	private User user;
+	private String name;
+	private String surname;
+	private String address;
+	private String phone;
+	private List<Review> reviews = new ArrayList<Review>();
+	private List<Ad> favorites = new ArrayList<Ad>();
+	private List<Request> requsets = new ArrayList<Request>();
 	
 	public EndUser() {
 		
 	}
 
-	public EndUser(String username, String password, UserType uloga, List<Message> inbox, List<Message> outbox,
-			Set<Permissions> permissions) {
+	public EndUser(User user, String name, String surname, String address, String phone, List<Review> reviews,
+			List<Ad> favorites, List<Request> requsets) {
 		super();
-		this.username = username;
-		this.password = password;
-		this.uloga = uloga;
-		this.inbox = inbox;
-		this.outbox = outbox;
-		this.permissions = permissions;
+		this.user = user;
+		this.name = name;
+		this.surname = surname;
+		this.address = address;
+		this.phone = phone;
+		this.reviews = reviews;
+		this.favorites = favorites;
+		this.requsets = requsets;
 	}
 
-	public String getUsername() {
-		return username;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getName() {
+		return name;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public UserType getUloga() {
-		return uloga;
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setUloga(UserType uloga) {
-		this.uloga = uloga;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
-	public List<Message> getInbox() {
-		return inbox;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setInbox(List<Message> inbox) {
-		this.inbox = inbox;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public List<Message> getOutbox() {
-		return outbox;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setOutbox(List<Message> outbox) {
-		this.outbox = outbox;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public Set<Permissions> getPermissions() {
-		return permissions;
+	public List<Review> getReviews() {
+		return reviews;
 	}
 
-	public void setPermissions(Set<Permissions> permissions) {
-		this.permissions = permissions;
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public List<Ad> getFavorites() {
+		return favorites;
+	}
+
+	public void setFavorites(List<Ad> favorites) {
+		this.favorites = favorites;
+	}
+
+	public List<Request> getRequsets() {
+		return requsets;
+	}
+
+	public void setRequsets(List<Request> requsets) {
+		this.requsets = requsets;
 	}
 	
 	
+
 }
