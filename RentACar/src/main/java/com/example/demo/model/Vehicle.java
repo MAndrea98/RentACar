@@ -10,7 +10,7 @@ public class Vehicle {
 	private PriceList price;
 	private int mileage;
 	private int proposedMileage;
-	private User owner;
+	private UserModel owner;
 	private Boolean cdw;
 	private int childSeatsNo;
 	
@@ -19,7 +19,7 @@ public class Vehicle {
 	}
 	
 	public Vehicle(Byte[] image, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
-			PriceList price, int mileage, int proposedMileage, User owner, Boolean cdw, int childSeatsNo) {
+			PriceList price, int mileage, int proposedMileage, UserModel owner, Boolean cdw, int childSeatsNo) {
 		super();
 		this.image = image;
 		this.model = model;
@@ -98,11 +98,11 @@ public class Vehicle {
 		this.proposedMileage = proposedMileage;
 	}
 
-	public User getOwner() {
+	public UserModel getOwner() {
 		return owner;
 	}
 
-	public void setOwner(User owner) {
+	public void setOwner(UserModel owner) {
 		this.owner = owner;
 	}
 

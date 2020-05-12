@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Renter {
 
-	private User user;
+	private UserModel user;
 	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
 	private PriceList priceList;
 	private List<Ad> ads = new ArrayList<Ad>();
@@ -16,7 +16,7 @@ public class Renter {
 		
 	}
 
-	public Renter(User user, List<Vehicle> vehicles, PriceList priceList, List<Ad> ads, List<Request> ordered,
+	public Renter(UserModel user, List<Vehicle> vehicles, PriceList priceList, List<Ad> ads, List<Request> ordered,
 			List<Review> reviews) {
 		super();
 		this.user = user;
@@ -29,11 +29,11 @@ public class Renter {
 
 
 
-	public User getUser() {
+	public UserModel getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserModel user) {
 		this.user = user;
 	}
 

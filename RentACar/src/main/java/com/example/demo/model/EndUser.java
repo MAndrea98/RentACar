@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EndUser {
 	
-	private User user;
+	private UserModel user;
 	private String name;
 	private String surname;
 	private String address;
@@ -18,7 +18,7 @@ public class EndUser {
 		
 	}
 
-	public EndUser(User user, String name, String surname, String address, String phone, List<Review> reviews,
+	public EndUser(UserModel user, String name, String surname, String address, String phone, List<Review> reviews,
 			List<Ad> favorites, List<Request> requsets) {
 		super();
 		this.user = user;
@@ -31,11 +31,11 @@ public class EndUser {
 		this.requsets = requsets;
 	}
 
-	public User getUser() {
+	public UserModel getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserModel user) {
 		this.user = user;
 	}
 

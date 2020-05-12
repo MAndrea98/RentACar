@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class Ad {
 
-	private User user;
+	private UserModel user;
 	private Vehicle vehicle;
 	private Calendar date;
 	private Calendar validTru;
@@ -17,7 +17,7 @@ public class Ad {
 		
 	}
 	
-	public Ad(User user, Vehicle vehicle, Calendar date, Calendar validTru, Calendar validFrom,
+	public Ad(UserModel user, Vehicle vehicle, Calendar date, Calendar validTru, Calendar validFrom,
 			HashMap<Calendar, Boolean> free, int mileage) {
 		super();
 		this.user = user;
@@ -28,10 +28,10 @@ public class Ad {
 		this.free = free;
 		this.mileage = mileage;
 	}
-	public User getUser() {
+	public UserModel getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(UserModel user) {
 		this.user = user;
 	}
 	public Vehicle getVehicle() {

@@ -2,22 +2,22 @@ package com.example.demo.model;
 
 public class Admin {
 
-	private User user;
+	private UserModel user;
 	
 	public Admin() {
 		
 	}
 
-	public Admin(User user) {
+	public Admin(UserModel user) {
 		super();
 		this.user = user;
 	}
 
-	public User getUser() {
+	public UserModel getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserModel user) {
 		this.user = user;
 	}
 	
