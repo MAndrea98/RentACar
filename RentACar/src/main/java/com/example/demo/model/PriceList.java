@@ -2,12 +2,41 @@ package com.example.demo.model;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.MapKeyColumn;
+
+@Entity
 public class PriceList {
 	
-	private HashMap<Calendar, Double> datesPrice = new HashMap<Calendar, Double>();
-	private HashMap<Calendar, Double> discount = new HashMap<Calendar, Double>();
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@ElementCollection
+	@JoinTable(name="dates_price", joinColumns=@JoinColumn(name="Id"))
+	@MapKeyColumn (name="dates_price_Id")
+	@Column(name="value")
+	private Map<Calendar, Double> datesPrice = new HashMap<Calendar, Double>();
+	
+	@ElementCollection
+	@JoinTable(name="discount", joinColumns=@JoinColumn(name="Id"))
+	@MapKeyColumn (name="discount_id")
+	@Column(name="value")
+	private Map<Calendar, Double> discount = new HashMap<Calendar, Double>();
+	
+	@Column(name="pricePerMile")
 	private double pricePerMile;
+	
+	@Column(name="cdwPrice")
 	private double cdwPrice;
 	
 	public PriceList() {
@@ -23,7 +52,7 @@ public class PriceList {
 		this.cdwPrice = cdwPrice;
 	}
 
-	public HashMap<Calendar, Double> getDatesPrice() {
+	public Map<Calendar, Double> getDatesPrice() {
 		return datesPrice;
 	}
 
@@ -31,7 +60,7 @@ public class PriceList {
 		this.datesPrice = datesPrice;
 	}
 
-	public HashMap<Calendar, Double> getDiscount() {
+	public Map<Calendar, Double> getDiscount() {
 		return discount;
 	}
 

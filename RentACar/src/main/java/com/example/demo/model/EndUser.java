@@ -3,25 +3,54 @@ package com.example.demo.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class EndUser {
 	
-	private User user;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name="idUser", nullable = false, unique = true)
+	private Long idUser;
+		
+	@Column(name="name")
 	private String name;
+	
+	@Column(name="surname")
 	private String surname;
+	
+	@Column(name="address")
 	private String address;
+	
+	@Column(name="phone")
 	private String phone;
+	
+	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> reviews = new ArrayList<Review>();
+	
+	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Ad> favorites = new ArrayList<Ad>();
+	
+	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Request> requsets = new ArrayList<Request>();
 	
 	public EndUser() {
 		
 	}
 
-	public EndUser(User user, String name, String surname, String address, String phone, List<Review> reviews,
+	public EndUser(Long idUser, String name, String surname, String address, String phone, List<Review> reviews,
 			List<Ad> favorites, List<Request> requsets) {
 		super();
-		this.user = user;
+		this.idUser = idUser;
 		this.name = name;
 		this.surname = surname;
 		this.address = address;
@@ -31,12 +60,12 @@ public class EndUser {
 		this.requsets = requsets;
 	}
 
-	public User getUser() {
-		return user;
+	public Long getIdUser() {
+		return idUser;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
 	}
 
 	public String getName() {

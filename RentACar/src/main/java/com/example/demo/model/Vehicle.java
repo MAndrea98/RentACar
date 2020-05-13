@@ -1,25 +1,72 @@
 package com.example.demo.model;
 
-public class Vehicle {
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class Vehicle {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Lob
+	@Column(name="image", columnDefinition="bytea")
 	private Byte[] image;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Model model;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private GasType gasType;
+	
+	@Column(name="gearBox")
 	private String gearBox;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private VehicleClass vehicleClass;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private PriceList price;
+	
+	@Column(name="mileage")
 	private int mileage;
+	
+	@Column(name="proposedMileage")
 	private int proposedMileage;
-	private User owner;
+	
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+	private Renter owner;
+	
+	@Column(name="cdw")
 	private Boolean cdw;
+	
+	@Column(name="ChildSeatsNo")
 	private int childSeatsNo;
+	
+	@ManyToMany
+	@JoinTable(name = "vehicles_requests", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
+	private List<Request> requests = new ArrayList<Request>();
 	
 	public Vehicle() {
 		
 	}
 	
 	public Vehicle(Byte[] image, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
-			PriceList price, int mileage, int proposedMileage, User owner, Boolean cdw, int childSeatsNo) {
+			PriceList price, int mileage, int proposedMileage, Renter owner, Boolean cdw, int childSeatsNo) {
 		super();
 		this.image = image;
 		this.model = model;
@@ -98,11 +145,11 @@ public class Vehicle {
 		this.proposedMileage = proposedMileage;
 	}
 
-	public User getOwner() {
+	public Renter getOwner() {
 		return owner;
 	}
 
-	public void setOwner(User owner) {
+	public void setOwner(Renter owner) {
 		this.owner = owner;
 	}
 

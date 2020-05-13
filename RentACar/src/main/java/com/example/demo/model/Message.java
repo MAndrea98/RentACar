@@ -2,19 +2,42 @@ package com.example.demo.model;
 
 import java.util.Calendar;
 
-public class Message {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-	private User sender;
-	private User reciever;
+@Entity
+public class Message {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private UserModel sender;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private UserModel reciever;
+	
+	@Column(name="subject")
 	private String subject;
+	
+	@Column(name="content")
 	private String content;
+	
+	@Column(name="date", nullable = false)
 	private Calendar date;
 	
 	public Message() {
 		
 	}
 
-	public Message(User sender, User reciever, String subject, String content, Calendar date) {
+	public Message(UserModel sender, UserModel reciever, String subject, String content, Calendar date) {
 		super();
 		this.sender = sender;
 		this.reciever = reciever;
@@ -23,19 +46,19 @@ public class Message {
 		this.date = date;
 	}
 
-	public User getSender() {
+	public UserModel getSender() {
 		return sender;
 	}
 
-	public void setSender(User sender) {
+	public void setSender(UserModel sender) {
 		this.sender = sender;
 	}
 
-	public User getReciever() {
+	public UserModel getReciever() {
 		return reciever;
 	}
 
-	public void setReciever(User reciever) {
+	public void setReciever(UserModel reciever) {
 		this.reciever = reciever;
 	}
 
