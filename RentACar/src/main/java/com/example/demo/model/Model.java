@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Model {
@@ -19,7 +20,7 @@ public class Model {
 	@Column(name="name")
 	private String name;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Manufacturer manufacturer;
 	
 	public Model() {

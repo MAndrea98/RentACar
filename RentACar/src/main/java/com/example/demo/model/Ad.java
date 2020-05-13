@@ -14,8 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Ad {
@@ -24,10 +24,13 @@ public class Ad {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
-	private UserModel userModel;
+	@OneToOne(fetch = FetchType.EAGER)
+	private Renter renter;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER)
+	private EndUser endUser;
+	
+	@OneToOne(fetch = FetchType.EAGER)
 	private Vehicle vehicle;
 	
 	@Column(name="date", nullable = false)
@@ -52,10 +55,10 @@ public class Ad {
 		
 	}
 	
-	public Ad(UserModel userModel, Vehicle vehicle, Calendar date, Calendar validTru, Calendar validFrom,
+	public Ad(Renter renter, Vehicle vehicle, Calendar date, Calendar validTru, Calendar validFrom,
 			HashMap<Calendar, Boolean> free, int mileage) {
 		super();
-		this.userModel = userModel;
+		this.renter = renter;
 		this.vehicle = vehicle;
 		this.date = date;
 		this.validTru = validTru;
@@ -63,11 +66,11 @@ public class Ad {
 		this.free = free;
 		this.mileage = mileage;
 	}
-	public UserModel getUser() {
-		return userModel;
+	public Renter getUser() {
+		return renter;
 	}
-	public void setUser(UserModel userModel) {
-		this.userModel = userModel;
+	public void setUser(Renter renter) {
+		this.renter = renter;
 	}
 	public Vehicle getVehicle() {
 		return vehicle;
