@@ -2,35 +2,20 @@ package com.example.demo.model;
 
 import java.util.Calendar;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
-@Entity
+
 public class Message {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private UserModel sender;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private UserModel reciever;
 	
-	@Column(name="subject")
 	private String subject;
 	
-	@Column(name="content")
 	private String content;
 	
-	@Column(name="date", nullable = false)
 	private Calendar date;
 	
 	public Message() {
