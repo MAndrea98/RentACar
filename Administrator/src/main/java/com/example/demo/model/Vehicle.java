@@ -31,9 +31,7 @@ public class Vehicle {
 	private Boolean cdw;
 	
 	private int childSeatsNo;
-	
-	private List<Request> requests = new ArrayList<Request>();
-	
+
 	public Vehicle() {
 		
 	}
