@@ -7,31 +7,24 @@ import java.util.List;
 public class Renter {
 
 	private Long id;
-	
+
 	private Long idUser;
-	
-	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
-	
+
 	private PriceList priceList;
-	
+
 	private List<Ad> ads = new ArrayList<Ad>();
-	
+
 	private List<Request> ordered = new ArrayList<Request>();
-	
-	private List<Review> reviews = new ArrayList<Review>();
-	
+
 	public Renter() {
-		
+
 	}
 
-	public Renter(UserModel user, List<Vehicle> vehicles, PriceList priceList, List<Ad> ads, List<Request> ordered,
-			List<Review> reviews) {
+	public Renter(UserModel user, PriceList priceList, List<Ad> ads, List<Request> ordered) {
 		super();
-		this.vehicles = vehicles;
 		this.priceList = priceList;
 		this.ads = ads;
 		this.ordered = ordered;
-		this.reviews = reviews;
 	}
 
 
@@ -42,14 +35,6 @@ public class Renter {
 
 	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
-	}
-
-	public List<Vehicle> getVehicles() {
-		return vehicles;
-	}
-
-	public void setVehicles(List<Vehicle> vehicles) {
-		this.vehicles = vehicles;
 	}
 
 	public PriceList getPriceList() {
@@ -76,13 +61,4 @@ public class Renter {
 		this.ordered = ordered;
 	}
 
-	public List<Review> getReviews() {
-		return reviews;
-	}
-
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
-	}
-	
-	
 }

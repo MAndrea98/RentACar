@@ -6,30 +6,28 @@ import java.util.List;
 
 
 public class EndUser {
-	
+
 	private Long id;
-	
+
 	private Long idUser;
-		
+
 	private String name;
-	
+
 	private String surname;
-	
+
 	private String address;
 
 	private String phone;
-	
-	private List<Review> reviews = new ArrayList<Review>();
-	
+
 	private List<Ad> favorites = new ArrayList<Ad>();
-	
+
 	private List<Request> requsets = new ArrayList<Request>();
-	
+
 	public EndUser() {
-		
+
 	}
 
-	public EndUser(Long idUser, String name, String surname, String address, String phone, List<Review> reviews,
+	public EndUser(Long idUser, String name, String surname, String address, String phone,
 			List<Ad> favorites, List<Request> requsets) {
 		super();
 		this.idUser = idUser;
@@ -37,7 +35,6 @@ public class EndUser {
 		this.surname = surname;
 		this.address = address;
 		this.phone = phone;
-		this.reviews = reviews;
 		this.favorites = favorites;
 		this.requsets = requsets;
 	}
@@ -82,14 +79,6 @@ public class EndUser {
 		this.phone = phone;
 	}
 
-	public List<Review> getReviews() {
-		return reviews;
-	}
-
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
-	}
-
 	public List<Ad> getFavorites() {
 		return favorites;
 	}
@@ -105,7 +94,7 @@ public class EndUser {
 	public void setRequsets(List<Request> requsets) {
 		this.requsets = requsets;
 	}
-	
-	
+
+
 
 }
