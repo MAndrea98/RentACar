@@ -5,7 +5,7 @@ package com.example.demo.model;
 public class Admin {
 
 	private Long id;
-	
+	 
 	private UserModel user;
 	
 	public Admin() {
