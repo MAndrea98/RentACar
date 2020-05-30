@@ -1,0 +1,1 @@
+insert into company(name, address) values ('wgw', 'wegtawe4r');

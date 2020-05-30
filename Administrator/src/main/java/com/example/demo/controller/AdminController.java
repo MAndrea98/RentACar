@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.model.UserModel;
+
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -26,7 +28,8 @@ public class AdminController {
 	}
 	
 	@PutMapping("/activateUser")
-	public ResponseEntity<String> activateUser() {
+	public ResponseEntity<String> activateUser(UserModel u) {
+		
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
