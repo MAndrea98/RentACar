@@ -59,6 +59,16 @@ public class EndUser {
 		this.favorites = favorites;
 		this.requsets = requsets;
 	}
+	
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Long getIdUser() {
 		return idUser;
