@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Request {
 	
@@ -26,6 +28,7 @@ public class Request {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private EndUser endUser;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "requests")
 	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
 	

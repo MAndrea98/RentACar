@@ -33,5 +33,46 @@ public class RequestDTO {
 	public RequestDTO(Request r) {
 		this(r.getId(), r.getRenter(), r.getEndUser(), r.getVehicle(), r.getStatus());
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Renter getRenter() {
+		return renter;
+	}
+
+	public void setRenter(Renter renter) {
+		this.renter = renter;
+	}
+
+	public EndUser getEndUser() {
+		return endUser;
+	}
+
+	public void setEndUser(EndUser endUser) {
+		this.endUser = endUser;
+	}
+
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 	
 }
