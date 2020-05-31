@@ -1,5 +1,6 @@
 version: '3'
 services:
+
   eureka-service:
     build: ./EurekaService
     ports:
@@ -46,7 +47,7 @@ services:
     environment:
       - REGISTRY_HOST=eureka-service
     ports:
-      - 8082:8082
+      - 8088:8088
     depends_on:
       - eureka-service 
   
@@ -55,7 +56,7 @@ services:
     environment:
       - REGISTRY_HOST=eureka-service
     ports:
-      - 8081:8081
+      - 8089:8089
     depends_on:
       - eureka-service 
   
