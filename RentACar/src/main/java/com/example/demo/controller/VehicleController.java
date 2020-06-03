@@ -1,5 +1,3 @@
-package com.example.demo.controller;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +34,11 @@ public class VehicleController {
 	private EndUserService endUserService;
 	@Autowired
 	private RequestService requestService;
+  
+  @RequestMapping(value="/get/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Vehicle> getVehicle(@PathVariable("id") Long id) {
+		Vehicle v = vehicleService.findOne(id);
+		return new ResponseEntity<Vehicle>(v,HttpStatus.OK);
 
 	@GetMapping(value = "/addToCart/{id}")
 	public ResponseEntity<CartDTO> addToCart(@PathVariable("id") Long id) {
