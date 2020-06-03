@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Renter {
 
@@ -23,18 +25,22 @@ public class Renter {
 	@Column(name="idUser", nullable = false, unique = true)
 	private Long idUser;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	private PriceList priceList;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="renter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Ad> ads = new ArrayList<Ad>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="renter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Request> ordered = new ArrayList<Request>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="renter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> reviews = new ArrayList<Review>();
 	

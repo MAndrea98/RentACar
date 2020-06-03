@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Request {
 	
@@ -26,6 +28,7 @@ public class Request {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private EndUser endUser;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "requests")
 	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
@@ -37,11 +40,12 @@ public class Request {
 	}
 	
 
-	public Request(List<Vehicle> vehicles, String status, Renter renter) {
+	public Request(List<Vehicle> vehicles, String status, Renter renter, EndUser endUser) {
 		super();
 		this.vehicles = vehicles;
 		this.status = status;
 		this.renter = renter;
+		this.endUser = endUser;
 	}
 
 
@@ -72,6 +76,36 @@ public class Request {
 
 	public void setRenter(Renter renter) {
 		this.renter = renter;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public EndUser getEndUser() {
+		return endUser;
+	}
+
+
+	public void setEndUser(EndUser endUser) {
+		this.endUser = endUser;
+	}
+
+
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
 	}
 	
 	

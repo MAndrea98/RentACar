@@ -11,7 +11,7 @@ public class TestController {
 	
 	@RequestMapping
 	public ResponseEntity<String> getSimpleResult() {
-		return new ResponseEntity<String>("Pretraga i filtriranje oglasa", HttpStatus.OK);
+		return new ResponseEntity<String>("Rent a Car", HttpStatus.OK);
 	}
 
 }
