@@ -1,0 +1,85 @@
+version: '3'
+services:
+  eureka-service:
+    build: ./EurekaService
+    ports:
+      - 8761:8761
+
+  administrator-service:
+    build: ./Administrator
+    environment:
+      - REGISTRY_HOST=eureka-service
+    ports:
+      - 8087:8087
+    depends_on:
+      - eureka-service
+  
+  izmena-oglasa-service:
+    build: ./IzmenaOglasa
+    environment:
+      - REGISTRY_HOST=eureka-service
+    ports:
+      - 8084:8084
+    depends_on:
+      - eureka-service
+      
+  logovanje-i-registracija-service:
+    build: ./LogovanjeIRegistracija
+    environment:
+      - REGISTRY_HOST=eureka-service
+    ports:
+      - 8086:8086
+    depends_on:
+      - eureka-service 
+
+  ocenjivanje-i-komentari-service:
+    build: ./OcenjivanjeIKomentari
+    environment:
+      - REGISTRY_HOST=eureka-service
+    ports:
+      - 8085:8085
+    depends_on:
+      - eureka-service 
+      
+  pretraga-i-filtriranje-oglasa-service:
+    build: ./PretragaIFitriranjeOglasa
+    environment:
+      - REGISTRY_HOST=eureka-service
+    ports:
+      - 8082:8082
+    depends_on:
+      - eureka-service 
+  
+  razmena-poruka-service:
+    build: ./RazmenaPoruka
+    environment:
+      - REGISTRY_HOST=eureka-service
+    ports:
+      - 8081:8081
+    depends_on:
+      - eureka-service 
+  
+  rezervacija-automobila-service:
+    build: ./RezervacijaAutomobila
+    environment:
+      - REGISTRY_HOST=eureka-service
+    ports:
+      - 8083:8083
+    depends_on:
+      - eureka-service 
+         
+  zuul-proxy:
+    build: ./ZuulProxy
+    environment:
+      - REGISTRY_HOST=eureka-service
+    ports:
+      - 8080:8080
+    depends_on:
+      - eureka-service
+      - administrator-service
+      - izmena-oglasa-service
+      - logovanje-i-registracija-service
+      - ocenjivanje-i-komentari-service
+      - pretraga-i-filtriranje-oglasa-service
+      - razmena-poruka-service
+      - rezervacija-automobila-service

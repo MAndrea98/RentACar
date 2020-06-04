@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -22,10 +21,6 @@ public class Vehicle {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Lob
-	@Column(name="image", columnDefinition="bytea")
-	private Byte[] image;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Model model;
@@ -61,14 +56,17 @@ public class Vehicle {
 	@JoinTable(name = "vehicles_requests", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
 	private List<Request> requests = new ArrayList<Request>();
 	
+	@ManyToMany
+	@JoinTable(name = "vehicles_carts", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cart_id", referencedColumnName = "id"))
+	private List<Cart> carts = new ArrayList<Cart>();
+	
 	public Vehicle() {
 		
 	}
 	
-	public Vehicle(Byte[] image, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
+	public Vehicle(Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
 			PriceList price, int mileage, int proposedMileage, Renter owner, Boolean cdw, int childSeatsNo) {
 		super();
-		this.image = image;
 		this.model = model;
 		this.gasType = gasType;
 		this.gearBox = gearBox;
@@ -79,14 +77,6 @@ public class Vehicle {
 		this.owner = owner;
 		this.cdw = cdw;
 		this.childSeatsNo = childSeatsNo;
-	}
-
-	public Byte[] getImage() {
-		return image;
-	}
-
-	public void setImage(Byte[] image) {
-		this.image = image;
 	}
 
 	public Model getModel() {
@@ -168,6 +158,32 @@ public class Vehicle {
 	public void setChildSeatsNo(int childSeatsNo) {
 		this.childSeatsNo = childSeatsNo;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
+	}
+
+	public List<Cart> getCarts() {
+		return carts;
+	}
+
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
+	}
+	
+	
 	
 	
 }
