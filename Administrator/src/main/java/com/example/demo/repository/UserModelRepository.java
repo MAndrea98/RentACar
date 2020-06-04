@@ -12,6 +12,7 @@ public interface UserModelRepository extends JpaRepository<UserModel, Long>{
 	
 	Optional<UserModel> findByUsername(String u);
 	
+
 	
 	@SuppressWarnings("unchecked")
 	UserModel save(UserModel u);

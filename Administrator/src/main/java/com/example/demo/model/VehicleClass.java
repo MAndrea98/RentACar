@@ -21,6 +21,9 @@ public class VehicleClass {
 		
 	}
 
+	public VehicleClass(VehicleClass v) {
+		this.name = v.getName();
+	}
 	public VehicleClass(String name) {
 		super();
 		this.name = name;
@@ -33,6 +36,15 @@ public class VehicleClass {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	
 	
 }

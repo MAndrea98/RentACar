@@ -58,6 +58,20 @@ public class Vehicle {
 		
 	}
 	
+	public Vehicle(Vehicle v) {
+		this.image = v.getImage();
+		this.model = v.getModel();
+		this.gasType = v.getGasType();
+		this.gearBox = v.getGearBox();
+		this.vehicleClass = v.getVehicleClass();
+		this.price = v.getPrice();
+		this.mileage = v.getMileage();
+		this.proposedMileage = v.getMileage();
+		this.owner = v.getOwner();
+		this.cdw = v.getCdw();
+		this.childSeatsNo = v.getChildSeatsNo();
+	}
+	
 	public Vehicle(Byte[] image, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
 			PriceList price, int mileage, int proposedMileage, Renter owner, Boolean cdw, int childSeatsNo) {
 		super();

@@ -26,6 +26,10 @@ public class Model {
 		
 	}
 
+	public Model(Model m) {
+		this.name = m.getName();
+		this.manufacturer = m.getManufacturer();
+	}
 	public Model(String name, Manufacturer manufacturer) {
 		super();
 		this.name = name;

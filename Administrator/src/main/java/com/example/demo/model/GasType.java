@@ -19,6 +19,9 @@ public class GasType {
 		
 	}
 
+	public GasType(GasType g) {
+		this.name = g.getName();
+	}
 	
 	public GasType(String name) {
 		super();

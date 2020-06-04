@@ -173,6 +173,88 @@ public class AdminController {
 		return new ResponseEntity<HashMap<Long, String>>(retVal, HttpStatus.OK);
 	}
 	
+	@PostMapping("/vehicle")
+	public ResponseEntity<String> newVehicle(Vehicle v){
+		
+		Vehicle v1 = new Vehicle(v);
+		vehicleService.save(v1);
+		return new ResponseEntity<String>("Vehicle added", HttpStatus.OK);
+	}
+	
+	@PostMapping("/vehicleClass")
+	public ResponseEntity<String> newVehicleClass(VehicleClass v){
+		VehicleClass v1 = new VehicleClass(v);
+		vehicleClassService.save(v1);
+		
+		return new ResponseEntity<String>("Vehicle class added", HttpStatus.OK);
+	}
+	
+	@PostMapping("/model")
+	public ResponseEntity<String> newModel(Model m){
+		Model m1 = new Model(m);
+		modelService.save(m1);
+		
+		return new ResponseEntity<String>("Model added", HttpStatus.OK);
+	}
+	
+	@PostMapping("/manufacturer")
+	public ResponseEntity<String> newManufacturer(Manufacturer m){
+		Manufacturer m1 = new Manufacturer(m);
+		manufacturerService.save(m1);
+		
+		return new ResponseEntity<String>("Manufacturer added", HttpStatus.OK);
+		
+	}
+	
+	@PostMapping("/gasType")
+	public ResponseEntity<String> newGasType(GasType g){
+		GasType g1 = new GasType(g);
+		gasTypeService.save(g1);
+		
+		return new ResponseEntity<String>("GasType added", HttpStatus.OK);
+		
+	}
+	
+	@DeleteMapping("/vehicle")
+	public ResponseEntity<String> deleteVehicle(Vehicle v){
+		Vehicle v1 = vehicleService.findById(v.getId()).get();
+		vehicleService.delete(v1);
+		
+		return new ResponseEntity<String>("Vehicle deleted", HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/vehicleClass")
+	public ResponseEntity<String> deleteVehicleClass(VehicleClass v){
+		VehicleClass v1 = vehicleClassService.findById(v.getId()).get();
+		vehicleClassService.delete(v1);
+		
+		return new ResponseEntity<String>("Vehicle class deleted", HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/model")
+	public ResponseEntity<String> deleteModel(Model m){
+		Model m1 = modelService.findById(m.getId()).get();
+		modelService.delete(m1);
+		
+		return new ResponseEntity<String>("Model deleted", HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/manufacturer")
+	public ResponseEntity<String> deleteManufacturer(Manufacturer m){
+		Manufacturer m1 = manufacturerService.findById(m.getId()).get();
+		manufacturerService.delete(m1);
+		
+		return new ResponseEntity<String>("Manufacturer deleted", HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/gasType")
+	public ResponseEntity<String> deleteGasType(GasType g){
+		GasType g1 = gasTypeService.findById(g.getId()).get();
+		gasTypeService.delete(g1);
+		
+		return new ResponseEntity<String>("Gas type deleted", HttpStatus.OK);
+	}
+
 	@PostMapping("/registerAgent")
 	public ResponseEntity<String> registerAgent() {
 		return new ResponseEntity<String>(HttpStatus.OK);

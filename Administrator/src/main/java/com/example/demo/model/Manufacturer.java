@@ -20,6 +20,10 @@ public class Manufacturer {
 	public Manufacturer() {
 		
 	}
+	
+	public Manufacturer(Manufacturer m) {
+		this.name = m.getName();
+	}
 
 	public Manufacturer(String name) {
 		super();
