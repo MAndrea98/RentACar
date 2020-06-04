@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,15 +9,24 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.model.EndUser;
+import com.example.demo.model.GasType;
+import com.example.demo.model.Manufacturer;
+import com.example.demo.model.Model;
 import com.example.demo.model.UserModel;
 import com.example.demo.model.UserType;
-import com.example.demo.service.EndUserService;
+import com.example.demo.model.Vehicle;
+import com.example.demo.model.VehicleClass;
+import com.example.demo.service.GasTypeService;
+import com.example.demo.service.ManufacturerService;
+import com.example.demo.service.ModelService;
 import com.example.demo.service.UserModelService;
+import com.example.demo.service.VehicleClassService;
+import com.example.demo.service.VehicleService;
 
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
@@ -28,7 +39,21 @@ public class AdminController {
 	private UserModelService userModelService;
 	
 	@Autowired
-	private EndUserService endUserService;
+	private VehicleService vehicleService;
+	
+	@Autowired
+	private VehicleClassService vehicleClassService;
+	
+	@Autowired
+	private ModelService modelService;
+		
+	@Autowired
+	private ManufacturerService manufacturerService;
+	
+	@Autowired
+	private GasTypeService gasTypeService;
+	
+
 	
 	@PutMapping("/acceptComment")
 	public ResponseEntity<String> acceptComment() {
@@ -115,6 +140,37 @@ public class AdminController {
 		u.setUloga(UserType.REMOVED);
 		userModelService.save(u);
 		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/getIDs")
+	public ResponseEntity<HashMap<Long, String>> getIDs(){
+		HashMap<Long, String> retVal = new HashMap<Long, String>();
+		
+		List<GasType> gasTypes = gasTypeService.findAll();
+		List<Manufacturer> manufacturers = manufacturerService.findAll();
+		List<Model> models = modelService.findAll();
+		List<Vehicle> vehicles = vehicleService.findAll();
+	
+		for(GasType g : gasTypes) {
+			retVal.put(g.getId(), g.getName());
+		}
+		
+		for(Manufacturer m : manufacturers) {
+			retVal.put(m.getId(), m.getName());
+		}
+		
+		for(Model m : models) {
+			retVal.put(m.getId(), m.getName());
+		}
+		
+		for(Vehicle v : vehicles) {
+			retVal.put(v.getId(), v.getVehicleClass().getName());
+		}
+		
+		
+		
+		
+		return new ResponseEntity<HashMap<Long, String>>(retVal, HttpStatus.OK);
 	}
 	
 	@PostMapping("/registerAgent")

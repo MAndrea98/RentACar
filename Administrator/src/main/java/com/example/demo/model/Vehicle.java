@@ -161,6 +161,16 @@ public class Vehicle {
 	public void setChildSeatsNo(int childSeatsNo) {
 		this.childSeatsNo = childSeatsNo;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 	
 	
 }

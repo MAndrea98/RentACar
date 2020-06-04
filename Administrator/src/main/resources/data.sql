@@ -1,1 +1,2 @@
-insert into company(name, address) values ('wgw', 'wegtawe4r');
+insert into manufacturer(name) values ('toyota');
+--insert into model(name, manufacturer)
