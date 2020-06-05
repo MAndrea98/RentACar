@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.CartDTO;
@@ -27,7 +28,7 @@ import com.example.demo.service.VehicleService;
 @RestController
 @RequestMapping("/vehicle")
 public class VehicleController {
-	
+
 	@Autowired
 	private VehicleService vehicleService;
 	@Autowired
@@ -37,6 +38,11 @@ public class VehicleController {
 	@Autowired
 	private RequestService requestService;
 
+	@RequestMapping(value="/get/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Vehicle> getVehicle(@PathVariable("id") Long id) {
+		Vehicle v = vehicleService.findOne(id);
+		return new ResponseEntity<Vehicle>(v,HttpStatus.OK);
+	}
 	@GetMapping(value = "/addToCart/{id}")
 	public ResponseEntity<CartDTO> addToCart(@PathVariable("id") Long id) {
 		//EndUser endUser = endUserService.findByIdUser(LogedUser.getInstance().getUserId());
@@ -44,14 +50,14 @@ public class VehicleController {
 		if (endUser == null) {
 			return new ResponseEntity<CartDTO>(HttpStatus.BAD_REQUEST);
 		}
-		
+
 		Vehicle vehicle = vehicleService.findById(id);
 		Cart cart = cartService.findByEndUserID(endUser.getId());
 		cart.getVehicles().add(vehicle);
 		Cart c = cartService.save(cart);
 		return new ResponseEntity<CartDTO>(new CartDTO(c), HttpStatus.OK);
 	}
-	
+
 	@PostMapping(value = "/sendSingleRequest")
 	public ResponseEntity<String> sendRequest(@RequestBody VehicleDTO vehicleDTO) {
 		//EndUser endUser = endUserService.findByIdUser(LogedUser.getInstance().getUserId());
@@ -65,7 +71,7 @@ public class VehicleController {
 		requestService.save(request);
 		return new ResponseEntity<String>("The request has been successfully sent.", HttpStatus.OK);
 	}
-	
+
 	@PostMapping(value = "/sendBundle")
 	public ResponseEntity<String> sendBundle(@RequestBody List<VehicleDTO> vehicleDTOlist) {
 		//EndUser endUser = endUserService.findByIdUser(LogedUser.getInstance().getUserId());

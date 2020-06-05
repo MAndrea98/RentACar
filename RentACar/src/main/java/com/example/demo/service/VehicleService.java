@@ -10,10 +10,15 @@ import com.example.demo.repository.VehicleRepository;
 public class VehicleService {
 
 	@Autowired
-	private VehicleRepository vehicleRepository;
-	
+	VehicleRepository vehicleRepository;
+
+	public Vehicle findOne(Long id) {
+		return vehicleRepository.findById(id).orElseGet(null);
+	}
+
 	public Vehicle findById(Long id) {
 		return vehicleRepository.findById(id).orElse(null);
 
 	}
+
 }

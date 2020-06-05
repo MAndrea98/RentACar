@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/test")
 public class TestController {
-	
+  
 	@RequestMapping
 	public ResponseEntity<String> getSimpleResult() {
 		return new ResponseEntity<String>("Administrator", HttpStatus.OK);
+
 	}
 
 }

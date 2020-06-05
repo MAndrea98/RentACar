@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -9,19 +11,39 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.AdDTO;
 import com.example.demo.model.Ad;
+import com.example.demo.service.AdService;
 
 @RestController
 @RequestMapping("/ad")
 public class AdController {
+	
+	AdService adService;
 
 	@PostMapping(value = "/new")
-	public ResponseEntity<String> newAd() {
-		return new ResponseEntity<String>("Created", HttpStatus.CREATED);
+	public ResponseEntity<String> createAd(@RequestBody Ad ad) {
+		if(ad.equals(null)) {
+			return new ResponseEntity<String>("",HttpStatus.NO_CONTENT);
+		}
+		
+		Ad newAd = new Ad();
+		newAd.setDate(ad.getDate());
+		HashMap<Calendar,Boolean> newFree = (HashMap<Calendar, Boolean>) ad.getFree();
+		newAd.setFree(newFree);
+		newAd.setMileage(ad.getMileage());
+		newAd.setUser(ad.getUser());
+		newAd.setValidFrom(ad.getValidFrom());
+		newAd.setValidTru(ad.getValidTru());
+		newAd.setVehicle(ad.getVehicle());
+		
+		adService.save(newAd);
+		return new ResponseEntity<String>("",HttpStatus.CREATED);
+		
 	}
 
 	@GetMapping(value = "/all")

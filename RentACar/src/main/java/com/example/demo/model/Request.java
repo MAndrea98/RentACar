@@ -17,28 +17,28 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Request {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Renter renter;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private EndUser endUser;
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "requests")
 	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
-	
+
 	@Column(name="status")
 	private String status;
-	
+
 	public Request() {
-		
+
 	}
-	
+
 
 	public Request(List<Vehicle> vehicles, String status, Renter renter, EndUser endUser) {
 		super();
@@ -107,7 +107,7 @@ public class Request {
 	public void setVehicles(List<Vehicle> vehicles) {
 		this.vehicles = vehicles;
 	}
-	
-	
-	
+
+
+
 }

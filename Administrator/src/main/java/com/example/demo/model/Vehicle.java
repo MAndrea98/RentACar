@@ -1,39 +1,75 @@
 package com.example.demo.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 
 
-
+@Entity
 public class Vehicle {
 	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Lob
+	@Column(name="image", columnDefinition="bytea")
 	private Byte[] image;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Model model;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private GasType gasType;
 	
+	@Column(name="gearBox")
 	private String gearBox;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private VehicleClass vehicleClass;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private PriceList price;
 	
+	@Column(name="mileage")
 	private int mileage;
 	
+	@Column(name="proposedMileage")
 	private int proposedMileage;
 	
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
 	private Renter owner;
 	
+	@Column(name="cdw")
 	private Boolean cdw;
 	
+	@Column(name="ChildSeatsNo")
 	private int childSeatsNo;
 
 	public Vehicle() {
 		
+	}
+	
+	public Vehicle(Vehicle v) {
+		this.image = v.getImage();
+		this.model = v.getModel();
+		this.gasType = v.getGasType();
+		this.gearBox = v.getGearBox();
+		this.vehicleClass = v.getVehicleClass();
+		this.price = v.getPrice();
+		this.mileage = v.getMileage();
+		this.proposedMileage = v.getMileage();
+		this.owner = v.getOwner();
+		this.cdw = v.getCdw();
+		this.childSeatsNo = v.getChildSeatsNo();
 	}
 	
 	public Vehicle(Byte[] image, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
@@ -139,6 +175,16 @@ public class Vehicle {
 	public void setChildSeatsNo(int childSeatsNo) {
 		this.childSeatsNo = childSeatsNo;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 	
 	
 }

@@ -1,0 +1,1 @@
+insert into vehicle(mileage,proposed_mileage,cdw,child_Seats_No) values(500,100,true,3);
