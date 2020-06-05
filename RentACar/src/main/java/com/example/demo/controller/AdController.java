@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Ad;
 import com.example.demo.model.Request;
+import com.example.demo.model.Search;
 import com.example.demo.model.Vehicle;
 import com.example.demo.service.AdService;
 import com.example.demo.service.RequestService;
@@ -67,4 +69,17 @@ public class AdController {
 		return new ResponseEntity<String>("",HttpStatus.OK);
 	}
 
+	@PostMapping(value="/search")
+	public List<Ad> search(@RequestBody Search search){
+
+		List<Ad> listOfAds = AdService.findAll();
+		List<Ad> listOfFoundAds = new ArrayList<Ad>();
+		for(Ad a : listOfAds) {
+			if(a.getPlace() == search.getPlace() && search.getDateFrom().before(a.getDateFrom()) && a.getDateTo().before(search.getDateTo())) {
+				listOfFoundAds.add(a);
+			}
+		}
+		return listOfFoundAds;
+
+	}
 }
