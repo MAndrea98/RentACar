@@ -101,5 +101,6 @@ public class Ad {
 		this.mileage = mileage;
 	}
 
+	
 
 }
