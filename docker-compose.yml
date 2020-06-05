@@ -1,11 +1,20 @@
 version: '3'
 services:
 
-  db:
+  db-rezervacija:
     image: postgres
     environment: 
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
+    ports:
+      - 5431:5431
+  
+  db-admin:
+    image: postgres
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=AdminMicroserviceDB
     ports:
       - 5432:5432
 
@@ -13,14 +22,17 @@ services:
     build: ./EurekaService
     ports:
       - 8761:8761
+      
   administrator-service:
     build: ./Administrator
     environment:
       - REGISTRY_HOST=eureka-service
+      - DB_HOST=db-admin
     ports:
       - 8087:8087
     depends_on:
       - eureka-service
+      - db-admin
   
   izmena-oglasa-service:
     build: ./IzmenaOglasa
@@ -71,12 +83,12 @@ services:
     build: ./RezervacijaAutomobila
     environment:
       - REGISTRY_HOST=eureka-service
-      - DB_HOST=db
+      - DB_HOST=db-rezervacija
     ports:
       - 8083:8083
     depends_on:
       - eureka-service
-      - db
+      - db-rezervacija
          
   zuul-proxy:
     build: ./ZuulProxy
