@@ -1,79 +1,43 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import com.example.demo.model.Cart;
+import com.example.demo.model.GasType;
+import com.example.demo.model.Model;
+import com.example.demo.model.PriceList;
+import com.example.demo.model.Renter;
+import com.example.demo.model.Request;
+import com.example.demo.model.Vehicle;
+import com.example.demo.model.VehicleClass;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+public class VehicleDTO {
 
-@Entity
-public class Vehicle {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<VehicleImage> images = new ArrayList<VehicleImage>();
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Model model;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private GasType gasType;
-	
-	@Column(name="gearBox")
 	private String gearBox;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private VehicleClass vehicleClass;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private PriceList price;
-	
-	@Column(name="mileage")
 	private int mileage;
-	
-	@Column(name="proposedMileage")
 	private int proposedMileage;
-	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
 	private Renter owner;
-	
-	@Column(name="cdw")
 	private Boolean cdw;
-	
-	@Column(name="ChildSeatsNo")
 	private int childSeatsNo;
-	
-	@ManyToMany
-	@JoinTable(name = "vehicles_requests", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
 	private List<Request> requests = new ArrayList<Request>();
-	
-	@ManyToMany
-	@JoinTable(name = "vehicles_carts", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cart_id", referencedColumnName = "id"))
 	private List<Cart> carts = new ArrayList<Cart>();
 	
-	public Vehicle() {
-		
-	}
-	
-	public Vehicle(Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
-			PriceList price, int mileage, int proposedMileage, Renter owner, Boolean cdw, int childSeatsNo) {
+	public VehicleDTO() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public VehicleDTO(Long id, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass, PriceList price,
+			int mileage, int proposedMileage, Renter owner, Boolean cdw, int childSeatsNo, List<Request> requests,
+			List<Cart> carts) {
+		super();
+		this.id = id;
 		this.model = model;
 		this.gasType = gasType;
 		this.gearBox = gearBox;
@@ -84,6 +48,21 @@ public class Vehicle {
 		this.owner = owner;
 		this.cdw = cdw;
 		this.childSeatsNo = childSeatsNo;
+		this.requests = requests;
+		this.carts = carts;
+	}
+	
+	public VehicleDTO(Vehicle v) {
+		this(v.getId(), v.getModel(), v.getGasType(), v.getGearBox(), v.getVehicleClass(), v.getPrice(), v.getMileage(), 
+				v.getProposedMileage(), v.getOwner(), v.getCdw(), v.getChildSeatsNo(), v.getRequests(), v.getCarts());
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Model getModel() {
@@ -166,14 +145,6 @@ public class Vehicle {
 		this.childSeatsNo = childSeatsNo;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public List<Request> getRequests() {
 		return requests;
 	}
@@ -189,8 +160,6 @@ public class Vehicle {
 	public void setCarts(List<Cart> carts) {
 		this.carts = carts;
 	}
-	
-	
 	
 	
 }

@@ -1,10 +1,18 @@
 version: '3'
 services:
+
+  db:
+    image: postgres
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - 5432:5432
+
   eureka-service:
     build: ./EurekaService
     ports:
       - 8761:8761
-
   administrator-service:
     build: ./Administrator
     environment:
@@ -46,16 +54,16 @@ services:
     environment:
       - REGISTRY_HOST=eureka-service
     ports:
-      - 8082:8082
+      - 8088:8088
     depends_on:
       - eureka-service 
-  
+      
   razmena-poruka-service:
     build: ./RazmenaPoruka
     environment:
       - REGISTRY_HOST=eureka-service
     ports:
-      - 8081:8081
+      - 8089:8089
     depends_on:
       - eureka-service 
   
@@ -63,10 +71,12 @@ services:
     build: ./RezervacijaAutomobila
     environment:
       - REGISTRY_HOST=eureka-service
+      - DB_HOST=db
     ports:
       - 8083:8083
     depends_on:
-      - eureka-service 
+      - eureka-service
+      - db
          
   zuul-proxy:
     build: ./ZuulProxy
