@@ -12,5 +12,5 @@ public interface AdRepository extends JpaRepository<Ad, Long> {
 
 	Page<Ad> findAll(Pageable pageable);
 
-	Optional<Ad> findById(Long id);
+	//Optional<Ad> findById(Long id);
 }

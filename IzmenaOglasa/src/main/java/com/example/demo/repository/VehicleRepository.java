@@ -10,6 +10,6 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
 	Page<Vehicle> findAll(Pageable pageable);
 	
-	Optional<Vehicle> findById(Long id);
+	//Optional<Vehicle> findById(Long id);
 
 }
