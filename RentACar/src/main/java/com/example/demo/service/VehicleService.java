@@ -11,13 +11,14 @@ public class VehicleService {
 
 	@Autowired
 	VehicleRepository vehicleRepository;
-	
+
 	public Vehicle findOne(Long id) {
 		return vehicleRepository.findById(id).orElseGet(null);
 	}
-	
+
 	public Vehicle findById(Long id) {
 		return vehicleRepository.findById(id).orElse(null);
 
 	}
+
 }
