@@ -25,28 +25,37 @@ public class Ad {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	private Renter renter;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	private EndUser endUser;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	private Vehicle vehicle;
-	
+
+	@Column(name="place")
+	private String place;
+
 	@Column(name="date", nullable = false)
 	private Calendar date;
-	
+
 	@Column(name="validTru", nullable = false)
 	private Calendar validTru;
-	
+
 	@Column(name="validFrom", nullable = false)
 	private Calendar validFrom;
+
+	@Column(name="dateFrom", nullable = false)
+	private Calendar dateFrom;
+
+	@Column(name="dateTo", nullable = false)
+	private Calendar dateTo;
 
 	@ElementCollection
 	@JoinTable(name="free", joinColumns=@JoinColumn(name="Id"))
 	@MapKeyColumn (name="free_Id")
 	@Column(name="value")
 	private Map<Calendar, Boolean> free = new HashMap<Calendar, Boolean>();
-	
+
 	@Column(name="mileage")
 	private int mileage;
 
@@ -54,13 +63,17 @@ public class Ad {
 
 	}
 
-	public Ad(Renter renter, Calendar date, Calendar validTru, Calendar validFrom,
+	public Ad(Renter renter, Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom, Calendar dateFrom, Calendar dateTo,
 			HashMap<Calendar, Boolean> free, int mileage) {
 		super();
 		this.renter = renter;
+		this.vehicle = vehicle;
+		this.place = place;
 		this.date = date;
 		this.validTru = validTru;
 		this.validFrom = validFrom;
+		this.dateFrom = dateFrom;
+		this.dateTo = dateTo;
 		this.free = free;
 		this.mileage = mileage;
 	}
@@ -69,6 +82,34 @@ public class Ad {
 	}
 	public void setUser(Renter renter) {
 		this.renter = renter;
+	}
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+	public Calendar getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(Calendar dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public Calendar getDateTo() {
+		return dateTo;
+	}
+
+	public void setDateTo(Calendar dateTo) {
+		this.dateTo = dateTo;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
 	}
 	public Calendar getDate() {
 		return date;
