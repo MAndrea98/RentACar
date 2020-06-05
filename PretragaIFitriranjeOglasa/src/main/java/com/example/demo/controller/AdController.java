@@ -21,6 +21,8 @@ import com.example.demo.service.RequestService;
 @RequestMapping(value="ad")
 public class AdController {
 
+
+
 	AdService adService;
 	RequestService requestService;
 
