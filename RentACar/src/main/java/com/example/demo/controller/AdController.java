@@ -21,13 +21,13 @@ import com.example.demo.service.AdService;
 import com.example.demo.service.RequestService;
 
 @RestController
-@RequestMapping(value="ad")
+@RequestMapping(value="/ad")
 public class AdController {
 
 	AdService adService;
 	RequestService requestService;
 
-	@PostMapping(value="create")
+	@PostMapping(value="/create")
 	public ResponseEntity<String> createAd(@RequestBody Ad ad) {
 		if(ad.equals(null)) {
 			return new ResponseEntity<String>("",HttpStatus.NO_CONTENT);

@@ -3,12 +3,12 @@ package com.example.demo.dto;
 import java.util.Calendar;
 
 import com.example.demo.model.Message;
-import com.example.demo.model.UserModel;
 
 public class MessageDTO {
 
-	private UserModel sender;
-	private UserModel reciever;
+	private Long id;
+	private String senderUsername;
+	private String receiverUsername;
 	private String subject;
 	private String content;
 	private Calendar date;
@@ -16,34 +16,48 @@ public class MessageDTO {
 	public MessageDTO() {
 		
 	}
-	
-	public MessageDTO(UserModel sender, UserModel reciever, String subject, String content, Calendar date) {
+
+	public MessageDTO(Long id, String senderUsername, String receiverUsername, String subject, String content, Calendar date) {
 		super();
-		this.sender = sender;
-		this.reciever = reciever;
+		this.id = id;
+		this.senderUsername = senderUsername;
+		this.receiverUsername = receiverUsername;
 		this.subject = subject;
 		this.content = content;
 		this.date = date;
 	}
 
 	public MessageDTO(Message m) {
-		this(m.getSender(), m.getReciever(), m.getSubject(), m.getContent(), m.getDate());
+		this(m.getId(), 
+			m.getSender().getUsername(), 
+			m.getReciever().getUsername(), 
+			m.getSubject(), 
+			m.getContent(), 
+			m.getDate());
 	}
 
-	public UserModel getSender() {
-		return sender;
+	public Long getId() {
+		return id;
 	}
 
-	public void setSender(UserModel sender) {
-		this.sender = sender;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public UserModel getReciever() {
-		return reciever;
+	public String getSenderUsername() {
+		return senderUsername;
 	}
 
-	public void setReciever(UserModel reciever) {
-		this.reciever = reciever;
+	public void setSenderUsername(String senderUsername) {
+		this.senderUsername = senderUsername;
+	}
+
+	public String getReceiverUsername() {
+		return receiverUsername;
+	}
+
+	public void setReceiverUsername(String receiverUsername) {
+		this.receiverUsername = receiverUsername;
 	}
 
 	public String getSubject() {
