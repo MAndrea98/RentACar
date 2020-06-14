@@ -26,6 +26,10 @@ public class Review {
 	
 	@Column(name="content")
 	private String content;
+	
+	@Column(name="accepted")
+	private boolean accepted = false;
+	
 	public Review(){
 	
 	}
@@ -37,7 +41,31 @@ public class Review {
 		this.content = content;
 	}
 
+	
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Renter getRenter() {
+		return renter;
+	}
+
+	public void setRenter(Renter renter) {
+		this.renter = renter;
+	}
+
+	public boolean isAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(boolean accepted) {
+		this.accepted = accepted;
+	}
 
 	public EndUser getEndUser() {
 		return endUser;

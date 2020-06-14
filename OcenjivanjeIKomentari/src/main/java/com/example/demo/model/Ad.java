@@ -37,6 +37,27 @@ public class Ad {
 		this.free = free;
 		this.mileage = mileage;
 	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Renter getRenter() {
+		return renter;
+	}
+
+	public void setRenter(Renter renter) {
+		this.renter = renter;
+	}
+
+	public void setFree(Map<Calendar, Boolean> free) {
+		this.free = free;
+	}
+
 	public Renter getUser() {
 		return renter;
 	}
