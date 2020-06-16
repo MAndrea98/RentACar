@@ -1,19 +1,35 @@
 package com.example.demo.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class Review {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@ManyToOne(fetch = FetchType.LAZY)
 	private EndUser endUser;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Renter renter;
 	
+	@Column(name="stars")
 	private int stars;
 	
+	@Column(name="content")
 	private String content;
 	
+	@Column(name="accepted")
 	private boolean accepted;
+	
 	
 	public Review(){
 		this.accepted = false;

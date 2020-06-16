@@ -3,31 +3,43 @@ package com.example.demo.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity
 public class Renter {
 
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name="idUser", nullable = false, unique = true)
 	private Long idUser;
 
+	@OneToOne(fetch = FetchType.LAZY)
 	private PriceList priceList;
 
+	@JsonIgnore
+	@OneToMany(mappedBy="renter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Ad> ads = new ArrayList<Ad>();
-
-	private List<Review> reviews = new ArrayList<Review>();
 
 	public Renter() {
 
 	}
 
-	public Renter(UserModel user, PriceList priceList, List<Ad> ads,
-			List<Review> reviews) {
+	public Renter(UserModel user, PriceList priceList, List<Ad> ads) {
 		super();
 		this.priceList = priceList;
 		this.ads = ads;
-		this.reviews = reviews;
 	}
 
 	public Long getId() {
@@ -62,13 +74,6 @@ public class Renter {
 		this.ads = ads;
 	}
 
-	public List<Review> getReviews() {
-		return reviews;
-	}
-
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
-	}
-
+	
 
 }

@@ -27,6 +27,9 @@ public class Review {
 	@Column(name="content")
 	private String content;
 	
+	@Column(name="accepted")
+	private boolean accepted;
+	
 	public Review(){
 	
 	}
