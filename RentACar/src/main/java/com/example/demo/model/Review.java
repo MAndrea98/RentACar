@@ -15,10 +15,10 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private EndUser endUser;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Renter renter;
 	
 	@Column(name="stars")
@@ -28,7 +28,10 @@ public class Review {
 	private String content;
 	
 	@Column(name="accepted")
-	private boolean accepted;
+	private boolean accepted = false;
+	
+	@Column(name = "deleted")
+	private boolean deleted = false;
 	
 	public Review(){
 	
@@ -41,7 +44,29 @@ public class Review {
 		this.content = content;
 	}
 
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Renter getRenter() {
+		return renter;
+	}
+
+	public void setRenter(Renter renter) {
+		this.renter = renter;
+	}
+
+	public boolean isAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(boolean accepted) {
+		this.accepted = accepted;
+	}
 
 	public EndUser getEndUser() {
 		return endUser;
@@ -66,6 +91,15 @@ public class Review {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	
 	
 }

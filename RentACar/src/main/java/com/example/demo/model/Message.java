@@ -33,6 +33,9 @@ public class Message {
 	@Column(name="date", nullable = false)
 	private Calendar date;
 	
+	@Column(name="deleted", nullable = false)
+	private boolean deleted;
+	
 	public Message() {
 		
 	}
@@ -85,6 +88,23 @@ public class Message {
 	public void setDate(Calendar date) {
 		this.date = date;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	
 	
 }
