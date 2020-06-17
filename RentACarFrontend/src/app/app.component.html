@@ -1,1 +1,5 @@
-<p>TestApp</p>
+<div>
+  <app-default-nav *ngIf="!isHidden"></app-default-nav>
+  <app-admin-nav *ngIf="isHidden"></app-admin-nav>
+  <app-user-nav *ngIf="isHidden"></app-user-nav>
+</div>
