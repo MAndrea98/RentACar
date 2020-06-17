@@ -2,7 +2,17 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/RentACar.iml" filepath="$PROJECT_DIR$/.idea/RentACar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Administrator/Administrator.iml" filepath="$PROJECT_DIR$/Administrator/Administrator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EurekaService/EurekaService.iml" filepath="$PROJECT_DIR$/EurekaService/EurekaService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IzmenaOglasa/IzmenaOglasa.iml" filepath="$PROJECT_DIR$/IzmenaOglasa/IzmenaOglasa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LogovanjeIRegistracija/LogovanjeIRegistracija.iml" filepath="$PROJECT_DIR$/LogovanjeIRegistracija/LogovanjeIRegistracija.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OcenjivanjeIKomentari/OcenjivanjeIKomentari.iml" filepath="$PROJECT_DIR$/OcenjivanjeIKomentari/OcenjivanjeIKomentari.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PretragaIFitriranjeOglasa/PretragaIFitriranjeOglasa.iml" filepath="$PROJECT_DIR$/PretragaIFitriranjeOglasa/PretragaIFitriranjeOglasa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RazmenaPoruka/RazmenaPoruka.iml" filepath="$PROJECT_DIR$/RazmenaPoruka/RazmenaPoruka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RentACar/RentACar.iml" filepath="$PROJECT_DIR$/RentACar/RentACar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RentACarFrontend/RentACarFrontend.iml" filepath="$PROJECT_DIR$/RentACarFrontend/RentACarFrontend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RezervacijaAutomobila/RezervacijaAutomobila.iml" filepath="$PROJECT_DIR$/RezervacijaAutomobila/RezervacijaAutomobila.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ZuulProxy/ZuulProxy.iml" filepath="$PROJECT_DIR$/ZuulProxy/ZuulProxy.iml" />
     </modules>
   </component>
 </project>

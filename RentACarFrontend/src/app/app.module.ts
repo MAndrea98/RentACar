@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DefaultNavComponent } from './default-nav/default-nav.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DefaultNavComponent
   ],
   imports: [
     BrowserModule,
