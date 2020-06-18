@@ -15,4 +15,8 @@ public class RenterService {
 	public Renter findById(Long id) {
 		return renterRepository.findById(id).orElse(null);
 	}
+	
+	public Renter findByIdUser(Long idUser) {
+		return renterRepository.findByIdUser(idUser);
+	}
 }

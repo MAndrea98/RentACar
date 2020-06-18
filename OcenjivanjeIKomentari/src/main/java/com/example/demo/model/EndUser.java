@@ -3,34 +3,48 @@ package com.example.demo.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-
-
+@Entity
 public class EndUser {
 
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name="idUser", nullable = false, unique = true)
 	private Long idUser;
 
+	@Column(name="name")
 	private String name;
-
+	
+	@Column(name="surname")
 	private String surname;
-
+	
+	@Column(name="address")
 	private String address;
-
+	
+	@Column(name="phone")
 	private String phone;
-
+	
+	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> reviews = new ArrayList<Review>();
-
-	private List<Ad> favorites = new ArrayList<Ad>();
+	
+	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Request> requests = new ArrayList<Request>();
 
 	public EndUser() {
 
 	}
 
-	public EndUser(Long idUser, String name, String surname, String address, String phone, List<Review> reviews,
-			List<Ad> favorites) {
+	public EndUser(Long idUser, String name, String surname, String address, String phone, List<Review> reviews) {
 		super();
 		this.idUser = idUser;
 		this.name = name;
@@ -38,7 +52,6 @@ public class EndUser {
 		this.address = address;
 		this.phone = phone;
 		this.reviews = reviews;
-		this.favorites = favorites;
 	}
 
 	public Long getIdUser() {
@@ -89,12 +102,22 @@ public class EndUser {
 		this.reviews = reviews;
 	}
 
-	public List<Ad> getFavorites() {
-		return favorites;
+	public Long getId() {
+		return id;
 	}
 
-	public void setFavorites(List<Ad> favorites) {
-		this.favorites = favorites;
+	public void setId(Long id) {
+		this.id = id;
 	}
+
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
+	}
+	
+	
 
 }

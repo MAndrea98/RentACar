@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Company {
 	
@@ -29,6 +31,7 @@ public class Company {
 	@Column(name="address",nullable=false)
 	private String address;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="company",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Agent> agents = new ArrayList<Agent>();
 

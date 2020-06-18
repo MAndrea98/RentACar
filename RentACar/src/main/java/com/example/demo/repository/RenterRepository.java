@@ -6,4 +6,5 @@ import com.example.demo.model.Renter;
 
 public interface RenterRepository extends JpaRepository<Renter, Long> {
 
+	Renter findByIdUser(Long idUser);
 }

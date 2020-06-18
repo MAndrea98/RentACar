@@ -13,6 +13,6 @@ public class EndUserService {
 	private EndUserRepository endUserRepository;
 	
 	public EndUser findByIdUser(Long idUser) {
-		return endUserRepository.findByIdUser(idUser).orElse(null);
+		return endUserRepository.findByIdUser(idUser);
 	}
 }
