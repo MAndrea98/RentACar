@@ -16,5 +16,9 @@ public class ReviewService {
 		return reviewRepository.save(review);
 	}
 	
+	public Review findById(Long id) {
+		return reviewRepository.findById(id).orElse(null);
+	}
+	
 	
 }

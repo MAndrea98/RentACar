@@ -104,7 +104,7 @@ public class ReviewController {
 	public ResponseEntity<String> deleteReview(@PathVariable("id") Long id) {
 		Review review = reviewService.findById(id);
 		review.setDeleted(true);
-		Review r = reviewService.save(review);
+		reviewService.save(review);
 		return new ResponseEntity<String>("Deleted", HttpStatus.OK);
 	}
 	
@@ -130,7 +130,7 @@ public class ReviewController {
 	public ResponseEntity<String> declineComment(@RequestBody ReviewDTO reviewDTO) {
 		Review review = reviewService.findById(reviewDTO.getId());
 		review.setDeleted(true);
-		Review r = reviewService.save(review);
+		reviewService.save(review);
 		return new ResponseEntity<String>("Declined", HttpStatus.OK);
 	}
 

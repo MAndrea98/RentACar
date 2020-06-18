@@ -21,6 +21,9 @@ public class Review {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Renter renter;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Ad ad;
+	
 	@Column(name="stars")
 	private int stars;
 	
@@ -28,11 +31,14 @@ public class Review {
 	private String content;
 	
 	@Column(name="accepted")
-	private boolean accepted;
+	private Boolean accepted;
 	
+	@Column(name="deleted")
+	private Boolean deleted;
 	
 	public Review(){
 		this.accepted = false;
+		this.deleted = false;
 	}
 	
 	public Review(EndUser endUser, int stars, String content) {
@@ -41,6 +47,7 @@ public class Review {
 		this.stars = stars;
 		this.content = content;
 		this.accepted = false;
+		this.deleted = false;
 	}
 
 	public Long getId() {
@@ -90,6 +97,31 @@ public class Review {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+	public Boolean getAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(Boolean accepted) {
+		this.accepted = accepted;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public Ad getAd() {
+		return ad;
+	}
+
+	public void setAd(Ad ad) {
+		this.ad = ad;
+	}
+	
 	
 	
 }

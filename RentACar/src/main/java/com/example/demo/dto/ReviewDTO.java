@@ -12,8 +12,8 @@ public class ReviewDTO {
 	private int stars;
 	private String content;
 	private Long requestID;
-	private boolean accepted;
-	private boolean deleted;
+	private Boolean accepted;
+	private Boolean deleted;
 	
 	public ReviewDTO() {
 		super();
@@ -40,7 +40,8 @@ public class ReviewDTO {
 		this.id = r.getId();
 		this.stars = r.getStars();
 		this.content = r.getContent();
-		
+		this.accepted = r.isAccepted();
+		this.deleted = r.isDeleted();
 	}
 	
 	public ReviewDTO(Review r, String renter, String endUser) {
@@ -49,6 +50,8 @@ public class ReviewDTO {
 		this.content = r.getContent();
 		this.renterUsername = renter;
 		this.endUserUsername = endUser;
+		this.accepted = r.isAccepted();
+		this.deleted = r.isDeleted();
 	}
 
 	public String getEndUserUsername() {

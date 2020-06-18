@@ -28,10 +28,14 @@ public class Review {
 	private String content;
 	
 	@Column(name="accepted")
-	private boolean accepted = false;
+	private Boolean accepted;
+	
+	@Column(name = "deleted")
+	private Boolean deleted;
 	
 	public Review(){
-	
+		this.accepted = false;
+		this.deleted = false;
 	}
 	
 	public Review(EndUser endUser, int stars, String content) {
@@ -39,6 +43,8 @@ public class Review {
 		this.endUser = endUser;
 		this.stars = stars;
 		this.content = content;
+		this.accepted = false;
+		this.deleted = false;
 	}
 
 	
@@ -90,6 +96,15 @@ public class Review {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	
 	
 }

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -63,8 +64,14 @@ public class AdminController {
 	private ReviewService reviewService;
 	
 	@GetMapping(value = "/allReview")
-	public ResponseEntity<List<Review>> getAllReviews() {
-		return new ResponseEntity<List<Review>>(reviewService.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<ReviewDTO>> getAllReviews() {
+		List<ReviewDTO> reviewDTOs = new ArrayList<ReviewDTO>();
+		for (Review r : reviewService.findAll()) {
+			if (!r.isDeleted()) {
+				reviewDTOs.add(new ReviewDTO(r));
+			}
+		}
+		return new ResponseEntity<List<ReviewDTO>>(reviewDTOs, HttpStatus.OK);
 	}
 	
 	@PutMapping("/acceptComment")

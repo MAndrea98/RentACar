@@ -23,7 +23,7 @@ public class ReviewService {
 	}
 	
 	public Review save(Review review) {
-		return reviewRepository.save(review);
+		return reviewRepository.saveAndFlush(review);
 	}
 	
 	public void delete(Review review) {

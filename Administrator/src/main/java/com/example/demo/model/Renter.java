@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -32,6 +34,7 @@ public class Renter {
 	@OneToOne(fetch = FetchType.LAZY)
 	private PriceList priceList;
 
+	@JsonIgnore
 	@OneToMany(mappedBy="renter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> reviews = new ArrayList<Review>();
 
