@@ -1,0 +1,10 @@
+<div class = "container" *ngIf="_router.url.includes('adminPage')">
+  <app-admin-nav ></app-admin-nav>
+
+</div>
+
+<div class = "container" *ngIf="_router.url.includes('gasType') && _router.url.includes('add')">
+  <app-admin-nav ></app-admin-nav>
+  <br/>
+  <app-gas-type></app-gas-type>
+</div>

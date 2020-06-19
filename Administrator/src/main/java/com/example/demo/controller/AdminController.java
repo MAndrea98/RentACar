@@ -8,11 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.model.GasType;
 import com.example.demo.model.Manufacturer;
@@ -32,6 +28,11 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.core.MediaType;
+
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -207,7 +208,9 @@ public class AdminController {
 	}
 	
 	@PostMapping("/gasType")
-	public ResponseEntity<String> newGasType(GasType g){
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> newGasType(@RequestBody GasType g){
+		System.out.println("Name: " + g.getName());
 		GasType g1 = new GasType(g);
 		gasTypeService.save(g1);
 		

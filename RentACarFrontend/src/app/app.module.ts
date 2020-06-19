@@ -17,6 +17,12 @@ import { TestCompComponent } from './test-comp/test-comp.component';
 
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { GasTypeComponent } from './admin-page/gas-type/gas-type.component';
+import { ManufacturerComponent } from './admin-page/manufacturer/manufacturer.component';
+import { ModelFormComponent } from './admin-page/model-form/model-form.component';
+import { VehicleClassFormComponent } from './admin-page/vehicle-class-form/vehicle-class-form.component';
+import { VehicleFormComponent } from './admin-page/vehicle-form/vehicle-form.component';
+import { UserTableComponent } from './admin-page/user-table/user-table.component';
 
 const appRoutes : Routes = [];
 
@@ -29,7 +35,13 @@ const appRoutes : Routes = [];
     AdminPageComponent,
     DefaultPageComponent,
     AdminNavComponent,
-    TestCompComponent
+    TestCompComponent,
+    GasTypeComponent,
+    ManufacturerComponent,
+    ModelFormComponent,
+    VehicleClassFormComponent,
+    VehicleFormComponent,
+    UserTableComponent
   ],
   imports: [
     BrowserModule,
