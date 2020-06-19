@@ -8,11 +8,15 @@ import com.example.demo.repository.AdRepository;
 
 @Service
 public class AdService {
-	
+
 	@Autowired
 	AdRepository adRepository;
-	
+
 	public Ad save(Ad ad) {
 		return adRepository.save(ad);
+	}
+	public Ad findById(Long id) {
+		return adRepository.findById(id).orElse(null);
+
 	}
 }

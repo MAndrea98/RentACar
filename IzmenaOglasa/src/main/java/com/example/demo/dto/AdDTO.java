@@ -10,6 +10,8 @@ import com.example.demo.model.Vehicle;
 
 public class AdDTO {
 
+	private Long id;
+
 	private Renter renter;
 	private Vehicle vehicle;
 	private Calendar date;
@@ -38,6 +40,13 @@ public class AdDTO {
 		this(a.getUser(), a.getVehicle(), a.getDate(), a.getValidTru(), a.getValidFrom(), (HashMap<Calendar, Boolean>) a.getFree(), a. getMileage());
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public Renter getUser() {
 		return renter;
 	}

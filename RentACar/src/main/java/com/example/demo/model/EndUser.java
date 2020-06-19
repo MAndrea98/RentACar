@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class EndUser {
 	
@@ -34,12 +36,15 @@ public class EndUser {
 	@Column(name="phone")
 	private String phone;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> reviews = new ArrayList<Review>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Ad> favorites = new ArrayList<Ad>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Request> requsets = new ArrayList<Request>();
 	

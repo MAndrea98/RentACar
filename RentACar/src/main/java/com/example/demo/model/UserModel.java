@@ -18,6 +18,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class UserModel {
 	
@@ -34,9 +36,11 @@ public class UserModel {
 	@Column(name="uloga", nullable = false)
 	private UserType uloga;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="reciever", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Message> inbox = new ArrayList<Message>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="sender", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Message> outbox = new ArrayList<Message>();
 	
@@ -61,6 +65,13 @@ public class UserModel {
 		this.permissions = permissions;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getUsername() {
 		return username;

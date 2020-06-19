@@ -2,16 +2,42 @@ package com.example.demo.model;
 
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Message {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
 	private UserModel sender;
+	
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
 	private UserModel reciever;
+	
+	@Column(name="subject")
 	private String subject;
+	
+	@Column(name="content")
 	private String content;
+	
+	@Column(name="date", nullable = false)
 	private Calendar date;
 	
+	@Column(name="deleted", nullable = false)
+	private boolean deleted;
+	
 	public Message() {
-		
+		this.deleted = false;
 	}
 
 	public Message(UserModel sender, UserModel reciever, String subject, String content, Calendar date) {
@@ -21,6 +47,17 @@ public class Message {
 		this.subject = subject;
 		this.content = content;
 		this.date = date;
+		this.deleted = false;
+	}
+	
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public UserModel getSender() {
@@ -62,6 +99,15 @@ public class Message {
 	public void setDate(Calendar date) {
 		this.date = date;
 	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	
 	
 	
 }

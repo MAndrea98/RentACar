@@ -10,35 +10,85 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Review {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	private Ad ad;
+
+	private int adId;
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private EndUser endUser;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Renter renter;
-	
+
 	@Column(name="stars")
 	private int stars;
-	
+
 	@Column(name="content")
 	private String content;
-	
+
+	@Column(name="accepted")
+	private boolean accepted = false;
+
+	@Column(name = "deleted")
+	private boolean deleted = false;
+
 	public Review(){
-	
+
 	}
-	
-	public Review(EndUser endUser, int stars, String content) {
+
+	public Review(Ad ad, int adId, EndUser endUser, int stars, String content) {
 		super();
+		this.ad = ad;
+		this.adId = adId;
 		this.endUser = endUser;
 		this.stars = stars;
 		this.content = content;
 	}
 
+	public int getAdId() {
+		return adId;
+	}
 
+	public void setAdId(int adId) {
+		this.adId = adId;
+	}
+
+	public Ad getAd() {
+		return ad;
+	}
+
+	public void setAd(Ad ad) {
+		this.ad = ad;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Renter getRenter() {
+		return renter;
+	}
+
+	public void setRenter(Renter renter) {
+		this.renter = renter;
+	}
+
+	public boolean isAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(boolean accepted) {
+		this.accepted = accepted;
+	}
 
 	public EndUser getEndUser() {
 		return endUser;
@@ -63,6 +113,15 @@ public class Review {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+
+
 }

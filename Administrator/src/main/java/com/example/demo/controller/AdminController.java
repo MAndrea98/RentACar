@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -8,11 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.dto.ReviewDTO;
 import com.example.demo.model.GasType;
 import com.example.demo.model.Manufacturer;
 import com.example.demo.model.Model;
+import com.example.demo.model.Review;
 import com.example.demo.model.UserModel;
 import com.example.demo.model.UserType;
 import com.example.demo.model.Vehicle;
@@ -20,6 +27,7 @@ import com.example.demo.model.VehicleClass;
 import com.example.demo.service.GasTypeService;
 import com.example.demo.service.ManufacturerService;
 import com.example.demo.service.ModelService;
+import com.example.demo.service.ReviewService;
 import com.example.demo.service.UserModelService;
 import com.example.demo.service.VehicleClassService;
 import com.example.demo.service.VehicleService;
@@ -28,13 +36,6 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 
-import javax.print.attribute.standard.Media;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
-@CrossOrigin(origins = "http://localhost:4200")
-@RestController
 @RequestMapping("/admin")
 public class AdminController {
 
@@ -56,16 +57,33 @@ public class AdminController {
 	@Autowired
 	private GasTypeService gasTypeService;
 	
+	@Autowired
+	private ReviewService reviewService;
 
+	@GetMapping(value = "/allReview")
+	public ResponseEntity<List<ReviewDTO>> getAllReviews() {
+		List<ReviewDTO> reviewDTOs = new ArrayList<ReviewDTO>();
+		for (Review r : reviewService.findAll()) {
+			if (!r.isDeleted()) {
+				reviewDTOs.add(new ReviewDTO(r));
+			}
+		}
+		return new ResponseEntity<List<ReviewDTO>>(reviewDTOs, HttpStatus.OK);
+	}
 	
 	@PutMapping("/acceptComment")
-	public ResponseEntity<String> acceptComment() {
-		return new ResponseEntity<String>(HttpStatus.OK);
+	public ResponseEntity<ReviewDTO> acceptComment(@RequestBody ReviewDTO reviewDTO) {
+		Review review = reviewService.findById(reviewDTO.getId());
+		review.setAccepted(true);
+		Review r = reviewService.save(review);
+		return new ResponseEntity<ReviewDTO>(new ReviewDTO(r), HttpStatus.OK);
 	}
 	
 	@PutMapping("/declineComment")
-	public ResponseEntity<String> declineComment() {
-		return new ResponseEntity<String>(HttpStatus.OK);
+	public ResponseEntity<String> declineComment(@RequestBody ReviewDTO reviewDTO) {
+		Review review = reviewService.findById(reviewDTO.getId());
+		reviewService.delete(review);
+		return new ResponseEntity<String>("Declined", HttpStatus.OK);
 	}
 	
 	@PutMapping("/blockUser")
@@ -244,7 +262,7 @@ public class AdminController {
 	public ResponseEntity<List<GasType>> getGasType(){
 		return new ResponseEntity<List<GasType>>(gasTypeService.findAll(), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/vehicle")
 	public ResponseEntity<String> deleteVehicle(Vehicle v){
 		Vehicle v1 = vehicleService.findById(v.getId()).get();

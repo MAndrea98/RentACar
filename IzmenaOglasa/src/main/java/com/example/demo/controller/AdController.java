@@ -17,20 +17,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.AdDTO;
 import com.example.demo.model.Ad;
+import com.example.demo.repository.AdRepository;
 import com.example.demo.service.AdService;
 
 @RestController
 @RequestMapping("/ad")
 public class AdController {
-	
+
 	AdService adService;
+	AdRepository adRepository;
 
 	@PostMapping(value = "/new")
 	public ResponseEntity<String> createAd(@RequestBody Ad ad) {
 		if(ad.equals(null)) {
 			return new ResponseEntity<String>("",HttpStatus.NO_CONTENT);
 		}
-		
+
 		Ad newAd = new Ad();
 		newAd.setDate(ad.getDate());
 		HashMap<Calendar,Boolean> newFree = (HashMap<Calendar, Boolean>) ad.getFree();
@@ -40,10 +42,10 @@ public class AdController {
 		newAd.setValidFrom(ad.getValidFrom());
 		newAd.setValidTru(ad.getValidTru());
 		newAd.setVehicle(ad.getVehicle());
-		
+
 		adService.save(newAd);
 		return new ResponseEntity<String>("",HttpStatus.CREATED);
-		
+
 	}
 
 	@GetMapping(value = "/all")
@@ -59,5 +61,14 @@ public class AdController {
 	@DeleteMapping(value = "/delete")
 	public ResponseEntity<String> deleteAd() {
 		return new ResponseEntity<String>("Deleted", HttpStatus.OK);
+	}
+
+	@PostMapping(value="/changeMileage")
+	public ResponseEntity<String> changeMileage(@RequestBody AdDTO adDto, @RequestBody int mileage){
+		Ad ad = adService.findById(adDto.getId());
+		ad.setMileage(mileage);
+		adRepository.save(ad);
+
+		return new ResponseEntity<String>("",HttpStatus.OK);
 	}
 }
