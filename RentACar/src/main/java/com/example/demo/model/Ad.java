@@ -1,7 +1,9 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -59,6 +61,10 @@ public class Ad {
 	@Column(name="mileage")
 	private int mileage;
 
+	private List<Review> listOfReviews = new ArrayList<Review>();
+
+	private int numberOfReviews = listOfReviews.size();
+
 	public Ad() {
 
 	}
@@ -77,6 +83,23 @@ public class Ad {
 		this.free = free;
 		this.mileage = mileage;
 	}
+
+	public int getNumberOfReviews() {
+		return numberOfReviews;
+	}
+
+	public void setNumberOfReviews(int numberOfReviews) {
+		this.numberOfReviews = numberOfReviews;
+	}
+
+	public List<Review> getListOfReviews() {
+		return listOfReviews;
+	}
+
+	public void setListOfReviews(List<Review> listOfReviews) {
+		this.listOfReviews = listOfReviews;
+	}
+
 	public Renter getUser() {
 		return renter;
 	}
