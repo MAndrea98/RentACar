@@ -23,6 +23,7 @@ import { ModelFormComponent } from './admin-page/model-form/model-form.component
 import { VehicleClassFormComponent } from './admin-page/vehicle-class-form/vehicle-class-form.component';
 import { VehicleFormComponent } from './admin-page/vehicle-form/vehicle-form.component';
 import { UserTableComponent } from './admin-page/user-table/user-table.component';
+import { GasTableComponent } from './admin-page/gas-type/gas-table/gas-table.component';
 
 const appRoutes : Routes = [];
 
@@ -41,7 +42,8 @@ const appRoutes : Routes = [];
     ModelFormComponent,
     VehicleClassFormComponent,
     VehicleFormComponent,
-    UserTableComponent
+    UserTableComponent,
+    GasTableComponent
   ],
   imports: [
     BrowserModule,

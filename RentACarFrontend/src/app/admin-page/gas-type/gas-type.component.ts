@@ -28,7 +28,8 @@ export class GasTypeComponent implements OnInit {
   sendGasType():void{
     console.log("Sent");
     console.log(this.gasTypeModel.name);
-    let url = "http://localhost:8080/api/administrator/admin/gasType";
+    //let url = "http://localhost:8080/api/administrator/admin/gasType";
+    let url = "http://localhost:8087/admin/gasType";
     this.http.post(url, this.gasTypeModel, {responseType:'text'}).subscribe(
       res=>{alert("Gas Type added"); location.reload();},
       err=>{alert("Something went wrong"); console.log(err.message);}

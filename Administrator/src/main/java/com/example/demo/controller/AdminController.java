@@ -28,7 +28,9 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -217,6 +219,18 @@ public class AdminController {
 		return new ResponseEntity<String>("GasType added", HttpStatus.OK);
 		
 	}
+
+	@GetMapping("/vehicle")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<Vehicle>> getVehicles(){
+		return new ResponseEntity<List<Vehicle>>(vehicleService.findAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/gasType")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<GasType>> getGasType(){
+		return new ResponseEntity<List<GasType>>(gasTypeService.findAll(), HttpStatus.OK);
+	}
 	
 	@DeleteMapping("/vehicle")
 	public ResponseEntity<String> deleteVehicle(Vehicle v){
@@ -250,9 +264,9 @@ public class AdminController {
 		return new ResponseEntity<String>("Manufacturer deleted", HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/gasType")
-	public ResponseEntity<String> deleteGasType(GasType g){
-		GasType g1 = gasTypeService.findById(g.getId()).get();
+	@DeleteMapping("/gasType/{id}")
+	public ResponseEntity<String> deleteGasType(@PathVariable Long id ){
+		GasType g1 = gasTypeService.findById(id).get();
 		gasTypeService.delete(g1);
 		
 		return new ResponseEntity<String>("Gas type deleted", HttpStatus.OK);
