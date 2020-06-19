@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:tns="http://localhost:8089/api/RazmenaPoruka/"
+targetNamespace="http://localhost:8089/api/RazmenaPoruka/" elementFormDefault="qualified">
+
+  <xs:element name="sendMessageRequest">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="message" type="tns:message"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="sendMessageResponse">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="response" type="xs:string"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="getAllMessageRequest">
+  </xs:element>
+  
+  <xs:element name="getAllMessageResponse">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="messages" type="tns:message" maxOccurs="unbounded"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="editMessageRequest">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="message" type="tns:message"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="editMessageResponse">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="response" type="xs:string"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="deleteMessageRequest">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="messageId" type="xs:long"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="deleteMessageResponse">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="response" type="xs:string"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element> 
+
+  <xs:complexType name="message">
+    <xs:sequence>
+      <xs:element name="content" type="xs:string" minOccurs="0"/>
+      <xs:element name="date" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="reciever" type="tns:userModel" minOccurs="0"/>
+      <xs:element name="sender" type="tns:userModel" minOccurs="0"/>
+      <xs:element name="subject" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="userModel">
+    <xs:sequence>
+      <xs:element name="inbox" type="tns:message" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="outbox" type="tns:message" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      <xs:element name="permissions" type="tns:permissions" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="uloga" type="tns:userType" minOccurs="0"/>
+      <xs:element name="username" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="logedUser">
+    <xs:sequence>
+      <xs:element name="userId" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="permissions">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="userType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ENDUSER"/>
+      <xs:enumeration value="RENTER"/>
+      <xs:enumeration value="ADMIN"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
