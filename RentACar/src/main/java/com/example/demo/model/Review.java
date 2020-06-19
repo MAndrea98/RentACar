@@ -10,38 +10,60 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Review {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	private Ad ad;
+
+	private int adId;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	private EndUser endUser;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Renter renter;
-	
+
 	@Column(name="stars")
 	private int stars;
-	
+
 	@Column(name="content")
 	private String content;
-	
+
 	@Column(name="accepted")
 	private boolean accepted = false;
-	
+
 	@Column(name = "deleted")
 	private boolean deleted = false;
-	
+
 	public Review(){
-	
+
 	}
-	
-	public Review(EndUser endUser, int stars, String content) {
+
+	public Review(Ad ad, int adId, EndUser endUser, int stars, String content) {
 		super();
+		this.ad = ad;
+		this.adId = adId;
 		this.endUser = endUser;
 		this.stars = stars;
 		this.content = content;
+	}
+
+	public int getAdId() {
+		return adId;
+	}
+
+	public void setAdId(int adId) {
+		this.adId = adId;
+	}
+
+	public Ad getAd() {
+		return ad;
+	}
+
+	public void setAd(Ad ad) {
+		this.ad = ad;
 	}
 
 	public Long getId() {
@@ -99,7 +121,7 @@ public class Review {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
-	
-	
-	
+
+
+
 }

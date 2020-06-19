@@ -12,7 +12,7 @@ import com.example.demo.repository.ReviewRepository;
 public class ReviewService {
 
 	@Autowired
-	private ReviewRepository reviewRepository;
+	private static ReviewRepository reviewRepository;
 
 	public Review save(Review review) {
 		return reviewRepository.save(review);
@@ -26,11 +26,11 @@ public class ReviewService {
 		reviewRepository.deleteById(review.getId());
 	}
 
-	public List<Review> findAll() {
+	public static List<Review> findAll() {
 		return reviewRepository.findAll();
 	}
 
 
-	
-	
+
+
 }
