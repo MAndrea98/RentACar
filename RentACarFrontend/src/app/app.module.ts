@@ -13,6 +13,10 @@ import { DefaultPageComponent } from './default-page/default-page.component';
 
 import {Router, Routes} from "@angular/router";
 import {AdminNavComponent} from "./admin-nav/admin-nav.component";
+import { TestCompComponent } from './test-comp/test-comp.component';
+
+import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 const appRoutes : Routes = [];
 
@@ -24,10 +28,13 @@ const appRoutes : Routes = [];
     UserPageComponent,
     AdminPageComponent,
     DefaultPageComponent,
-    AdminNavComponent
+    AdminNavComponent,
+    TestCompComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    HttpClientModule,
     AppRoutingModule,
   ],
   providers: [],
