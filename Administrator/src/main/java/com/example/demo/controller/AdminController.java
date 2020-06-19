@@ -193,7 +193,8 @@ public class AdminController {
 	}
 	
 	@PostMapping("/model")
-	public ResponseEntity<String> newModel(Model m){
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> newModel(@RequestBody Model m){
 		Model m1 = new Model(m);
 		modelService.save(m1);
 		
@@ -201,7 +202,8 @@ public class AdminController {
 	}
 	
 	@PostMapping("/manufacturer")
-	public ResponseEntity<String> newManufacturer(Manufacturer m){
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> newManufacturer(@RequestBody Manufacturer m){
 		Manufacturer m1 = new Manufacturer(m);
 		manufacturerService.save(m1);
 		
@@ -226,6 +228,17 @@ public class AdminController {
 		return new ResponseEntity<List<Vehicle>>(vehicleService.findAll(), HttpStatus.OK);
 	}
 
+	@GetMapping("/model")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<Model>> getModels(){
+		return new ResponseEntity<List<Model>>(modelService.findAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/manufacturer")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<Manufacturer>> getManufacturers(){
+		return new ResponseEntity<List<Manufacturer>>(manufacturerService.findAll(), HttpStatus.OK);
+	}
 	@GetMapping("/gasType")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseEntity<List<GasType>> getGasType(){

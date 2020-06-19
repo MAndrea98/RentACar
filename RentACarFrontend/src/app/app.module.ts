@@ -24,6 +24,8 @@ import { VehicleClassFormComponent } from './admin-page/vehicle-class-form/vehic
 import { VehicleFormComponent } from './admin-page/vehicle-form/vehicle-form.component';
 import { UserTableComponent } from './admin-page/user-table/user-table.component';
 import { GasTableComponent } from './admin-page/gas-type/gas-table/gas-table.component';
+import { ModelTableComponent } from './admin-page/model-form/model-table/model-table.component';
+import { ManufacturerTableComponent } from './admin-page/manufacturer/manufacturer-table/manufacturer-table.component';
 
 const appRoutes : Routes = [];
 
@@ -43,7 +45,9 @@ const appRoutes : Routes = [];
     VehicleClassFormComponent,
     VehicleFormComponent,
     UserTableComponent,
-    GasTableComponent
+    GasTableComponent,
+    ModelTableComponent,
+    ManufacturerTableComponent
   ],
   imports: [
     BrowserModule,
