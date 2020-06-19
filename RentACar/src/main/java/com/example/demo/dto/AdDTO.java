@@ -39,7 +39,6 @@ public class AdDTO {
 	public AdDTO(Ad a) {
 		this(a.getUser(), a.getVehicle(), a.getDate(), a.getValidTru(), a.getValidFrom(), (HashMap<Calendar, Boolean>) a.getFree(), a. getMileage());
 	}
-
 	public Long getId() {
 		return id;
 	}
@@ -47,6 +46,7 @@ public class AdDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Renter getUser() {
 		return renter;
 	}

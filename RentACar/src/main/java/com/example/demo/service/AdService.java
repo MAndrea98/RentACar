@@ -21,4 +21,8 @@ public class AdService {
 	public static List<Ad> findAll(){
 		return adRepository.findAll();
 	}
+	public Ad findById(Long id) {
+		return adRepository.findById(id).orElse(null);
+
+	}
 }
