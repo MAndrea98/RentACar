@@ -32,7 +32,7 @@ import localhost._8085.api.ocenjivanjeikomentari.EditReviewResponse;
 @Endpoint
 public class ReviewEndpoint {
 	
-	private static final String NAMESPACE_URI = "http://localhost:8085/api/OcenjivanjeIKomentari/";
+	private static final String NAMESPACE_URI = "http://localhost:8085/api/Administrator/";
 	
 	@Autowired
 	private ReviewService reviewService;
