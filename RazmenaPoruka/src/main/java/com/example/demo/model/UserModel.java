@@ -37,11 +37,11 @@ public class UserModel {
 	private UserType uloga;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="reciever", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="reciever", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Message> inbox = new ArrayList<Message>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="sender", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="sender", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Message> outbox = new ArrayList<Message>();
 	
 	@JsonIgnore

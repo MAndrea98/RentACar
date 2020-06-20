@@ -18,10 +18,10 @@ public class Message {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
 	private UserModel sender;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
 	private UserModel reciever;
 	
 	@Column(name="subject")

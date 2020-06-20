@@ -70,6 +70,7 @@ targetNamespace="http://localhost:8089/api/RazmenaPoruka/" elementFormDefault="q
       <xs:element name="sender" type="tns:userModelXML" minOccurs="0"/>
       <xs:element name="subject" type="xs:string" minOccurs="0"/>
     </xs:sequence>
+    <xs:attribute name="id" type="xs:long" use="required" />
   </xs:complexType>
   
   <xs:complexType name="userModelXML">
