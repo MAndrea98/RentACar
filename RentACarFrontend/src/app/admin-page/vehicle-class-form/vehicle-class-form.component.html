@@ -1,1 +1,16 @@
-<p>vehicle-class-form works!</p>
+<div class = "container">
+  <app-admin-nav ></app-admin-nav>
+  <br/>
+  <div class = "row">
+    <div class="offset-3"></div>
+    <div class="col-md-6">
+      <form name = "vClassForm" #f="ngForm" (ngSubmit) = "sendVehicleClass()" novalidate>
+        <h3>New Gas Type</h3>
+        <div class = "form-group">
+          <label for = "name">Vehicle Class Name</label>
+          <input type = "text" id = "gName" class = "form-control" name = "name" [(ngModel)]="vClassModel.name"/>
+        </div>
+        <button type = "submit" class = "btn btn-primary">Add</button>
+      </form>
+    </div>
+  </div>

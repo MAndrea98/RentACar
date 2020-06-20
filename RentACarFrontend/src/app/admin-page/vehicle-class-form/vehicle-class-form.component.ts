@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {VehicleClass} from "../../model/VehicleClass";
+import {Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-vehicle-class-form',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VehicleClassFormComponent implements OnInit {
 
-  constructor() { }
+  router : String;
+  vClassModel : VehicleClass = {
+    name:'',
+    id:0
+  }
+
+  constructor(public _router: Router, private http: HttpClient) {
+    this.router = _router.url;
+  }
 
   ngOnInit(): void {
   }
 
+  sendVehicleClass():void{
+    console.log("Sent");
+    let url = "http://localhost:8087/admin/vehicleClass";
+    this.http.post(url, this.vClassModel, {responseType:'text'}).subscribe(
+      res=>{alert("VehicleClass added"); location.reload();},
+      err=>{alert("Something went wrong"); console.log(err.message);}
+    )
+  }
 }

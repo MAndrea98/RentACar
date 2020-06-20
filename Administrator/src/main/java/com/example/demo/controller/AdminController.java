@@ -5,15 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import com.netflix.ribbon.proxy.annotation.Http;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.dto.ReviewDTO;
 import com.example.demo.model.GasType;
@@ -36,7 +33,13 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
 import net.minidev.json.parser.ParseException;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 @RequestMapping("/admin")
+@RestController
+@CrossOrigin("http://localhost:4200")
 public class AdminController {
 
 	@Autowired
@@ -70,7 +73,7 @@ public class AdminController {
 		}
 		return new ResponseEntity<List<ReviewDTO>>(reviewDTOs, HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/acceptComment")
 	public ResponseEntity<ReviewDTO> acceptComment(@RequestBody ReviewDTO reviewDTO) {
 		Review review = reviewService.findById(reviewDTO.getId());
@@ -85,7 +88,7 @@ public class AdminController {
 		reviewService.delete(review);
 		return new ResponseEntity<String>("Declined", HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/blockUser")
 	public ResponseEntity<String> blockUser(HttpEntity<String> json) throws ParseException {
 		String jString = json.getBody();
@@ -246,6 +249,12 @@ public class AdminController {
 		return new ResponseEntity<List<Vehicle>>(vehicleService.findAll(), HttpStatus.OK);
 	}
 
+	@GetMapping("/vehicleClass")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<VehicleClass>> getVehicleClasses(){
+		return new ResponseEntity<List<VehicleClass>>(vehicleClassService.findAll(), HttpStatus.OK);
+	}
+
 	@GetMapping("/model")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ResponseEntity<List<Model>> getModels(){
@@ -271,9 +280,9 @@ public class AdminController {
 		return new ResponseEntity<String>("Vehicle deleted", HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/vehicleClass")
-	public ResponseEntity<String> deleteVehicleClass(VehicleClass v){
-		VehicleClass v1 = vehicleClassService.findById(v.getId()).get();
+	@DeleteMapping("/vehicleClass/{id}")
+	public ResponseEntity<String> deleteVehicleClass(@PathVariable Long id){
+		VehicleClass v1 = vehicleClassService.findById(id).get();
 		vehicleClassService.delete(v1);
 		
 		return new ResponseEntity<String>("Vehicle class deleted", HttpStatus.OK);
@@ -287,9 +296,9 @@ public class AdminController {
 		return new ResponseEntity<String>("Model deleted", HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/manufacturer")
-	public ResponseEntity<String> deleteManufacturer(Manufacturer m){
-		Manufacturer m1 = manufacturerService.findById(m.getId()).get();
+	@DeleteMapping("/manufacturer/{id}")
+	public ResponseEntity<String> deleteManufacturer(@PathVariable Long id){
+		Manufacturer m1 = manufacturerService.findById(id).get();
 		manufacturerService.delete(m1);
 		
 		return new ResponseEntity<String>("Manufacturer deleted", HttpStatus.OK);

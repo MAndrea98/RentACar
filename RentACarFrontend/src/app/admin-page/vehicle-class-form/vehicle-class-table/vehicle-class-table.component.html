@@ -1,0 +1,23 @@
+<div class="container">
+  <app-admin-nav></app-admin-nav>
+  <br/>
+
+  <table class="table-striped" border="1">
+    <thead>
+    <title>Manufacturers</title>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let cl of classModelList">
+      <td>{{cl.id}}</td>
+      <td>{{cl.name}}</td>
+      <td><button class="btn-danger" (click)="deleteRow(cl.id)" >Remove</button></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

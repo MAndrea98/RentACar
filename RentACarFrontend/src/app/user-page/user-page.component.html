@@ -1,3 +1,7 @@
 <div class="container" *ngIf="_router.url.includes('userPage')">
   <app-user-nav></app-user-nav>
 </div>
+
+<div class="container" *ngIf="_router.url.includes('ad') && _router.url.includes('new')">
+  <app-new-ad-form></app-new-ad-form>
+</div>

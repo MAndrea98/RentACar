@@ -7,15 +7,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ZuulProxy" />
+        <module name="IzmenaOglasa" />
         <module name="RentACar" />
-        <module name="PretragaIFitriranjeOglasa" />
         <module name="LogovanjeIRegistracija" />
         <module name="EurekaService" />
         <module name="RezervacijaAutomobila" />
         <module name="RazmenaPoruka" />
         <module name="OcenjivanjeIKomentari" />
         <module name="Administrator" />
-        <module name="IzmenaOglasa" />
+        <module name="PretragaIFitriranjeOglasa" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
