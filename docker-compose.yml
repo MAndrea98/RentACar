@@ -17,7 +17,25 @@ services:
       - POSTGRES_DB=AdminMicroserviceDB
     ports:
       - 5432:5432
-
+  
+  db-ocenjivanje:
+    image: postgres
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=OcenjivanjeIKomentari
+    ports:
+      - 5433:5433
+      
+  db-razmena-poruka:
+    image: postgres
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=RazmenaPoruka
+    ports:
+      - 5434:5434
+  
   eureka-service:
     build: ./EurekaService
     ports:
@@ -32,26 +50,8 @@ services:
       - 8087:8087
     depends_on:
       - eureka-service
-      - db-admin
+      - db-admin    
   
-  izmena-oglasa-service:
-    build: ./IzmenaOglasa
-    environment:
-      - REGISTRY_HOST=eureka-service
-    ports:
-      - 8084:8084
-    depends_on:
-      - eureka-service
-      
-  logovanje-i-registracija-service:
-    build: ./LogovanjeIRegistracija
-    environment:
-      - REGISTRY_HOST=eureka-service
-    ports:
-      - 8086:8086
-    depends_on:
-      - eureka-service 
-
   ocenjivanje-i-komentari-service:
     build: ./OcenjivanjeIKomentari
     environment:
@@ -60,16 +60,8 @@ services:
       - 8085:8085
     depends_on:
       - eureka-service 
-      
-  pretraga-i-filtriranje-oglasa-service:
-    build: ./PretragaIFitriranjeOglasa
-    environment:
-      - REGISTRY_HOST=eureka-service
-    ports:
-      - 8088:8088
-    depends_on:
-      - eureka-service 
-      
+      - db-ocenjivanje
+          
   razmena-poruka-service:
     build: ./RazmenaPoruka
     environment:
@@ -78,6 +70,7 @@ services:
       - 8089:8089
     depends_on:
       - eureka-service 
+      - db-razmena-poruka
   
   rezervacija-automobila-service:
     build: ./RezervacijaAutomobila
@@ -89,6 +82,33 @@ services:
     depends_on:
       - eureka-service
       - db-rezervacija
+      
+  izmena-oglasa-service:
+    build: ./IzmenaOglasa
+    environment:
+      - REGISTRY_HOST=eureka-service
+    ports:
+      - 8084:8084
+    depends_on:
+      - eureka-service
+
+  logovanje-i-registracija-service:
+    build: ./LogovanjeIRegistracija
+    environment:
+      - REGISTRY_HOST=eureka-service
+    ports:
+      - 8086:8086
+    depends_on:
+      - eureka-service 
+
+  pretraga-i-filtriranje-oglasa-service:
+    build: ./PretragaIFitriranjeOglasa
+    environment:
+      - REGISTRY_HOST=eureka-service
+    ports:
+      - 8088:8088
+    depends_on:
+      - eureka-service 
          
   zuul-proxy:
     build: ./ZuulProxy
@@ -99,9 +119,9 @@ services:
     depends_on:
       - eureka-service
       - administrator-service
-      - izmena-oglasa-service
-      - logovanje-i-registracija-service
       - ocenjivanje-i-komentari-service
-      - pretraga-i-filtriranje-oglasa-service
       - razmena-poruka-service
       - rezervacija-automobila-service
+      - izmena-oglasa-service
+      - logovanje-i-registracija-service
+      - pretraga-i-filtriranje-oglasa-service
