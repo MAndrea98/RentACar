@@ -11,6 +11,8 @@ import {VehicleClassFormComponent} from "./admin-page/vehicle-class-form/vehicle
 import {VehicleClassTableComponent} from "./admin-page/vehicle-class-form/vehicle-class-table/vehicle-class-table.component";
 import {NewAdFormComponent} from "./user-page/new-ad-form/new-ad-form.component";
 import {ReviewListComponent} from "./admin-page/review-list/review-list.component";
+import {AgentPageComponent} from "./agent-page/agent-page.component";
+import {ReviewListAgentComponent} from "./agent-page/review-list-agent/review-list-agent.component";
 
 
 const routes: Routes = [{
@@ -20,6 +22,10 @@ const routes: Routes = [{
   {
     path:'userPage',
     component: UserPageComponent
+  },
+  {
+    path:'agentPage',
+    component: AgentPageComponent
   },
   {
     path:'home',
@@ -56,6 +62,14 @@ const routes: Routes = [{
   {
     path:'adminPage/review/list',
     component: ReviewListComponent
+  },
+  {
+    path:'agentPage/review/list',
+    component: ReviewListAgentComponent
+  },
+  {
+    path:'userPage/review/add',
+    component: UserPageComponent
   }
 ];
 

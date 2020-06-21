@@ -1,3 +1,4 @@
-<div class="container" *ngIf = "!_router.url.includes('adminPage') && !_router.url.includes('userPage')">
+<div class="container" *ngIf = "!_router.url.includes('adminPage') && !_router.url.includes('userPage')
+     && !_router.url.includes('agentPage')">
   <app-default-nav ></app-default-nav>
 </div>

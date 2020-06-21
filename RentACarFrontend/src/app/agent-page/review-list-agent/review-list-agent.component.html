@@ -1,0 +1,27 @@
+<div class="container">
+  <app-agent-nav></app-agent-nav>
+  <br/>
+
+  <table class="table-striped" border="1">
+    <thead>
+    <title>Gas Types</title>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Reviewer</th>
+      <th scope="col">Renter</th>
+      <th scope="col">Stars</th>
+      <th scope="col">Content</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let rev of reviewModelList">
+      <td>{{rev.id}}</td>
+      <td>{{rev.endUserUsername}}</td>
+      <td>{{rev.renterUsername}}</td>
+      <td>{{rev.stars}}</td>
+      <td>{{rev.content}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

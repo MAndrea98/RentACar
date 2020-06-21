@@ -32,6 +32,10 @@ import { NewVehicleFormComponent } from './user-page/new-vehicle-form/new-vehicl
 import { VehicleTableComponent } from './user-page/vehicle-table/vehicle-table.component';
 import { AdTableComponent } from './user-page/ad-table/ad-table.component';
 import { ReviewListComponent } from './admin-page/review-list/review-list.component';
+import { AgentPageComponent } from './agent-page/agent-page.component';
+import { AgentNavComponent } from './agent-nav/agent-nav.component';
+import { ReviewListAgentComponent } from './agent-page/review-list-agent/review-list-agent.component';
+import { UserReviewFormComponent } from './user-page/user-review-form/user-review-form.component';
 
 const appRoutes : Routes = [];
 
@@ -59,7 +63,11 @@ const appRoutes : Routes = [];
     NewVehicleFormComponent,
     VehicleTableComponent,
     AdTableComponent,
-    ReviewListComponent
+    ReviewListComponent,
+    AgentPageComponent,
+    AgentNavComponent,
+    ReviewListAgentComponent,
+    UserReviewFormComponent
   ],
   imports: [
     BrowserModule,

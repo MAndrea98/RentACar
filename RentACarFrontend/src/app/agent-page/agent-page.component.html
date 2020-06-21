@@ -1,0 +1,7 @@
+<div class = "container" *ngIf="_router.url.includes('agentPage')">
+  <app-agent-nav></app-agent-nav>
+</div>
+
+<div class = "container" *ngIf="_router.url.includes('list') && _router.url.includes('review')">
+  <app-review-list-agent></app-review-list-agent>
+</div>
