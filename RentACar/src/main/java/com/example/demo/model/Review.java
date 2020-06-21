@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Review {
@@ -15,9 +16,8 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Ad ad;
-
-	private int adId;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	private EndUser endUser;
@@ -41,22 +41,14 @@ public class Review {
 
 	}
 
-	public Review(Ad ad, int adId, EndUser endUser, int stars, String content) {
+	public Review(Ad ad, EndUser endUser, int stars, String content) {
 		super();
 		this.ad = ad;
-		this.adId = adId;
 		this.endUser = endUser;
 		this.stars = stars;
 		this.content = content;
 	}
 
-	public int getAdId() {
-		return adId;
-	}
-
-	public void setAdId(int adId) {
-		this.adId = adId;
-	}
 
 	public Ad getAd() {
 		return ad;
