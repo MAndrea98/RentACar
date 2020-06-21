@@ -31,6 +31,24 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RunManager">
+    <configuration name="All in RentACar" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="RentACar" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.All in RentACar" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -45,12 +63,36 @@
       <workItem from="1589902918857" duration="39000" />
       <workItem from="1590859790963" duration="24000" />
     </task>
+    <task id="LOCAL-00001" summary="Stash commit">
+      <created>1592750936418</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1592750936418</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Stash commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Stash commit" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="178" key="#Project_Structure" timestamp="1592751085397">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#Project_Structure/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1592751085397" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592751120655">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1592751120655" />
+    <state x="585" y="114" key="CommitChangelistDialog2" timestamp="1592751203961">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="585" y="114" key="CommitChangelistDialog2/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1592751203961" />
     <state x="176" y="86" width="1536" height="860" key="DiffContextDialog" timestamp="1592750147376">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -63,6 +105,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="692" y="224" key="VCS.ChangeListViewerDialog/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1592750901045" />
+    <state x="552" y="241" key="Vcs.Push.Dialog.v2" timestamp="1592750939975">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="241" key="Vcs.Push.Dialog.v2/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1592750939975" />
     <state x="578" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1589902946038">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -71,10 +117,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="741" y="233" key="git4idea.branch.GitSmartOperationDialog/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1592750825106" />
-    <state x="761" y="311" key="git4idea.merge.GitMergeDialog" timestamp="1592750851807">
+    <state x="761" y="311" key="git4idea.merge.GitMergeDialog" timestamp="1592750950460">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="761" y="311" key="git4idea.merge.GitMergeDialog/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1592750851807" />
+    <state x="761" y="311" key="git4idea.merge.GitMergeDialog/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1592750950460" />
     <state x="678" y="311" key="git4idea.merge.GitPullDialog" timestamp="1592750161122">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -87,5 +133,16 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="601" y="368" key="git4idea.ui.GitUnstashDialog/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1592750902930" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/RentACarFrontend/src/app/admin-page/gas-type/gas-table/gas-table.component.ts</url>
+          <line>14</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
