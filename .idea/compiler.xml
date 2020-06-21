@@ -7,13 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ZuulProxy" />
-        <module name="IzmenaOglasa" />
-        <module name="RentACar" />
+        <module name="OcenjivanjeIKomentari" />
         <module name="LogovanjeIRegistracija" />
         <module name="EurekaService" />
         <module name="RezervacijaAutomobila" />
         <module name="RazmenaPoruka" />
-        <module name="OcenjivanjeIKomentari" />
+        <module name="IzmenaOglasa" />
         <module name="Administrator" />
         <module name="PretragaIFitriranjeOglasa" />
       </profile>
