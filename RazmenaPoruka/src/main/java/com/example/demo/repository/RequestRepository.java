@@ -8,5 +8,6 @@ import com.example.demo.model.Request;
 
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
+	// TODO uraditi @Query
 	Request findByRenterAndEndUserAndStatus(Renter renter, EndUser endUser, String status);
 }

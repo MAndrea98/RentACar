@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:tns="http://localhost:8087/api/Administrator/"
+targetNamespace="http://localhost:8087/api/Administrator/" elementFormDefault="qualified">
+
+
+  <xs:element name="acceptCommentRequest">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="review" type="tns:reviewDTOXML"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="acceptCommentResponse">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="review" type="tns:reviewDTOXML"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="declineCommentRequest">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="review" type="tns:reviewDTOXML"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="declineCommentResponse">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="response" type="xs:string"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:complexType name="endUserXML">
+    <xs:sequence>
+      <xs:element name="address" type="xs:string" minOccurs="0"/>
+      <xs:element name="idUser" type="xs:long" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="phone" type="xs:string" minOccurs="0"/>
+      <xs:element name="reviews" type="tns:reviewXML" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="surname" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="reviewXML">
+    <xs:sequence>
+      <xs:element name="accepted" type="xs:boolean"/>
+      <xs:element name="content" type="xs:string" minOccurs="0"/>
+      <xs:element name="deleted" type="xs:boolean"/>
+      <xs:element name="endUser" type="tns:endUserXML" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="renter" type="tns:renterXML" minOccurs="0"/>
+      <xs:element name="stars" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="renterXML">
+    <xs:sequence>
+      <xs:element name="idUser" type="xs:long" minOccurs="0"/>
+      <xs:element name="priceList" type="tns:priceListXML" minOccurs="0"/>
+      <xs:element name="reviews" type="tns:reviewXML" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="vehicles" type="tns:vehicleXML" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="priceListXML">
+    <xs:sequence>
+      <xs:element name="cdwPrice" type="xs:double"/>
+      <xs:element name="pricePerMile" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="vehicleXML">
+    <xs:sequence>
+      <xs:element name="cdw" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="childSeatsNo" type="xs:int"/>
+      <xs:element name="gasType" type="tns:gasTypeXML" minOccurs="0"/>
+      <xs:element name="gearBox" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="image" type="xs:byte" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="mileage" type="xs:int"/>
+      <xs:element name="model" type="tns:modelXML" minOccurs="0"/>
+      <xs:element name="owner" type="tns:renterXML" minOccurs="0"/>
+      <xs:element name="price" type="tns:priceListXML" minOccurs="0"/>
+      <xs:element name="proposedMileage" type="xs:int"/>
+      <xs:element name="vehicleClass" type="tns:vehicleClassXML" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="gasTypeXML">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="modelXML">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="manufacturer" type="tns:manufacturerXML" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="manufacturerXML">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="vehicleClassXML">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="agentXML">
+    <xs:sequence>
+      <xs:element name="address" type="xs:string" minOccurs="0"/>
+      <xs:element name="company" type="tns:companyXML" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="phone" type="xs:string" minOccurs="0"/>
+      <xs:element name="renter" type="tns:renterXML" minOccurs="0"/>
+      <xs:element name="surname" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="companyXML">
+    <xs:sequence>
+      <xs:element name="address" type="xs:string" minOccurs="0"/>
+      <xs:element name="agents" type="tns:agentXML" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="renter" type="tns:renterXML" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="reportXML">
+    <xs:sequence>
+      <xs:element name="review" type="tns:reviewXML" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userModelXML">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      <xs:element name="permissions" type="tns:permissionsXML" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="uloga" type="tns:userTypeXML" minOccurs="0"/>
+      <xs:element name="username" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="reviewDTOXML">
+    <xs:sequence>
+      <xs:element name="content" type="xs:string" minOccurs="0"/>
+      <xs:element name="endUserUsername" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="renterUsername" type="xs:string" minOccurs="0"/>
+      <xs:element name="stars" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="adminXML">
+    <xs:sequence>
+      <xs:element name="user" type="tns:userModelXML" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="permissionsXML">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="userTypeXML">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RENTER"/>
+      <xs:enumeration value="COMPANY"/>
+      <xs:enumeration value="ADMIN"/>
+      <xs:enumeration value="AGENT"/>
+      <xs:enumeration value="NOT_ACTIVE"/>
+      <xs:enumeration value="BLOCKED"/>
+      <xs:enumeration value="REMOVED"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

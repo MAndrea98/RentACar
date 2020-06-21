@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:tns="http://localhost:8085/api/OcenjivanjeIKomentari/"
+targetNamespace="http://localhost:8085/api/OcenjivanjeIKomentari/" elementFormDefault="qualified">
+
+  
+  <xs:element name="createReviewRequest">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="review" type="tns:reviewDTOXML"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="createReviewResponse">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="review" type="tns:reviewDTOXML"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="editReviewRequest">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="review" type="tns:reviewDTOXML"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="editReviewResponse">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="review" type="tns:reviewDTOXML"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="deleteReviewRequest">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="id" type="xs:long"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+  
+  <xs:element name="deleteReviewResponse">
+  	<xs:complexType>
+  		<xs:sequence>
+  			<xs:element name="response" type="xs:string"/>
+  		</xs:sequence>
+  	</xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="requestXML">
+    <xs:sequence>
+      <xs:element name="endUserXML" type="tns:endUserXML" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="renterXML" type="tns:renterXML" minOccurs="0"/>
+      <xs:element name="status" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="endUserXML">
+    <xs:sequence>
+      <xs:element name="address" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="idUser" type="xs:long" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="phone" type="xs:string" minOccurs="0"/>
+      <xs:element name="requests" type="tns:requestXML" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="reviews" type="tns:reviewXML" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="surname" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="reviewXML">
+    <xs:sequence>
+      <xs:element name="accepted" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="ad" type="tns:ad" minOccurs="0"/>
+      <xs:element name="content" type="xs:string" minOccurs="0"/>
+      <xs:element name="deleted" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="endUserXML" type="tns:endUserXML" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="renterXML" type="tns:renterXML" minOccurs="0"/>
+      <xs:element name="stars" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+   <xs:complexType name="reviewDTOXML">
+    <xs:sequence>
+      <xs:element name="content" type="xs:string" minOccurs="0"/>
+      <xs:element name="endUserUsername" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="renterUsername" type="xs:string" minOccurs="0"/>
+      <xs:element name="stars" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ad">
+    <xs:sequence>
+      <xs:element name="date" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="free">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:dateTime"/>
+                  <xs:element name="value" minOccurs="0" type="xs:boolean"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="mileage" type="xs:int"/>
+      <xs:element name="renterXML" type="tns:renterXML" minOccurs="0"/>
+      <xs:element name="reviews" type="tns:reviewXML" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="user" type="tns:renterXML" minOccurs="0"/>
+      <xs:element name="validFrom" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="validTru" type="xs:dateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="renterXML">
+    <xs:sequence>
+      <xs:element name="ads" type="tns:ad" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="idUser" type="xs:long" minOccurs="0"/>
+      <xs:element name="priceListXML" type="tns:priceListXML" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="priceListXML">
+    <xs:sequence>
+      <xs:element name="cdwPrice" type="xs:double"/>
+      <xs:element name="datesPrice">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:dateTime"/>
+                  <xs:element name="value" minOccurs="0" type="xs:double"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="discount">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:dateTime"/>
+                  <xs:element name="value" minOccurs="0" type="xs:double"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="pricePerMile" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userModelXML">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      <xs:element name="permissions" type="tns:permissionsXML" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="uloga" type="tns:userTypeXML" minOccurs="0"/>
+      <xs:element name="username" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="reportXML">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="requestXML" type="tns:requestXML" minOccurs="0"/>
+      <xs:element name="reviewXML" type="tns:reviewXML" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="adminXML">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="user" type="tns:userModelXML" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="permissionsXML">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="userTypeXML">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ENDUSER"/>
+      <xs:enumeration value="RENTER"/>
+      <xs:enumeration value="ADMIN"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

@@ -11,6 +11,7 @@ insert into ad (renter_id, date, valid_from, valid_tru, mileage) values (1, '202
 
 insert into request (renter_id, end_user_id, status) values (2, 1, 'RESERVED'); 
 insert into request (renter_id, end_user_id, status) values (2, 1, 'ENDED'); 
+insert into request (renter_id, end_user_id, status) values (1, 1, 'ENDED'); 
 
 insert into review (end_user_id, renter_id, stars, content, accepted, deleted, ad_id) values (1, 2, 5, 'Super', false, false, 1);
 insert into review (end_user_id, renter_id, stars, content, accepted, deleted, ad_id) values (1, 2, 3, 'OK', false, false, 1);
