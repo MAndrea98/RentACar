@@ -1,0 +1,24 @@
+<div class="container">
+  <app-admin-nav></app-admin-nav>
+  <br/>
+
+  <table class="table-striped" border="1">
+    <thead>
+    <title>Gas Types</title>
+    <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Name</th>
+    <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let gas of gasTypeModelList">
+      <td>{{gas.id}}</td>
+      <td>{{gas.name}}</td>
+      <td><button class="btn-danger" (click)="deleteRow(gas.id)">Remove</button></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+

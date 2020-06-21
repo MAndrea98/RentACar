@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ZuulProxy" />
+        <module name="RentACar" />
+        <module name="PretragaIFitriranjeOglasa" />
+        <module name="LogovanjeIRegistracija" />
+        <module name="EurekaService" />
+        <module name="RezervacijaAutomobila" />
+        <module name="RazmenaPoruka" />
+        <module name="OcenjivanjeIKomentari" />
+        <module name="Administrator" />
+        <module name="IzmenaOglasa" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Administrator" target="1.8" />
+      <module name="EurekaService" target="1.8" />
+      <module name="IzmenaOglasa" target="1.8" />
+      <module name="LogovanjeIRegistracija" target="1.8" />
+      <module name="OcenjivanjeIKomentari" target="1.8" />
+      <module name="PretragaIFitriranjeOglasa" target="1.8" />
+      <module name="RazmenaPoruka" target="1.8" />
+      <module name="RentACar" target="1.8" />
+      <module name="RezervacijaAutomobila" target="1.8" />
+      <module name="ZuulProxy" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Administrator" options="-parameters" />
+      <module name="EurekaService" options="-parameters" />
+      <module name="IzmenaOglasa" options="-parameters" />
+      <module name="LogovanjeIRegistracija" options="-parameters" />
+      <module name="OcenjivanjeIKomentari" options="-parameters" />
+      <module name="PretragaIFitriranjeOglasa" options="-parameters" />
+      <module name="RazmenaPoruka" options="-parameters" />
+      <module name="RentACar" options="-parameters" />
+      <module name="RezervacijaAutomobila" options="-parameters" />
+      <module name="ZuulProxy" options="-parameters" />
+    </option>
+  </component>
+</project>

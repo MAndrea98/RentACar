@@ -1,0 +1,31 @@
+<div class = "container" *ngIf="_router.url.includes('adminPage')">
+  <app-admin-nav ></app-admin-nav>
+</div>
+
+<div class = "container" *ngIf="_router.url.includes('gasType') && _router.url.includes('add')">
+  <app-gas-type></app-gas-type>
+</div>
+
+<div class = "container" *ngIf="_router.url.includes('gasType') && _router.url.includes('list')">
+  <app-gas-table></app-gas-table>
+</div>
+
+<div class = "container" *ngIf="_router.url.includes('manufacturer') && _router.url.includes('add')">
+  <app-manufacturer></app-manufacturer>
+</div>
+
+<div class = "container" *ngIf="_router.url.includes('manufacturer') && _router.url.includes('list')">
+  <app-manufacturer-table></app-manufacturer-table>
+</div>
+
+<div class = "container" *ngIf="_router.url.includes('vehicleClass') && _router.url.includes('add')">
+  <app-vehicle-class-form></app-vehicle-class-form>
+</div>
+
+<div class="container" *ngIf="_router.url.includes('vehicleClass') && _router.url.includes('list')">
+  <app-vehicle-class-table></app-vehicle-class-table>
+</div>
+
+<div class = "container" *ngIf="_router.url.includes('review') && _router.url.includes('list')">
+  <app-review-list></app-review-list>
+</div>

@@ -3,4 +3,21 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/Administrator/pom.xml" />
+        <option value="$PROJECT_DIR$/EurekaService/pom.xml" />
+        <option value="$PROJECT_DIR$/IzmenaOglasa/pom.xml" />
+        <option value="$PROJECT_DIR$/LogovanjeIRegistracija/pom.xml" />
+        <option value="$PROJECT_DIR$/OcenjivanjeIKomentari/pom.xml" />
+        <option value="$PROJECT_DIR$/PretragaIFitriranjeOglasa/pom.xml" />
+        <option value="$PROJECT_DIR$/RazmenaPoruka/pom.xml" />
+        <option value="$PROJECT_DIR$/RentACar/pom.xml" />
+        <option value="$PROJECT_DIR$/RezervacijaAutomobila/pom.xml" />
+        <option value="$PROJECT_DIR$/ZuulProxy/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_13" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>
