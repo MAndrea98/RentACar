@@ -38,7 +38,7 @@ public class AdController {
 	private RequestService requestService;
 
 	@Autowired
-	private AdRepository adRepository;
+	private ReviewService reviewService;
 
 	@PostMapping(value="/create")
 	public ResponseEntity<String> createAd(@RequestBody Ad ad) {
@@ -85,7 +85,7 @@ public class AdController {
 	@PostMapping(value="/search")
 	public List<Ad> search(@RequestBody Search search){
 
-		List<Ad> listOfAds = AdService.findAll();
+		List<Ad> listOfAds = adService.findAll();
 		List<Ad> listOfFoundAds = new ArrayList<Ad>();
 		for(Ad a : listOfAds) {
 			if(a.getPlace() == search.getPlace() && search.getDateFrom().before(a.getDateFrom()) && a.getDateTo().before(search.getDateTo())) {
@@ -99,7 +99,7 @@ public class AdController {
 	@PostMapping(value="/statsMileage")
 	public List<Ad> statsMileage(@RequestBody Renter enteredAgent){
 
-		List<Ad> listOfAds = AdService.findAll();
+		List<Ad> listOfAds = adService.findAll();
 		List<Ad> listOfEnteredAgentAds = new ArrayList<Ad>();
 		for(Ad a : listOfAds) {
 			if(a.getUser() == enteredAgent) {
@@ -114,7 +114,7 @@ public class AdController {
 	@PostMapping(value="/statsStars")
 	public List<Ad> statsStars(@RequestBody Renter enteredAgent, @RequestBody Review review){
 
-		List<Review> listOfReviews = ReviewService.findAll();  //nadjem sve reviewe
+		List<Review> listOfReviews = reviewService.findAll();  //nadjem sve reviewe
 		List<Review> listOfAgentsReviews = new ArrayList<Review>(); //napravim listu reviewa za jednog agenta
 
 		for(Review r : listOfReviews) { //prolazim kroz sve reviewe
@@ -127,7 +127,7 @@ public class AdController {
 
 		List<Ad> listOfAgentsAds = listOfAgentsReviews.stream().map(Review::getAd).collect(Collectors.toList());
 		//uzimanje samo polja Ad iz prethodne liste i stavljanje ga u novu listu, listu Adova
-		List<Ad> listOfAds = AdService.findAll();
+		List<Ad> listOfAds = adService.findAll();
 		listOfAgentsAds.retainAll(listOfAds); //uzimanje objekta Ad u poredjenju dve liste gde koji su isti
 		//i sortirani su na nacin prve liste listOfAgentsAds
 
@@ -138,7 +138,7 @@ public class AdController {
 	@PostMapping(value="/statsSumReviews")
 	public List<Ad> statsSumReviews(@RequestBody Renter enteredAgent, @RequestBody Ad ad){
 
-		List<Ad> listOfAds = AdService.findAll();
+		List<Ad> listOfAds = adService.findAll();
 		List<Ad> listOfEnteredAgentAds = new ArrayList<Ad>();
 		for(Ad a : listOfAds) {
 			if(a.getUser() == enteredAgent) {
@@ -175,7 +175,7 @@ public class AdController {
 	public ResponseEntity<String> changeMileage(@RequestBody AdDTO adDto, @RequestBody int mileage){
 		Ad ad = adService.findById(adDto.getId());
 		ad.setMileage(mileage);
-		adRepository.save(ad);
+		adService.save(ad);
 
 		return new ResponseEntity<String>("",HttpStatus.OK);
 	}

@@ -31,12 +31,16 @@ public class ReservationController {
 	
 	@Autowired
 	private VehicleService vehicleService;
+	
 	@Autowired
 	private CartService cartService;
+	
 	@Autowired
 	private EndUserService endUserService;
+	
 	@Autowired
 	private RequestService requestService;
+	
 	
 	@GetMapping("/addToCart/{id}")
 	public ResponseEntity<CartDTO> addToCart(@PathVariable("id") Long id) {

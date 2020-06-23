@@ -26,10 +26,13 @@ public class VehicleController {
 
 	@Autowired
 	private VehicleService vehicleService;
+	
 	@Autowired
 	private CartService cartService;
+	
 	@Autowired
 	private EndUserService endUserService;
+	
 	@Autowired
 	private RequestService requestService;
 

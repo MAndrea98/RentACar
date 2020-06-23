@@ -22,7 +22,6 @@ public class UserModelService {
 		return userModelRepository.findByUsername(u);
 	}
 	
-
 	public UserModel save(UserModel u) {
 		return userModelRepository.save(u);
 	}

@@ -3,43 +3,74 @@ package com.example.demo.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 public class Vehicle {
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	private Byte[] image;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<VehicleImage> images = new ArrayList<VehicleImage>();
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Model model;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private GasType gasType;
 	
+	@Column(name="gearBox")
 	private String gearBox;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private VehicleClass vehicleClass;
 	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private PriceList price;
 	
+	@Column(name="mileage")
 	private int mileage;
 	
+	@Column(name="proposedMileage")
 	private int proposedMileage;
 	
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
 	private Renter owner;
 	
+	@Column(name="cdw")
 	private Boolean cdw;
 	
+	@Column(name="ChildSeatsNo")
 	private int childSeatsNo;
 	
+	@ManyToMany
+	@JoinTable(name = "vehicles_requests", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
 	private List<Request> requests = new ArrayList<Request>();
 	
 	public Vehicle() {
 		
 	}
 	
-	public Vehicle(Byte[] image, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
+	public Vehicle(List<VehicleImage> images, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
 			PriceList price, int mileage, int proposedMileage, Renter owner, Boolean cdw, int childSeatsNo) {
 		super();
-		this.image = image;
+		this.images = images;
 		this.model = model;
 		this.gasType = gasType;
 		this.gearBox = gearBox;
@@ -52,12 +83,28 @@ public class Vehicle {
 		this.childSeatsNo = childSeatsNo;
 	}
 
-	public Byte[] getImage() {
-		return image;
+	public Long getId() {
+		return id;
 	}
 
-	public void setImage(Byte[] image) {
-		this.image = image;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<VehicleImage> getImages() {
+		return images;
+	}
+
+	public void setImages(List<VehicleImage> images) {
+		this.images = images;
+	}
+
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
 	}
 
 	public Model getModel() {

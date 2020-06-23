@@ -10,13 +10,13 @@ import com.example.demo.repository.AdRepository;
 public class AdService {
 
 	@Autowired
-	AdRepository adRepository;
+	private AdRepository adRepository;
 
 	public Ad save(Ad ad) {
 		return adRepository.save(ad);
 	}
+	
 	public Ad findById(Long id) {
 		return adRepository.findById(id).orElse(null);
-
 	}
 }

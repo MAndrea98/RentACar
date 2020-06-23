@@ -15,7 +15,6 @@ public class EndUserService {
 	private EndUserRepostiory endUserRepository;
 	
 	public Optional<EndUser> findByIdUser(Long id) {
-		
 		return endUserRepository.findByIdUser(id);
 	}
 }

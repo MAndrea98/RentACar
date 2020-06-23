@@ -3,25 +3,49 @@ package com.example.demo.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 public class EndUser {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name="idUser", nullable = false, unique = true)
 	private Long idUser;
-
+		
+	@Column(name="name")
 	private String name;
 	
+	@Column(name="surname")
 	private String surname;
 	
-	private String address;	
+	@Column(name="address")
+	private String address;
 	
+	@Column(name="phone")
 	private String phone;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> reviews = new ArrayList<Review>();
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Ad> favorites = new ArrayList<Ad>();
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Request> requsets = new ArrayList<Request>();
 	
 	public EndUser() {

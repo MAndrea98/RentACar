@@ -12,13 +12,13 @@ import com.example.demo.repository.AdRepository;
 public class AdService {
 
 	@Autowired
-	private static AdRepository adRepository;
+	private AdRepository adRepository;
 
 	public Ad save(Ad ad) {
 		return adRepository.save(ad);
 	}
 
-	public static List<Ad> findAll(){
+	public List<Ad> findAll(){
 		return adRepository.findAll();
 	}
 }

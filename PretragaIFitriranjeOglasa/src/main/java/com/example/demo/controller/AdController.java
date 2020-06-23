@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +22,10 @@ import com.example.demo.service.RequestService;
 @RequestMapping(value="ad")
 public class AdController {
 
-
-
+	@Autowired
 	AdService adService;
+	
+	@Autowired
 	RequestService requestService;
 
 	@PostMapping(value="create")
@@ -51,7 +53,7 @@ public class AdController {
 	@PostMapping(value="/search")
 	public List<Ad> search(@RequestBody Search search){
 
-		List<Ad> listOfAds = AdService.findAll();
+		List<Ad> listOfAds = adService.findAll();
 		List<Ad> listOfFoundAds = new ArrayList<Ad>();
 		for(Ad a : listOfAds) {
 			if(a.getPlace() == search.getPlace() && search.getDateFrom().before(a.getDateFrom()) && a.getDateTo().before(search.getDateTo())) {

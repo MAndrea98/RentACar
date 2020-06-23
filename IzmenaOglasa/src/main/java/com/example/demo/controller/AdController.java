@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,8 +25,8 @@ import com.example.demo.service.AdService;
 @RequestMapping("/ad")
 public class AdController {
 
+	@Autowired
 	AdService adService;
-	AdRepository adRepository;
 
 	@PostMapping(value = "/new")
 	public ResponseEntity<String> createAd(@RequestBody Ad ad) {
@@ -67,7 +68,7 @@ public class AdController {
 	public ResponseEntity<String> changeMileage(@RequestBody AdDTO adDto, @RequestBody int mileage){
 		Ad ad = adService.findById(adDto.getId());
 		ad.setMileage(mileage);
-		adRepository.save(ad);
+		adService.save(ad);
 
 		return new ResponseEntity<String>("",HttpStatus.OK);
 	}
