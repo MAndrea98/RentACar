@@ -14,6 +14,7 @@ import com.example.demo.model.EndUser;
 import com.example.demo.model.Message;
 import com.example.demo.model.Renter;
 import com.example.demo.model.Request;
+import com.example.demo.model.RequestStatus;
 import com.example.demo.model.UserModel;
 import com.example.demo.service.EndUserService;
 import com.example.demo.service.MessageService;
@@ -57,8 +58,13 @@ public class MessageController {
 			}
 		}
 		
-		Request request = requestService.findByParameters(renter, endUser, "RESERVED");
-		if (request == null) {
+		List<Request> requests = requestService.findByParameters(endUser, RequestStatus.RESERVED);
+		Boolean found = false;
+		for (Request r : requests) {
+			if (r.getVehicles().get(0).getOwner().getId().equals(renter.getId()))
+				found = true;
+		}
+		if (!found) {
 			System.out.println("####2");
 			return new ResponseEntity<MessageDTO>(HttpStatus.BAD_REQUEST); 
 		}

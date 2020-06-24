@@ -8,11 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.demo.dto.MessageDTO;
 import com.example.demo.dto.ReviewDTO;
 import com.example.demo.model.EndUser;
 import com.example.demo.model.Renter;
 import com.example.demo.model.Report;
 import com.example.demo.model.Request;
+import com.example.demo.model.RequestStatus;
 import com.example.demo.model.Review;
 import com.example.demo.model.UserModel;
 import com.example.demo.service.EndUserService;
@@ -51,11 +53,17 @@ public class ReviewController {
 		UserModel endUserUser = userModelService.findByUsername(reviewDTO.getEndUserUsername());
 		Renter renter = renterService.findByIdUser(renterUser.getId());
 		EndUser endUser = endUserService.findByIdUser(endUserUser.getId());
-		Request request = requestService.findByParameters(renter, endUser, "ENDED");
-		if (request == null)
-			return new ResponseEntity<ReviewDTO>(HttpStatus.BAD_REQUEST);
+		Request request = requestService.findById(reviewDTO.getRequestID());
+		List<Request> requests = requestService.findByParameters(endUser, RequestStatus.ENDED);
+		Boolean found = false;
+		for (Request r : requests) {
+			if (r.getVehicles().get(0).getOwner().getId().equals(renter.getId()))
+				found = true;
+		}
+		if (!found) {
+			return new ResponseEntity<ReviewDTO>(HttpStatus.BAD_REQUEST); 
+		}
 		Review review = new Review();
-		review.setRenter(renter);
 		review.setEndUser(endUser);
 		review.setContent(reviewDTO.getContent());
 		review.setStars(reviewDTO.getStars());
@@ -70,18 +78,20 @@ public class ReviewController {
 	@GetMapping
 	public ResponseEntity<List<ReviewDTO>> getReview() {
 		//UserModel user = userModelService.findById(LogedUser.getInstance().getUserId());
+		
 		UserModel user = userModelService.findById(3L);
 		Renter renter = renterService.findByIdUser(user.getId());
 		if (renter == null)
 			return new ResponseEntity<List<ReviewDTO>>(HttpStatus.BAD_REQUEST);
-		System.out.println("##" + user.getUsername() + " " + renter.getReviews().size());
+		//System.out.println("##" + user.getUsername() + " " + renter.getReviews().size());
 		List<ReviewDTO> reviewDTOs = new ArrayList<ReviewDTO>();
-		for (Review r : renter.getReviews()) {
+		// TODO find error
+		/*for (Review r : renter.getReviews()) {
 			if (!r.isDeleted()) {
 				UserModel endUser = userModelService.findById(r.getEndUser().getIdUser());
 				reviewDTOs.add(new ReviewDTO(r, user.getUsername(), endUser.getUsername()));
 			}
-		}
+		}*/
 		return new ResponseEntity<List<ReviewDTO>>(reviewDTOs, HttpStatus.OK);
 	}
 	

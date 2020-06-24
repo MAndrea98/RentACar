@@ -26,7 +26,7 @@ import com.example.demo.service.AdService;
 public class AdController {
 
 	@Autowired
-	AdService adService;
+	private AdService adService;
 
 	@PostMapping(value = "/new")
 	public ResponseEntity<String> createAd(@RequestBody Ad ad) {

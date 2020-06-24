@@ -1,4 +1,4 @@
-insert into price_list (price_per_mile, cdw_price) values (1.0, 2.0); 
+/*insert into price_list (price_per_mile, cdw_price) values (1.0, 2.0); 
 insert into price_list (price_per_mile, cdw_price) values (3.0, 5.0); 
 
 insert into user_model (username, password, uloga) values ('maki', 'maki', 0);
@@ -16,7 +16,7 @@ insert into model (name, manufacturer_id) values ('Ford T', 1);
 insert into model (name, manufacturer_id) values ('Ford Fiesta', 1);
 insert into model (name, manufacturer_id) values ('Ford Ka', 1);
 
-insert into gas_type (name) values ('gas_type');
+insert into gas_type (name) values ('Benzin');
 
 insert into vehicle_class (name) values ('Vehicle class');
 
@@ -34,4 +34,12 @@ insert into request (renter_id, end_user_id, status) values (2, 1, 'ENDED');
 
 insert into review (end_user_id, renter_id, stars, content, accepted, deleted) values (1, 2, 5, 'Super', false, false);
 insert into review (end_user_id, renter_id, stars, content, accepted, deleted) values (1, 2, 3, 'OK', false, false);
+
+*/
+
+
+
+
+
+
 

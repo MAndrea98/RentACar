@@ -35,6 +35,7 @@ public class Company {
 	@JsonIgnore
 	@OneToMany(mappedBy="company",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Agent> agents = new ArrayList<Agent>();
+	
 	public Company() {
 		
 	}
