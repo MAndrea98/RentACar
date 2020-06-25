@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.model.Request;
 import com.example.demo.model.Review;
 import com.example.demo.model.UserModel;
 
@@ -10,6 +11,7 @@ public class ReviewDTO {
 	private String renterUsername;
 	private int stars;
 	private String content;
+	private Long requestID;
 	private Boolean accepted;
 	private Boolean deleted;
 	
@@ -18,19 +20,20 @@ public class ReviewDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReviewDTO(Long id, String endUserUsername, String renterUsername, int stars, String content, boolean accepted, boolean deleted) {
+	public ReviewDTO(Long id, String endUserUsername, String renterUsername, int stars, String content, Long requestID, boolean accepted, boolean deleted) {
 		super();
 		this.id = id;
 		this.endUserUsername = endUserUsername;
 		this.renterUsername = renterUsername;
 		this.stars = stars;
 		this.content = content;
+		this.requestID = requestID;
 		this.accepted = accepted;
 		this.deleted = deleted;
 	}
 	
-	public ReviewDTO(Review rev, UserModel endUser, UserModel renterUser) {
-		this(rev.getId(), endUser.getUsername(), renterUser.getUsername(), rev.getStars(), rev.getContent(), rev.isAccepted(), rev.getDeleted());
+	public ReviewDTO(Review rev, Request req, UserModel endUser, UserModel renterUser) {
+		this(rev.getId(), endUser.getUsername(), renterUser.getUsername(), rev.getStars(), rev.getContent(), req.getId(), rev.isAccepted(), rev.getDeleted());
 	}
 
 	public ReviewDTO(Review r) {
@@ -107,6 +110,32 @@ public class ReviewDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public Long getRequestID() {
+		return requestID;
+	}
+
+	public void setRequestID(Long requestID) {
+		this.requestID = requestID;
+	}
+
+	public Boolean getAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(Boolean accepted) {
+		this.accepted = accepted;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	
 
 	
 

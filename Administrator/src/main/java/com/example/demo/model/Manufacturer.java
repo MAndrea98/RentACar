@@ -9,7 +9,6 @@ import javax.persistence.Id;
 @Entity
 public class Manufacturer {
 	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

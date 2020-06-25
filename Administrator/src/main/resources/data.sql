@@ -1,4 +1,4 @@
-insert into manufacturer (name) values ('Toyota');
+/*insert into manufacturer (name) values ('Toyota');
 
 insert into model (name, manufacturer_id) values ('Yaris', 1);
 
@@ -16,3 +16,4 @@ insert into admin (user_id) values (4);
 
 insert into review (end_user_id, renter_id, stars, content, accepted, deleted) values (1, 2, 5, 'Super', false, false);
 insert into review (end_user_id, renter_id, stars, content, accepted, deleted) values (1, 2, 3, 'OK', false, false);
+*/

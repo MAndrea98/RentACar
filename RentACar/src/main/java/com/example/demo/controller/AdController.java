@@ -50,7 +50,7 @@ public class AdController {
 		newAd.setDate(ad.getDate());
 		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
 		
-		newAd.setUser(ad.getUser());
+		//newAd.setUser(ad.getUser());
 		newAd.setValidFrom(ad.getValidFrom());
 		newAd.setValidTru(ad.getValidTru());
 		newAd.setVehicle(ad.getVehicle());
@@ -101,7 +101,7 @@ public class AdController {
 		List<Ad> listOfAds = adService.findAll();
 		List<Ad> listOfEnteredAgentAds = new ArrayList<Ad>();
 		for(Ad a : listOfAds) {
-			if(a.getUser() == enteredAgent) {
+			if(a.getVehicle().getOwner() == enteredAgent) {
 				listOfEnteredAgentAds.add(a);
 			}
 		}
@@ -143,7 +143,7 @@ public class AdController {
 		List<Ad> listOfAds = adService.findAll();
 		List<Ad> listOfEnteredAgentAds = new ArrayList<Ad>();
 		for(Ad a : listOfAds) {
-			if(a.getUser() == enteredAgent) {
+			if(a.getVehicle().getOwner() == enteredAgent) {
 				listOfEnteredAgentAds.add(a);
 			}
 		}
@@ -160,7 +160,7 @@ public class AdController {
 
 		Ad newAd = new Ad();
 		newAd.setDate(ad.getDate());
-		newAd.setUser(ad.getUser());
+		//newAd.setUser(ad.getUser());
 		newAd.setValidFrom(ad.getValidFrom());
 		newAd.setValidTru(ad.getValidTru());
 		newAd.setVehicle(ad.getVehicle());

@@ -65,8 +65,6 @@ public class EndUser {
 		this.favorites = favorites;
 		this.requsets = requsets;
 	}
-	
-	
 
 	public Long getId() {
 		return id;

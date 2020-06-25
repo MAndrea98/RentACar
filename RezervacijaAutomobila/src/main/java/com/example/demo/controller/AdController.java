@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Ad;
 import com.example.demo.model.Request;
+import com.example.demo.model.RequestStatus;
 import com.example.demo.model.Vehicle;
 import com.example.demo.service.AdService;
 import com.example.demo.service.RequestService;
@@ -37,10 +37,11 @@ public class AdController {
 
 		Ad newAd = new Ad();
 		newAd.setDate(ad.getDate());
-		HashMap<Calendar,Boolean> newFree = (HashMap<Calendar, Boolean>) ad.getFree();
+		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
+		/*HashMap<Calendar,Boolean> newFree = (HashMap<Calendar, Boolean>) ad.getFree();
 		newAd.setFree(newFree);
 		newAd.setMileage(ad.getMileage());
-		newAd.setUser(ad.getUser());
+		newAd.setUser(ad.getUser());*/
 		newAd.setValidFrom(ad.getValidFrom());
 		newAd.setValidTru(ad.getValidTru());
 		newAd.setVehicle(ad.getVehicle());
@@ -56,14 +57,15 @@ public class AdController {
 		calendar.setTime(dateFrom);
 		calendar.setTime(dateTo);
 
-		ad.getFree().put(calendar, false);
+		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
+		//ad.getFree().put(calendar, false);
 
 		Vehicle vehicle = ad.getVehicle();
 		List<Request> list = requestService.findAll();
 		for(Request r : list) {
 			for(Vehicle v : r.getVehicles()) {
-				if(v.getId() == vehicle.getId() && r.getStatus() == "PENDING") {
-					r.setStatus("CANCELED");
+				if(v.getId() == vehicle.getId() && r.getStatus() == RequestStatus.PENDING) {
+					r.setStatus(RequestStatus.CANCELED);
 				}
 			}
 		}

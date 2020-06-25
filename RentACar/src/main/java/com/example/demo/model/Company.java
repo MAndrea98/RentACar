@@ -47,6 +47,14 @@ public class Company {
 		this.agents = agents;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Renter getRenter() {
 		return renter;
 	}

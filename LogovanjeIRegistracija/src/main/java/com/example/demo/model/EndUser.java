@@ -1,17 +1,31 @@
 package com.example.demo.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class EndUser {
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	@Column(name="idUser", nullable = false, unique = true)
 	private Long idUser;
-
+		
+	@Column(name="name")
 	private String name;
-
+	
+	@Column(name="surname")
 	private String surname;
-
+	
+	@Column(name="address")
 	private String address;
-
+	
+	@Column(name="phone")
 	private String phone;
 
 	public EndUser() {

@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,7 +42,7 @@ public class EndUser {
 	private List<Review> reviews = new ArrayList<Review>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany
 	private List<Ad> favorites = new ArrayList<Ad>();
 	
 	@JsonIgnore

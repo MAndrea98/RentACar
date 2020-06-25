@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -22,12 +21,6 @@ public class Ad {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Renter renter;
-
-	@ManyToMany
-	private List<EndUser> favoriteFor;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	private Vehicle vehicle;
@@ -56,14 +49,16 @@ public class Ad {
 	@Column(name="number_of_reviews")
 	private int numberOfReviews = listOfReviews.size();
 
+	@ManyToMany
+	private List<EndUser> favoriteFor;
+	
 	public Ad() {
 
 	}
 
-	public Ad(Renter renter, Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom, 
+	public Ad(Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom, 
 			Calendar dateFrom, Calendar dateTo) {
 		super();
-		this.renter = renter;
 		this.vehicle = vehicle;
 		this.place = place;
 		this.date = date;
@@ -89,12 +84,7 @@ public class Ad {
 		this.listOfReviews = listOfReviews;
 	}
 
-	public Renter getUser() {
-		return renter;
-	}
-	public void setUser(Renter renter) {
-		this.renter = renter;
-	}
+	
 	public Vehicle getVehicle() {
 		return vehicle;
 	}
@@ -141,21 +131,13 @@ public class Ad {
 	public void setValidFrom(Calendar validFrom) {
 		this.validFrom = validFrom;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Renter getRenter() {
-		return renter;
-	}
-
-	public void setRenter(Renter renter) {
-		this.renter = renter;
 	}
 
 	public List<EndUser> getFavoriteFor() {

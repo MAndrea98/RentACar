@@ -19,6 +19,7 @@ import com.example.demo.dto.VehicleDTO;
 import com.example.demo.model.Cart;
 import com.example.demo.model.EndUser;
 import com.example.demo.model.Request;
+import com.example.demo.model.RequestStatus;
 import com.example.demo.model.Vehicle;
 import com.example.demo.service.CartService;
 import com.example.demo.service.EndUserService;
@@ -66,7 +67,7 @@ public class ReservationController {
 		List<Vehicle> vehicles = new ArrayList<Vehicle>();
 		Vehicle v = vehicleService.findById(vehicleDTO.getId());
 		vehicles.add(v);
-		Request request = new Request(vehicles, "PENDING", vehicles.get(0).getOwner(), endUser);
+		Request request = new Request(vehicles, RequestStatus.PENDING, endUser);
 		requestService.save(request);
 		return new ResponseEntity<String>("The request has been successfully sent.", HttpStatus.OK);
 	}
@@ -87,7 +88,7 @@ public class ReservationController {
 			}
 			vehicles.add(v);
 		}
-		Request request = new Request(vehicles, "PENDING", vehicles.get(0).getOwner(), endUser);
+		Request request = new Request(vehicles, RequestStatus.PENDING, endUser);
 		requestService.save(request);
 		return new ResponseEntity<String>("The requests have been successfully sent.", HttpStatus.OK);
 	}

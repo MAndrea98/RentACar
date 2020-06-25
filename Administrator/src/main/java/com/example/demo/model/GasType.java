@@ -8,6 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 public class GasType {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -36,11 +37,9 @@ public class GasType {
 		this.name = name;
 	}
 
-
 	public Long getId() {
 		return id;
 	}
-
 
 	public void setId(Long id) {
 		this.id = id;

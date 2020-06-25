@@ -1,5 +1,5 @@
 package com.example.demo.model;
 
 public enum UserType {
-	ENDUSER, RENTER, ADMIN
+	END_USER, RENTER, COMPANY, ADMIN, AGENT, NOT_ACTIVE, BLOCKED, REMOVED
 }

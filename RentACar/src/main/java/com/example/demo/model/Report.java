@@ -30,6 +30,14 @@ public class Report {
 		this.review = review;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Request getRequest() {
 		return request;
 	}

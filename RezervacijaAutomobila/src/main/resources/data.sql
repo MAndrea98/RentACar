@@ -1,4 +1,4 @@
-insert into price_list (price_per_mile, cdw_price) values (1.0, 2.0); 
+/*insert into price_list (price_per_mile, cdw_price) values (1.0, 2.0); 
 insert into price_list (price_per_mile, cdw_price) values (3.0, 5.0); 
 
 insert into user_model (username, password, uloga) values ('maki', 'maki', 0);
@@ -26,3 +26,4 @@ insert into vehicle (model_id, gas_type_id, gear_box, vehicle_class_id, mileage,
 insert into vehicle (model_id, gas_type_id, gear_box, vehicle_class_id, mileage, proposed_mileage, owner_id, cdw, child_seats_no) values  (1, 1, '4', 1, 1, 100000, 2, true, 4);
 
 insert into cart (end_user_id) values (1);
+*/

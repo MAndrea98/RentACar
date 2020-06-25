@@ -17,6 +17,9 @@ public class PriceList {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Vehicle vehicle;
+	
 	@Column(name="dateFrom", nullable = false)
 	private Calendar dateFrom;
 
@@ -29,8 +32,6 @@ public class PriceList {
 	@Column(name="cdwPrice")
 	private double cdwPrice;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Vehicle vehicle;
 	
 	public PriceList() {
 		

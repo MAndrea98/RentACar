@@ -21,9 +21,6 @@ public class Review {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private EndUser endUser;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Renter renter;
-
 	@Column(name="stars")
 	private int stars;
 
@@ -62,14 +59,6 @@ public class Review {
 
 	public void setAd(Ad ad) {
 		this.ad = ad;
-	}
-
-	public Renter getRenter() {
-		return renter;
-	}
-
-	public void setRenter(Renter renter) {
-		this.renter = renter;
 	}
 
 	public boolean isAccepted() {

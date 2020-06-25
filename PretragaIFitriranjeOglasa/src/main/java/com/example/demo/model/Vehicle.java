@@ -1,7 +1,9 @@
 package com.example.demo.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,6 +31,9 @@ public class Vehicle {
 	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<VehicleImage> images = new ArrayList<VehicleImage>();
 	
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+	private Renter owner;
+	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Model model;
 	
@@ -41,17 +46,11 @@ public class Vehicle {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private VehicleClass vehicleClass;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private PriceList price;
-	
 	@Column(name="mileage")
 	private int mileage;
 	
 	@Column(name="proposedMileage")
 	private int proposedMileage;
-	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
-	private Renter owner;
 	
 	@Column(name="cdw")
 	private Boolean cdw;
@@ -59,28 +58,41 @@ public class Vehicle {
 	@Column(name="ChildSeatsNo")
 	private int childSeatsNo;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<VehicleFree> vehicleFree = new HashSet<VehicleFree>();
+	
 	@ManyToMany
 	@JoinTable(name = "vehicles_requests", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
 	private List<Request> requests = new ArrayList<Request>();
 	
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<PriceList> priceList = new HashSet<PriceList>();
+	
 	public Vehicle() {
 		
 	}
-	
-	public Vehicle(List<VehicleImage> images, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
-			PriceList price, int mileage, int proposedMileage, Renter owner, Boolean cdw, int childSeatsNo) {
+
+	public Vehicle(Long id, List<VehicleImage> images, Renter owner, Model model, GasType gasType, String gearBox,
+			VehicleClass vehicleClass, int mileage, int proposedMileage, Boolean cdw, int childSeatsNo,
+			Set<VehicleFree> vehicleFree, List<Request> requests, Set<PriceList> priceList) {
 		super();
+		this.id = id;
 		this.images = images;
+		this.owner = owner;
 		this.model = model;
 		this.gasType = gasType;
 		this.gearBox = gearBox;
 		this.vehicleClass = vehicleClass;
-		this.price = price;
 		this.mileage = mileage;
 		this.proposedMileage = proposedMileage;
-		this.owner = owner;
 		this.cdw = cdw;
 		this.childSeatsNo = childSeatsNo;
+		this.vehicleFree = vehicleFree;
+		this.requests = requests;
+		this.priceList = priceList;
 	}
 
 	public Long getId() {
@@ -99,12 +111,12 @@ public class Vehicle {
 		this.images = images;
 	}
 
-	public List<Request> getRequests() {
-		return requests;
+	public Renter getOwner() {
+		return owner;
 	}
 
-	public void setRequests(List<Request> requests) {
-		this.requests = requests;
+	public void setOwner(Renter owner) {
+		this.owner = owner;
 	}
 
 	public Model getModel() {
@@ -139,14 +151,6 @@ public class Vehicle {
 		this.vehicleClass = vehicleClass;
 	}
 
-	public PriceList getPrice() {
-		return price;
-	}
-
-	public void setPrice(PriceList price) {
-		this.price = price;
-	}
-
 	public int getMileage() {
 		return mileage;
 	}
@@ -161,14 +165,6 @@ public class Vehicle {
 
 	public void setProposedMileage(int proposedMileage) {
 		this.proposedMileage = proposedMileage;
-	}
-
-	public Renter getOwner() {
-		return owner;
-	}
-
-	public void setOwner(Renter owner) {
-		this.owner = owner;
 	}
 
 	public Boolean getCdw() {
@@ -186,6 +182,31 @@ public class Vehicle {
 	public void setChildSeatsNo(int childSeatsNo) {
 		this.childSeatsNo = childSeatsNo;
 	}
+
+	public Set<VehicleFree> getVehicleFree() {
+		return vehicleFree;
+	}
+
+	public void setVehicleFree(Set<VehicleFree> vehicleFree) {
+		this.vehicleFree = vehicleFree;
+	}
+
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
+	}
+
+	public Set<PriceList> getPriceList() {
+		return priceList;
+	}
+
+	public void setPriceList(Set<PriceList> priceList) {
+		this.priceList = priceList;
+	}
+	
 	
 	
 }

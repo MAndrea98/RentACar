@@ -1,27 +1,21 @@
 package com.example.demo.endpoint;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import com.example.demo.dto.MessageDTO;
 import com.example.demo.model.EndUser;
+import com.example.demo.model.Message;
 import com.example.demo.model.Renter;
-import com.example.demo.model.Request;
 import com.example.demo.model.UserModel;
 import com.example.demo.model.UserType;
-import com.example.demo.model.Message;
 import com.example.demo.service.EndUserService;
 import com.example.demo.service.MessageService;
 import com.example.demo.service.RenterService;
@@ -33,9 +27,9 @@ import localhost._8089.api.razmenaporuka.DeleteMessageResponse;
 import localhost._8089.api.razmenaporuka.EditMessageRequest;
 import localhost._8089.api.razmenaporuka.EditMessageResponse;
 import localhost._8089.api.razmenaporuka.GetAllMessageResponse;
+import localhost._8089.api.razmenaporuka.MessageXML;
 import localhost._8089.api.razmenaporuka.SendMessageRequest;
 import localhost._8089.api.razmenaporuka.SendMessageResponse;
-import localhost._8089.api.razmenaporuka.MessageXML;
 import localhost._8089.api.razmenaporuka.UserModelXML;
 import localhost._8089.api.razmenaporuka.UserTypeXML;
 
@@ -189,7 +183,7 @@ public class MessageEndpoint {
 
 		if (uloga == UserType.ADMIN) {
 			ulogaXML = UserTypeXML.ADMIN;
-		} else if (uloga == UserType.ENDUSER) {
+		} else if (uloga == UserType.END_USER) {
 			ulogaXML = UserTypeXML.ENDUSER;
 		} else if (uloga == UserType.RENTER) {
 			ulogaXML = UserTypeXML.RENTER;

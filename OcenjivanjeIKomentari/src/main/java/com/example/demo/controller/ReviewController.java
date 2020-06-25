@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import com.example.demo.model.EndUser;
 import com.example.demo.model.Renter;
 import com.example.demo.model.Report;
 import com.example.demo.model.Request;
+import com.example.demo.model.RequestStatus;
 import com.example.demo.model.Review;
 import com.example.demo.model.UserModel;
 import com.example.demo.service.EndUserService;
@@ -51,13 +54,13 @@ public class ReviewController {
 	public ResponseEntity<ReviewDTO> createReview(@RequestBody ReviewDTO reviewDTO) {
 		UserModel renterUser = userModelService.findByUsername(reviewDTO.getRenterUsername());
 		UserModel endUserUser = userModelService.findByUsername(reviewDTO.getEndUserUsername());
-		Renter renter = renterService.findByUserId(renterUser.getId());
 		EndUser endUser = endUserService.findByUserId(endUserUser.getId());
-		Request request = requestService.findByParameters(renter, endUser, "ENDED");
-		if (request == null)
+		Request request = requestService.findById(reviewDTO.getRequestID());
+		
+		if (!request.getStatus().equals(RequestStatus.ENDED))
 			return new ResponseEntity<ReviewDTO>(HttpStatus.BAD_REQUEST);
+		
 		Review review = new Review();
-		review.setRenter(renter);
 		review.setEndUser(endUser);
 		review.setContent(reviewDTO.getContent());
 		review.setStars(reviewDTO.getStars());
@@ -66,7 +69,7 @@ public class ReviewController {
 		Report report = new Report(request, review);
 		reportService.save(report);
 		
-		return new ResponseEntity<ReviewDTO>(new ReviewDTO(r, endUserUser, renterUser),HttpStatus.OK);
+		return new ResponseEntity<ReviewDTO>(new ReviewDTO(r, request, endUserUser, renterUser),HttpStatus.OK);
 	}
 	
 	@PutMapping

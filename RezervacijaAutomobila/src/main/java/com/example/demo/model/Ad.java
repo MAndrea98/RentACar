@@ -1,19 +1,15 @@
 package com.example.demo.model;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.MapKeyColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -22,12 +18,6 @@ public class Ad {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@OneToOne(fetch = FetchType.EAGER)
-	private Renter renter;
-
-	@OneToOne(fetch = FetchType.EAGER)
-	private EndUser endUser;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	private Vehicle vehicle;
@@ -50,23 +40,18 @@ public class Ad {
 	@Column(name="dateTo", nullable = false)
 	private Calendar dateTo;
 
-	@ElementCollection
-	@JoinTable(name="free", joinColumns=@JoinColumn(name="Id"))
-	@MapKeyColumn (name="free_Id")
-	@Column(name="value")
-	private Map<Calendar, Boolean> free = new HashMap<Calendar, Boolean>();
-
-	@Column(name="mileage")
-	private int mileage;
+	@ManyToMany
+	private List<EndUser> favoriteFor;
 
 	public Ad() {
 
 	}
 
-	public Ad(Renter renter, Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom, Calendar dateFrom, Calendar dateTo,
-			HashMap<Calendar, Boolean> free, int mileage) {
+	public Ad(Long id, Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom,
+			Calendar dateFrom, Calendar dateTo,
+			List<EndUser> favoriteFor) {
 		super();
-		this.renter = renter;
+		this.id = id;
 		this.vehicle = vehicle;
 		this.place = place;
 		this.date = date;
@@ -74,18 +59,57 @@ public class Ad {
 		this.validFrom = validFrom;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
-		this.free = free;
-		this.mileage = mileage;
+		this.favoriteFor = favoriteFor;
 	}
-	public Renter getUser() {
-		return renter;
+
+	public Long getId() {
+		return id;
 	}
-	public void setUser(Renter renter) {
-		this.renter = renter;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
+
 	public Vehicle getVehicle() {
 		return vehicle;
 	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public Calendar getDate() {
+		return date;
+	}
+
+	public void setDate(Calendar date) {
+		this.date = date;
+	}
+
+	public Calendar getValidTru() {
+		return validTru;
+	}
+
+	public void setValidTru(Calendar validTru) {
+		this.validTru = validTru;
+	}
+
+	public Calendar getValidFrom() {
+		return validFrom;
+	}
+
+	public void setValidFrom(Calendar validFrom) {
+		this.validFrom = validFrom;
+	}
+
 	public Calendar getDateFrom() {
 		return dateFrom;
 	}
@@ -102,46 +126,13 @@ public class Ad {
 		this.dateTo = dateTo;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public List<EndUser> getFavoriteFor() {
+		return favoriteFor;
 	}
-	public String getPlace() {
-		return place;
-	}
-	public void setPlace(String place) {
-		this.place = place;
-	}
-	public Calendar getDate() {
-		return date;
-	}
-	public void setDate(Calendar date) {
-		this.date = date;
-	}
-	public Calendar getValidTru() {
-		return validTru;
-	}
-	public void setValidTru(Calendar validTru) {
-		this.validTru = validTru;
-	}
-	public Calendar getValidFrom() {
-		return validFrom;
-	}
-	public void setValidFrom(Calendar validFrom) {
-		this.validFrom = validFrom;
-	}
-	public Map<Calendar, Boolean> getFree() {
-		return free;
-	}
-	public void setFree(HashMap<Calendar, Boolean> free) {
-		this.free = free;
-	}
-	public int getMileage() {
-		return mileage;
-	}
-	public void setMileage(int mileage) {
-		this.mileage = mileage;
+
+	public void setFavoriteFor(List<EndUser> favoriteFor) {
+		this.favoriteFor = favoriteFor;
 	}
 
 	
-
 }

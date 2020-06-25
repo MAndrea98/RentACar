@@ -21,6 +21,14 @@ public class Admin {
 		
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Admin(UserModel user) {
 		super();
 		this.user = user;

@@ -19,8 +19,15 @@ public class GasType {
 	public GasType() {
 		
 	}
-
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public GasType(String name) {
 		super();
 		this.name = name;
