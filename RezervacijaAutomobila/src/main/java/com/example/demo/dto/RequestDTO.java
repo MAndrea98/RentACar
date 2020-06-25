@@ -4,34 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.model.EndUser;
-import com.example.demo.model.Renter;
 import com.example.demo.model.Request;
+import com.example.demo.model.RequestStatus;
 import com.example.demo.model.Vehicle;
 
 public class RequestDTO {
 	
 	private Long id;
-	private Renter renter;
 	private EndUser endUser;
 	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
-	private String status;
+	private RequestStatus status;
 	
 	public RequestDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public RequestDTO(Long id, Renter renter, EndUser endUser, List<Vehicle> vehicles, String status) {
+	public RequestDTO(Long id, EndUser endUser, List<Vehicle> vehicles, RequestStatus status) {
 		super();
 		this.id = id;
-		this.renter = renter;
 		this.endUser = endUser;
 		this.vehicles = vehicles;
 		this.status = status;
 	}
 	
 	public RequestDTO(Request r) {
-		this(r.getId(), r.getRenter(), r.getEndUser(), r.getVehicles(), r.getStatus());
+		this(r.getId(), r.getEndUser(), r.getVehicles(), r.getStatus());
 	}
 
 	public Long getId() {
@@ -42,13 +40,6 @@ public class RequestDTO {
 		this.id = id;
 	}
 
-	public Renter getRenter() {
-		return renter;
-	}
-
-	public void setRenter(Renter renter) {
-		this.renter = renter;
-	}
 
 	public EndUser getEndUser() {
 		return endUser;
@@ -66,13 +57,12 @@ public class RequestDTO {
 		this.vehicles = vehicles;
 	}
 
-	public String getStatus() {
+	public RequestStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(RequestStatus status) {
 		this.status = status;
 	}
-	
 	
 }

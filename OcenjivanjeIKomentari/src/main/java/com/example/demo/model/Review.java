@@ -17,10 +17,7 @@ public class Review {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private EndUser endUser;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Renter renter;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Ad ad;
 	
@@ -56,14 +53,6 @@ public class Review {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Renter getRenter() {
-		return renter;
-	}
-
-	public void setRenter(Renter renter) {
-		this.renter = renter;
 	}
 
 	public boolean isAccepted() {

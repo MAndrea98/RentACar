@@ -1,45 +1,66 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+@Entity
 public class Ad {
 
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Renter renter;
-
-	private EndUser endUser;
-
+	@OneToOne(fetch = FetchType.EAGER)
 	private Vehicle vehicle;
 
+	@Column(name="place")
 	private String place;
 
+	@Column(name="date", nullable = false)
 	private Calendar date;
 
+	@Column(name="validTru", nullable = false)
 	private Calendar validTru;
 
+	@Column(name="validFrom", nullable = false)
 	private Calendar validFrom;
 
+	@Column(name="dateFrom", nullable = false)
 	private Calendar dateFrom;
 
+	@Column(name="dateTo", nullable = false)
 	private Calendar dateTo;
 
-	private Map<Calendar, Boolean> free = new HashMap<Calendar, Boolean>();
+	@OneToMany(mappedBy="ad", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Review> listOfReviews = new ArrayList<Review>();
 
-	private int mileage;
+	@Column(name="number_of_reviews")
+	private int numberOfReviews = listOfReviews.size();
+
+	@ManyToMany
+	private List<EndUser> favoriteFor;
 
 	public Ad() {
 
 	}
 
-	public Ad(Renter renter, Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom,
-			Calendar dateFrom, Calendar dateTo, HashMap<Calendar, Boolean> free, int mileage) {
+	public Ad(Long id, Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom,
+			Calendar dateFrom, Calendar dateTo, List<Review> listOfReviews, int numberOfReviews,
+			List<EndUser> favoriteFor) {
 		super();
-		this.renter = renter;
+		this.id = id;
 		this.vehicle = vehicle;
 		this.place = place;
 		this.date = date;
@@ -47,15 +68,57 @@ public class Ad {
 		this.validFrom = validFrom;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
-		this.free = free;
-		this.mileage = mileage;
+		this.listOfReviews = listOfReviews;
+		this.numberOfReviews = numberOfReviews;
+		this.favoriteFor = favoriteFor;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
 	public String getPlace() {
 		return place;
 	}
 
 	public void setPlace(String place) {
 		this.place = place;
+	}
+
+	public Calendar getDate() {
+		return date;
+	}
+
+	public void setDate(Calendar date) {
+		this.date = date;
+	}
+
+	public Calendar getValidTru() {
+		return validTru;
+	}
+
+	public void setValidTru(Calendar validTru) {
+		this.validTru = validTru;
+	}
+
+	public Calendar getValidFrom() {
+		return validFrom;
+	}
+
+	public void setValidFrom(Calendar validFrom) {
+		this.validFrom = validFrom;
 	}
 
 	public Calendar getDateFrom() {
@@ -74,48 +137,31 @@ public class Ad {
 		this.dateTo = dateTo;
 	}
 
-	public Renter getUser() {
-		return renter;
+	public List<Review> getListOfReviews() {
+		return listOfReviews;
 	}
-	public void setUser(Renter renter) {
-		this.renter = renter;
+
+	public void setListOfReviews(List<Review> listOfReviews) {
+		this.listOfReviews = listOfReviews;
 	}
-	public Vehicle getVehicle() {
-		return vehicle;
+
+	public int getNumberOfReviews() {
+		return numberOfReviews;
 	}
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+
+	public void setNumberOfReviews(int numberOfReviews) {
+		this.numberOfReviews = numberOfReviews;
 	}
-	public Calendar getDate() {
-		return date;
+
+	public List<EndUser> getFavoriteFor() {
+		return favoriteFor;
 	}
-	public void setDate(Calendar date) {
-		this.date = date;
+
+	public void setFavoriteFor(List<EndUser> favoriteFor) {
+		this.favoriteFor = favoriteFor;
 	}
-	public Calendar getValidTru() {
-		return validTru;
-	}
-	public void setValidTru(Calendar validTru) {
-		this.validTru = validTru;
-	}
-	public Calendar getValidFrom() {
-		return validFrom;
-	}
-	public void setValidFrom(Calendar validFrom) {
-		this.validFrom = validFrom;
-	}
-	public Map<Calendar, Boolean> getFree() {
-		return free;
-	}
-	public void setFree(HashMap<Calendar, Boolean> free) {
-		this.free = free;
-	}
-	public int getMileage() {
-		return mileage;
-	}
-	public void setMileage(int mileage) {
-		this.mileage = mileage;
-	}
+
+	
 
 
 }

@@ -1,44 +1,82 @@
 package com.example.demo.model;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class PriceList {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Vehicle vehicle;
+	
+	@Column(name="dateFrom", nullable = false)
+	private Calendar dateFrom;
 
-	private Map<Calendar, Double> datesPrice = new HashMap<Calendar, Double>();
-	private Map<Calendar, Double> discount = new HashMap<Calendar, Double>();
+	@Column(name="dateTo", nullable = false)
+	private Calendar dateTo;
+	
+	@Column(name="pricePerMile")
 	private double pricePerMile;
+	
+	@Column(name="cdwPrice")
 	private double cdwPrice;
 
 	public PriceList() {
 
 	}
 
-	public PriceList(HashMap<Calendar, Double> datesPrice, HashMap<Calendar, Double> discount, double pricePerMile,
+	public PriceList(Long id, Vehicle vehicle, Calendar dateFrom, Calendar dateTo, double pricePerMile,
 			double cdwPrice) {
 		super();
-		this.datesPrice = datesPrice;
-		this.discount = discount;
+		this.id = id;
+		this.vehicle = vehicle;
+		this.dateFrom = dateFrom;
+		this.dateTo = dateTo;
 		this.pricePerMile = pricePerMile;
 		this.cdwPrice = cdwPrice;
 	}
 
-	public Map<Calendar, Double> getDatesPrice() {
-		return datesPrice;
+	public Long getId() {
+		return id;
 	}
 
-	public void setDatesPrice(HashMap<Calendar, Double> datesPrice) {
-		this.datesPrice = datesPrice;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Map<Calendar, Double> getDiscount() {
-		return discount;
+	public Vehicle getVehicle() {
+		return vehicle;
 	}
 
-	public void setDiscount(HashMap<Calendar, Double> discount) {
-		this.discount = discount;
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public Calendar getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(Calendar dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public Calendar getDateTo() {
+		return dateTo;
+	}
+
+	public void setDateTo(Calendar dateTo) {
+		this.dateTo = dateTo;
 	}
 
 	public double getPricePerMile() {
@@ -56,6 +94,8 @@ public class PriceList {
 	public void setCdwPrice(double cdwPrice) {
 		this.cdwPrice = cdwPrice;
 	}
+
+	
 
 
 }

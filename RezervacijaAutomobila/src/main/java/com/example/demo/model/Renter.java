@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,35 +27,16 @@ public class Renter {
 	@JsonIgnore
 	@OneToMany(mappedBy="owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
-	
-	@OneToOne(fetch = FetchType.LAZY)
-	private PriceList priceList;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="renter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Ad> ads = new ArrayList<Ad>();
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="renter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Request> ordered = new ArrayList<Request>();
 
 	public Renter() {
 
 	}
 
-	public Renter(UserModel user, PriceList priceList, List<Ad> ads, List<Request> ordered) {
+	public Renter(Long id, Long idUser, List<Vehicle> vehicles) {
 		super();
-		this.priceList = priceList;
-		this.ads = ads;
-		this.ordered = ordered;
-	}
-
-	public Long getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(Long idUser) {
+		this.id = id;
 		this.idUser = idUser;
+		this.vehicles = vehicles;
 	}
 
 	public Long getId() {
@@ -67,6 +47,14 @@ public class Renter {
 		this.id = id;
 	}
 
+	public Long getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
+	}
+
 	public List<Vehicle> getVehicles() {
 		return vehicles;
 	}
@@ -75,28 +63,6 @@ public class Renter {
 		this.vehicles = vehicles;
 	}
 
-	public PriceList getPriceListId() {
-		return priceList;
-	}
-
-	public void setPriceListId(PriceList priceList) {
-		this.priceList = priceList;
-	}
-
-	public List<Ad> getAds() {
-		return ads;
-	}
-
-	public void setAds(List<Ad> ads) {
-		this.ads = ads;
-	}
-
-	public List<Request> getOrdered() {
-		return ordered;
-	}
-
-	public void setOrdered(List<Request> ordered) {
-		this.ordered = ordered;
-	}
+	
 
 }

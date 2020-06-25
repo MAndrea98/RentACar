@@ -1,4 +1,4 @@
-insert into user_model (username, password, uloga) values ('pera', 'pera', 0);
+/*insert into user_model (username, password, uloga) values ('pera', 'pera', 0);
 insert into user_model (username, password, uloga) values ('renter', 'renter', 1);
 insert into user_model (username, password, uloga) values ('admin', 'admin', 2);
 
@@ -15,3 +15,4 @@ insert into request (renter_id, end_user_id, status) values (1, 1, 'ENDED');
 
 insert into review (end_user_id, renter_id, stars, content, accepted, deleted, ad_id) values (1, 2, 5, 'Super', false, false, 1);
 insert into review (end_user_id, renter_id, stars, content, accepted, deleted, ad_id) values (1, 2, 3, 'OK', false, false, 1);
+*/

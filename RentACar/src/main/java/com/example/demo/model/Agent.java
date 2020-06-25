@@ -20,16 +20,16 @@ public class Agent {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Renter renter;
 	
-	@Column(name="name",nullable = false)
+	@Column(name="name", nullable = false)
 	private String name;
 	
-	@Column(name="surname",nullable = false)
+	@Column(name="surname", nullable = false)
 	private String surname;
 	
-	@Column(name="address",nullable = false)
+	@Column(name="address", nullable = false)
 	private String address;
 	
-	@Column(name="phone",nullable = false)
+	@Column(name="phone", nullable = false)
 	private String phone;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -46,6 +46,14 @@ public class Agent {
 		this.surname = surname;
 		this.address = address;
 		this.phone = phone;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Renter getRenter() {

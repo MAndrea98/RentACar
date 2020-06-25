@@ -1,5 +1,7 @@
 package com.example.demo.endpoint;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import com.example.demo.model.EndUser;
 import com.example.demo.model.Renter;
 import com.example.demo.model.Report;
 import com.example.demo.model.Request;
+import com.example.demo.model.RequestStatus;
 import com.example.demo.model.Review;
 import com.example.demo.model.UserModel;
 import com.example.demo.service.EndUserService;
@@ -66,26 +69,31 @@ public class ReviewEndpoint {
 		
 
 		System.out.println(renter.getId() + " " + endUser.getIdUser());
-		Request request = requestService.findByParameters(renter, endUser, "ENDED");
+		// TODO promenjen findByParameters u List, i renter je izbacen napolje trebalo bi nekako promeniti
+		// Pogledaj kako sam ja u reviewController
+		
+		/*Request request = requestService.findById(reviewDTO.getRequestID());
+		
+		if (!request.getStatus().equals(RequestStatus.ENDED))
+			return null;
 		// TODO namestiti findByParameters da ne vraca null
 		
-		  if (request == null) {
-			  System.out.println("REQUEST IS NULL");
-			  return null; 
-			  
-		  }
-		 
+		if (request == null) {
+		  System.out.println("REQUEST IS NULL");
+		  return null; 
+		}
+		 */
 		Review review = new Review();
-		review.setRenter(renter);
 		review.setEndUser(endUser);
 		review.setContent(reviewDTO.getReview().getContent());
 		review.setStars(reviewDTO.getReview().getStars());
 		reviewService.save(review);
-		
+		/*
 		Report report = new Report(request, review);
 		reportService.save(report);
 		
 		response.setReview(reviewDTO.getReview());
+		*/
 		return response;
 		
 	}

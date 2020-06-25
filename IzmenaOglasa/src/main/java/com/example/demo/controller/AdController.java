@@ -1,10 +1,9 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,15 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.AdDTO;
 import com.example.demo.model.Ad;
-import com.example.demo.repository.AdRepository;
 import com.example.demo.service.AdService;
 
 @RestController
 @RequestMapping("/ad")
 public class AdController {
 
-	AdService adService;
-	AdRepository adRepository;
+	@Autowired
+	private AdService adService;
 
 	@PostMapping(value = "/new")
 	public ResponseEntity<String> createAd(@RequestBody Ad ad) {
@@ -35,10 +33,11 @@ public class AdController {
 
 		Ad newAd = new Ad();
 		newAd.setDate(ad.getDate());
-		HashMap<Calendar,Boolean> newFree = (HashMap<Calendar, Boolean>) ad.getFree();
+		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
+		/*HashMap<Calendar,Boolean> newFree = (HashMap<Calendar, Boolean>) ad.getFree();
 		newAd.setFree(newFree);
 		newAd.setMileage(ad.getMileage());
-		newAd.setUser(ad.getUser());
+		newAd.setUser(ad.getUser());*/
 		newAd.setValidFrom(ad.getValidFrom());
 		newAd.setValidTru(ad.getValidTru());
 		newAd.setVehicle(ad.getVehicle());
@@ -64,10 +63,11 @@ public class AdController {
 	}
 
 	@PostMapping(value="/changeMileage")
-	public ResponseEntity<String> changeMileage(@RequestBody AdDTO adDto, @RequestBody int mileage){
-		Ad ad = adService.findById(adDto.getId());
+	public ResponseEntity<String> changeMileage(@RequestBody AdDTO adDto, @RequestBody int mileage) {
+		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
+		/*Ad ad = adService.findById(adDto.getId());
 		ad.setMileage(mileage);
-		adRepository.save(ad);
+		adService.save(ad);*/
 
 		return new ResponseEntity<String>("",HttpStatus.OK);
 	}

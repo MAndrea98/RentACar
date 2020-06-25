@@ -1,5 +1,10 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,22 +12,25 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
 public class Vehicle {
 	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Lob
-	@Column(name="image", columnDefinition="bytea")
-	private Byte[] image;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<VehicleImage> images = new ArrayList<VehicleImage>();
+	
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+	private Renter owner;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Model model;
@@ -36,64 +44,71 @@ public class Vehicle {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private VehicleClass vehicleClass;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private PriceList price;
-	
 	@Column(name="mileage")
 	private int mileage;
 	
 	@Column(name="proposedMileage")
 	private int proposedMileage;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
-	private Renter owner;
-	
 	@Column(name="cdw")
 	private Boolean cdw;
 	
 	@Column(name="ChildSeatsNo")
 	private int childSeatsNo;
-
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<VehicleFree> vehicleFree = new HashSet<VehicleFree>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<PriceList> priceList = new HashSet<PriceList>();
+	
 	public Vehicle() {
 		
 	}
 	
-	public Vehicle(Vehicle v) {
-		this.image = v.getImage();
-		this.model = v.getModel();
-		this.gasType = v.getGasType();
-		this.gearBox = v.getGearBox();
-		this.vehicleClass = v.getVehicleClass();
-		this.price = v.getPrice();
-		this.mileage = v.getMileage();
-		this.proposedMileage = v.getMileage();
-		this.owner = v.getOwner();
-		this.cdw = v.getCdw();
-		this.childSeatsNo = v.getChildSeatsNo();
-	}
-	
-	public Vehicle(Byte[] image, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
-			PriceList price, int mileage, int proposedMileage, Renter owner, Boolean cdw, int childSeatsNo) {
+	public Vehicle(Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
+			int mileage, int proposedMileage, Renter owner, Boolean cdw, int childSeatsNo) {
 		super();
-		this.image = image;
 		this.model = model;
 		this.gasType = gasType;
 		this.gearBox = gearBox;
 		this.vehicleClass = vehicleClass;
-		this.price = price;
 		this.mileage = mileage;
 		this.proposedMileage = proposedMileage;
 		this.owner = owner;
 		this.cdw = cdw;
 		this.childSeatsNo = childSeatsNo;
 	}
-
-	public Byte[] getImage() {
-		return image;
+	
+	public Vehicle (Vehicle v) {
+		this(v.getModel(), v.getGasType(), v.getGearBox(), v.getVehicleClass(), v.getMileage(),
+				v.getProposedMileage(), v.getOwner(), v.getCdw(), v.getChildSeatsNo());
 	}
 
-	public void setImage(Byte[] image) {
-		this.image = image;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<VehicleImage> getImages() {
+		return images;
+	}
+
+	public void setImages(List<VehicleImage> images) {
+		this.images = images;
+	}
+
+	public Renter getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Renter owner) {
+		this.owner = owner;
 	}
 
 	public Model getModel() {
@@ -128,14 +143,6 @@ public class Vehicle {
 		this.vehicleClass = vehicleClass;
 	}
 
-	public PriceList getPrice() {
-		return price;
-	}
-
-	public void setPrice(PriceList price) {
-		this.price = price;
-	}
-
 	public int getMileage() {
 		return mileage;
 	}
@@ -150,14 +157,6 @@ public class Vehicle {
 
 	public void setProposedMileage(int proposedMileage) {
 		this.proposedMileage = proposedMileage;
-	}
-
-	public Renter getOwner() {
-		return owner;
-	}
-
-	public void setOwner(Renter owner) {
-		this.owner = owner;
 	}
 
 	public Boolean getCdw() {
@@ -176,15 +175,21 @@ public class Vehicle {
 		this.childSeatsNo = childSeatsNo;
 	}
 
-	public Long getId() {
-		return id;
+	public Set<VehicleFree> getVehicleFree() {
+		return vehicleFree;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setVehicleFree(Set<VehicleFree> vehicleFree) {
+		this.vehicleFree = vehicleFree;
 	}
-	
-	
-	
+
+	public Set<PriceList> getPriceList() {
+		return priceList;
+	}
+
+	public void setPriceList(Set<PriceList> priceList) {
+		this.priceList = priceList;
+	}
+
 	
 }

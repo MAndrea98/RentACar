@@ -14,12 +14,12 @@ public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Ad ad;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private EndUser endUser;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Renter renter;
 	
 	@Column(name="stars")
 	private int stars;
@@ -56,13 +56,29 @@ public class Review {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public Renter getRenter() {
-		return renter;
+	
+	public Ad getAd() {
+		return ad;
 	}
 
-	public void setRenter(Renter renter) {
-		this.renter = renter;
+	public void setAd(Ad ad) {
+		this.ad = ad;
+	}
+
+	public Boolean getAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(Boolean accepted) {
+		this.accepted = accepted;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public boolean isAccepted() {

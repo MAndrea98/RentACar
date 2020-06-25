@@ -1,34 +1,84 @@
 package com.example.demo.model;
 
-import org.springframework.ui.Model;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 public class Vehicle {
-
-	private Byte[] image;
-	private Model model;
-	private GasType gasType;
-	private String gearBox;
-	private VehicleClass vehicleClass;
-	private PriceList price;
-	private int mileage;
-	private int proposedMileage;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<VehicleImage> images = new ArrayList<VehicleImage>();
+	
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
 	private Renter owner;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Model model;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private GasType gasType;
+	
+	@Column(name="gearBox")
+	private String gearBox;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private VehicleClass vehicleClass;
+	
+	@Column(name="mileage")
+	private int mileage;
+	
+	@Column(name="proposedMileage")
+	private int proposedMileage;
+	
+	@Column(name="cdw")
 	private Boolean cdw;
+	
+	@Column(name="ChildSeatsNo")
 	private int childSeatsNo;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<VehicleFree> vehicleFree = new HashSet<VehicleFree>();
+	
+	@ManyToMany
+	@JoinTable(name = "vehicles_requests", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
+	private List<Request> requests = new ArrayList<Request>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<PriceList> priceList = new HashSet<PriceList>();
 
 	public Vehicle() {
 
 	}
 
-	public Vehicle(Byte[] image, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
-			PriceList price, int mileage, int proposedMileage, Renter owner, Boolean cdw, int childSeatsNo) {
+	public Vehicle(Long id, VehicleClass vehicleClass, int mileage, int proposedMileage, Renter owner, Boolean cdw,
+			int childSeatsNo) {
 		super();
-		this.image = image;
-		this.model = model;
-		this.gasType = gasType;
-		this.gearBox = gearBox;
+		this.id = id;
 		this.vehicleClass = vehicleClass;
-		this.price = price;
 		this.mileage = mileage;
 		this.proposedMileage = proposedMileage;
 		this.owner = owner;
@@ -36,36 +86,12 @@ public class Vehicle {
 		this.childSeatsNo = childSeatsNo;
 	}
 
-	public Byte[] getImage() {
-		return image;
+	public Long getId() {
+		return id;
 	}
 
-	public void setImage(Byte[] image) {
-		this.image = image;
-	}
-
-	public Model getModel() {
-		return model;
-	}
-
-	public void setModel(Model model) {
-		this.model = model;
-	}
-
-	public GasType getGasType() {
-		return gasType;
-	}
-
-	public void setGasType(GasType gasType) {
-		this.gasType = gasType;
-	}
-
-	public String getGearBox() {
-		return gearBox;
-	}
-
-	public void setGearBox(String gearBox) {
-		this.gearBox = gearBox;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public VehicleClass getVehicleClass() {
@@ -74,14 +100,6 @@ public class Vehicle {
 
 	public void setVehicleClass(VehicleClass vehicleClass) {
 		this.vehicleClass = vehicleClass;
-	}
-
-	public PriceList getPrice() {
-		return price;
-	}
-
-	public void setPrice(PriceList price) {
-		this.price = price;
 	}
 
 	public int getMileage() {
@@ -124,5 +142,6 @@ public class Vehicle {
 		this.childSeatsNo = childSeatsNo;
 	}
 
+	
 
 }

@@ -23,9 +23,6 @@ public class Request {
 	private Long id;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Renter renter;
-
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private EndUser endUser;
 
 	@JsonIgnore
@@ -33,49 +30,26 @@ public class Request {
 	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
 
 	@Column(name="status")
-	private String status;
+	private RequestStatus status;
 
 	public Request() {
 
 	}
 
 
-	public Request(List<Vehicle> vehicles, String status, Renter renter, EndUser endUser) {
+	public Request(List<Vehicle> vehicles, RequestStatus status, EndUser endUser) {
 		super();
 		this.vehicles = vehicles;
 		this.status = status;
-		this.renter = renter;
 		this.endUser = endUser;
 	}
 
-
-
-	public List<Vehicle> getVehicle() {
-		return vehicles;
-	}
-
-	public void setVehicle(List<Vehicle> vehicles) {
-		this.vehicles = vehicles;
-	}
-
-	public String getStatus() {
+	public RequestStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(RequestStatus status) {
 		this.status = status;
-	}
-
-
-
-	public Renter getRenter() {
-		return renter;
-	}
-
-
-
-	public void setRenter(Renter renter) {
-		this.renter = renter;
 	}
 
 

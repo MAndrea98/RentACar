@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,13 +19,14 @@ import com.example.demo.dto.AdDTO;
 import com.example.demo.model.Ad;
 import com.example.demo.model.Renter;
 import com.example.demo.model.Request;
+import com.example.demo.model.RequestStatus;
 import com.example.demo.model.Review;
 import com.example.demo.model.Search;
 import com.example.demo.model.Vehicle;
-import com.example.demo.repository.AdRepository;
 import com.example.demo.service.AdService;
 import com.example.demo.service.RequestService;
 import com.example.demo.service.ReviewService;
+
 @RequestMapping(value="/ad")
 @CrossOrigin("http://localhost:4200/")
 public class AdController {
@@ -38,7 +38,7 @@ public class AdController {
 	private RequestService requestService;
 
 	@Autowired
-	private AdRepository adRepository;
+	private ReviewService reviewService;
 
 	@PostMapping(value="/create")
 	public ResponseEntity<String> createAd(@RequestBody Ad ad) {
@@ -48,10 +48,9 @@ public class AdController {
 
 		Ad newAd = new Ad();
 		newAd.setDate(ad.getDate());
-		HashMap<Calendar,Boolean> newFree = (HashMap<Calendar, Boolean>) ad.getFree();
-		newAd.setFree(newFree);
-		newAd.setMileage(ad.getMileage());
-		newAd.setUser(ad.getUser());
+		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
+		
+		//newAd.setUser(ad.getUser());
 		newAd.setValidFrom(ad.getValidFrom());
 		newAd.setValidTru(ad.getValidTru());
 		newAd.setVehicle(ad.getVehicle());
@@ -67,14 +66,14 @@ public class AdController {
 		calendar.setTime(dateFrom);
 		calendar.setTime(dateTo);
 
-		ad.getFree().put(calendar, false);
+		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
 
 		Vehicle vehicle = ad.getVehicle();
 		List<Request> list = requestService.findAll();
 		for(Request r : list) {
 			for(Vehicle v : r.getVehicles()) {
-				if(v.getId() == vehicle.getId() && r.getStatus() == "PENDING") {
-					r.setStatus("CANCELED");
+				if(v.getId() == vehicle.getId() && r.getStatus() == RequestStatus.PENDING) {
+					r.setStatus(RequestStatus.CANCELED);
 				}
 			}
 		}
@@ -85,7 +84,7 @@ public class AdController {
 	@PostMapping(value="/search")
 	public List<Ad> search(@RequestBody Search search){
 
-		List<Ad> listOfAds = AdService.findAll();
+		List<Ad> listOfAds = adService.findAll();
 		List<Ad> listOfFoundAds = new ArrayList<Ad>();
 		for(Ad a : listOfAds) {
 			if(a.getPlace() == search.getPlace() && search.getDateFrom().before(a.getDateFrom()) && a.getDateTo().before(search.getDateTo())) {
@@ -99,26 +98,29 @@ public class AdController {
 	@PostMapping(value="/statsMileage")
 	public List<Ad> statsMileage(@RequestBody Renter enteredAgent){
 
-		List<Ad> listOfAds = AdService.findAll();
+		List<Ad> listOfAds = adService.findAll();
 		List<Ad> listOfEnteredAgentAds = new ArrayList<Ad>();
 		for(Ad a : listOfAds) {
-			if(a.getUser() == enteredAgent) {
+			if(a.getVehicle().getOwner() == enteredAgent) {
 				listOfEnteredAgentAds.add(a);
 			}
 		}
 
-		listOfEnteredAgentAds.sort(Comparator.comparingInt(Ad::getMileage).reversed());
+		//listOfEnteredAgentAds.sort(Comparator.comparingInt(Ad::getMileage).reversed());
+		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
+		
+		
 		return listOfEnteredAgentAds;
 	}
 
 	@PostMapping(value="/statsStars")
 	public List<Ad> statsStars(@RequestBody Renter enteredAgent, @RequestBody Review review){
 
-		List<Review> listOfReviews = ReviewService.findAll();  //nadjem sve reviewe
+		List<Review> listOfReviews = reviewService.findAll();  //nadjem sve reviewe
 		List<Review> listOfAgentsReviews = new ArrayList<Review>(); //napravim listu reviewa za jednog agenta
 
 		for(Review r : listOfReviews) { //prolazim kroz sve reviewe
-			if(r.getRenter() == enteredAgent) { //ako je polje renter iz klase review kao unesen renter
+			if(r.getAd().getVehicle().getOwner() == enteredAgent) { //ako je polje renter iz klase review kao unesen renter
 				listOfAgentsReviews.add(r); //popunjavam listu reviewima od tog rentera
 			}
 		}
@@ -127,7 +129,7 @@ public class AdController {
 
 		List<Ad> listOfAgentsAds = listOfAgentsReviews.stream().map(Review::getAd).collect(Collectors.toList());
 		//uzimanje samo polja Ad iz prethodne liste i stavljanje ga u novu listu, listu Adova
-		List<Ad> listOfAds = AdService.findAll();
+		List<Ad> listOfAds = adService.findAll();
 		listOfAgentsAds.retainAll(listOfAds); //uzimanje objekta Ad u poredjenju dve liste gde koji su isti
 		//i sortirani su na nacin prve liste listOfAgentsAds
 
@@ -138,10 +140,10 @@ public class AdController {
 	@PostMapping(value="/statsSumReviews")
 	public List<Ad> statsSumReviews(@RequestBody Renter enteredAgent, @RequestBody Ad ad){
 
-		List<Ad> listOfAds = AdService.findAll();
+		List<Ad> listOfAds = adService.findAll();
 		List<Ad> listOfEnteredAgentAds = new ArrayList<Ad>();
 		for(Ad a : listOfAds) {
-			if(a.getUser() == enteredAgent) {
+			if(a.getVehicle().getOwner() == enteredAgent) {
 				listOfEnteredAgentAds.add(a);
 			}
 		}
@@ -158,24 +160,27 @@ public class AdController {
 
 		Ad newAd = new Ad();
 		newAd.setDate(ad.getDate());
-		HashMap<Calendar,Boolean> newFree = (HashMap<Calendar, Boolean>) ad.getFree();
-		newAd.setFree(newFree);
-		newAd.setMileage(ad.getMileage());
-		newAd.setUser(ad.getUser());
+		//newAd.setUser(ad.getUser());
 		newAd.setValidFrom(ad.getValidFrom());
 		newAd.setValidTru(ad.getValidTru());
 		newAd.setVehicle(ad.getVehicle());
 
+		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
+		
+		
 		adService.save(newAd);
+		
+		
 		return new ResponseEntity<String>("",HttpStatus.OK);
-
 	}
 
 	@PostMapping(value="/changeMileage")
 	public ResponseEntity<String> changeMileage(@RequestBody AdDTO adDto, @RequestBody int mileage){
-		Ad ad = adService.findById(adDto.getId());
+		/*Ad ad = adService.findById(adDto.getId());
 		ad.setMileage(mileage);
-		adRepository.save(ad);
+		adService.save(ad);*/
+		
+		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
 
 		return new ResponseEntity<String>("",HttpStatus.OK);
 	}

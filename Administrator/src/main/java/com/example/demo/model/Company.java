@@ -35,6 +35,7 @@ public class Company {
 	@JsonIgnore
 	@OneToMany(mappedBy="company",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Agent> agents = new ArrayList<Agent>();
+	
 	public Company() {
 		
 	}
@@ -45,6 +46,14 @@ public class Company {
 		this.name = name;
 		this.address = address;
 		this.agents = agents;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Renter getRenter() {

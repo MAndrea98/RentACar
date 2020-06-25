@@ -10,7 +10,7 @@ import com.example.demo.repository.VehicleRepository;
 public class VehicleService {
 
 	@Autowired
-	VehicleRepository vehicleRepository;
+	private VehicleRepository vehicleRepository;
 
 	public Vehicle findOne(Long id) {
 		return vehicleRepository.findById(id).orElseGet(null);

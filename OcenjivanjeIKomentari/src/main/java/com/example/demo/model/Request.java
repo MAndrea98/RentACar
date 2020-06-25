@@ -17,30 +17,23 @@ public class Request {
 	private Long id;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Renter renter;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private EndUser endUser;
 	
 	@Column(name="status")
-	private String status;
+	private RequestStatus status;
+	
 
 	public Request() {
 
 	}
 
-	public Request(String status, Renter renter) {
+	public Request(Long id, EndUser endUser, RequestStatus status) {
 		super();
+		this.id = id;
+		this.endUser = endUser;
 		this.status = status;
-		this.renter = renter;
 	}
 
-	public Request(String status, Renter renter, EndUser endUser) {
-		super();
-		this.status = status;
-		this.renter = renter;
-		this.endUser = endUser;
-	}
 
 	public Long getId() {
 		return id;
@@ -58,22 +51,12 @@ public class Request {
 		this.endUser = endUser;
 	}
 
-	public String getStatus() {
+	public RequestStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(RequestStatus status) {
 		this.status = status;
 	}
-
-	public Renter getRenter() {
-		return renter;
-	}
-	
-	public void setRenter(Renter renter) {
-		this.renter = renter;
-	}
-
-
 
 }

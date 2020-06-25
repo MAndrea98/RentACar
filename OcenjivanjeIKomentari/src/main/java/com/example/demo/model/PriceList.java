@@ -1,18 +1,12 @@
 package com.example.demo.model;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.MapKeyColumn;
 
 @Entity
 public class PriceList {
@@ -20,18 +14,15 @@ public class PriceList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@ElementCollection
-	@JoinTable(name="dates_price", joinColumns=@JoinColumn(name="Id"))
-	@MapKeyColumn (name="dates_price_Id")
-	@Column(name="value")
-	private Map<Calendar, Double> datesPrice = new HashMap<Calendar, Double>();
 	
-	@ElementCollection
-	@JoinTable(name="discount", joinColumns=@JoinColumn(name="Id"))
-	@MapKeyColumn (name="discount_id")
-	@Column(name="value")
-	private Map<Calendar, Double> discount = new HashMap<Calendar, Double>();
+	@Column(name = "vehicle_id")
+	private Long vehicleID;
+	
+	@Column(name="dateFrom", nullable = false)
+	private Calendar dateFrom;
+
+	@Column(name="dateTo", nullable = false)
+	private Calendar dateTo;
 	
 	@Column(name="pricePerMile")
 	private double pricePerMile;
@@ -43,29 +34,47 @@ public class PriceList {
 		
 	}
 
-	public PriceList(HashMap<Calendar, Double> datesPrice, HashMap<Calendar, Double> discount, double pricePerMile,
+	public PriceList(Long id, Long vehicleID, Calendar dateFrom, Calendar dateTo, double pricePerMile,
 			double cdwPrice) {
 		super();
-		this.datesPrice = datesPrice;
-		this.discount = discount;
+		this.id = id;
+		this.vehicleID = vehicleID;
+		this.dateFrom = dateFrom;
+		this.dateTo = dateTo;
 		this.pricePerMile = pricePerMile;
 		this.cdwPrice = cdwPrice;
 	}
 
-	public Map<Calendar, Double> getDatesPrice() {
-		return datesPrice;
+	public Long getId() {
+		return id;
 	}
 
-	public void setDatesPrice(HashMap<Calendar, Double> datesPrice) {
-		this.datesPrice = datesPrice;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Map<Calendar, Double> getDiscount() {
-		return discount;
+	public Long getVehicleID() {
+		return vehicleID;
 	}
 
-	public void setDiscount(HashMap<Calendar, Double> discount) {
-		this.discount = discount;
+	public void setVehicleID(Long vehicleID) {
+		this.vehicleID = vehicleID;
+	}
+
+	public Calendar getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(Calendar dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public Calendar getDateTo() {
+		return dateTo;
+	}
+
+	public void setDateTo(Calendar dateTo) {
+		this.dateTo = dateTo;
 	}
 
 	public double getPricePerMile() {
@@ -84,21 +93,7 @@ public class PriceList {
 		this.cdwPrice = cdwPrice;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setDatesPrice(Map<Calendar, Double> datesPrice) {
-		this.datesPrice = datesPrice;
-	}
-
-	public void setDiscount(Map<Calendar, Double> discount) {
-		this.discount = discount;
-	}
+	
 	
 	
 }
