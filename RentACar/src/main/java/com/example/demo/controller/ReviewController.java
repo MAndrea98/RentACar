@@ -6,9 +6,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dto.MessageDTO;
 import com.example.demo.dto.ReviewDTO;
 import com.example.demo.model.EndUser;
 import com.example.demo.model.Renter;
@@ -116,8 +123,11 @@ public class ReviewController {
 	public ResponseEntity<List<ReviewDTO>> getAllReviews() {
 		List<ReviewDTO> reviewDTOs = new ArrayList<ReviewDTO>();
 		for (Review r : reviewService.findAll()) {
-			if (!r.isDeleted())
-				reviewDTOs.add(new ReviewDTO(r));
+			if (!r.isDeleted()) {
+				UserModel endUser = userModelService.findById(r.getEndUser().getIdUser());
+				UserModel renter = userModelService.findById(r.getAd().getVehicle().getOwner().getIdUser());
+				reviewDTOs.add(new ReviewDTO(r, renter.getUsername(), endUser.getUsername()));
+			}
 		}
 		return new ResponseEntity<List<ReviewDTO>>(reviewDTOs, HttpStatus.OK);
 	}

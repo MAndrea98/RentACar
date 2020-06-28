@@ -45,9 +45,6 @@ public class Ad {
 
 	@OneToMany(mappedBy="ad", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> listOfReviews = new ArrayList<Review>();
-
-	@Column(name="number_of_reviews")
-	private int numberOfReviews = listOfReviews.size();
 	
 	@ManyToMany
 	private List<EndUser> favoriteFor;
@@ -68,14 +65,6 @@ public class Ad {
 		this.dateTo = dateTo;
 	}
 
-	public int getNumberOfReviews() {
-		return numberOfReviews;
-	}
-
-	public void setNumberOfReviews(int numberOfReviews) {
-		this.numberOfReviews = numberOfReviews;
-	}
-
 	public List<Review> getListOfReviews() {
 		return listOfReviews;
 	}
@@ -84,7 +73,6 @@ public class Ad {
 		this.listOfReviews = listOfReviews;
 	}
 
-	
 	public Vehicle getVehicle() {
 		return vehicle;
 	}
