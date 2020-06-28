@@ -35,6 +35,7 @@ insert into request (renter_id, end_user_id, status) values (2, 1, 'ENDED');
 insert into review (end_user_id, renter_id, stars, content, accepted, deleted) values (1, 2, 5, 'Super', false, false);
 insert into review (end_user_id, renter_id, stars, content, accepted, deleted) values (1, 2, 3, 'OK', false, false);
 
+insert into company (name, address, poslovni_maticni_broj) values ("Kompanija 1", "Adresa 1", "asdf123");
 */
 
 
