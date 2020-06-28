@@ -14,8 +14,8 @@ public class UserModelService {
 	@Autowired
 	private UserModelRepository userModelRepository;
 	
-	public Optional<UserModel> findById(Long id){
-		return userModelRepository.findById(id);
+	public UserModel findById(Long id){
+		return userModelRepository.findById(id).orElse(null);
 	}
 	
 	public Optional<UserModel> findByUsername(String u){

@@ -75,7 +75,9 @@ public class AdminController {
 		List<ReviewDTO> reviewDTOs = new ArrayList<ReviewDTO>();
 		for (Review r : reviewService.findAll()) {
 			if (!r.isDeleted()) {
-				reviewDTOs.add(new ReviewDTO(r));
+				UserModel endUser = userModelService.findById(r.getEndUser().getIdUser());
+				UserModel renter = userModelService.findById(r.getAd().getVehicle().getOwner().getIdUser());
+				reviewDTOs.add(new ReviewDTO(r, renter.getUsername(), endUser.getUsername()));
 			}
 		}
 		return new ResponseEntity<List<ReviewDTO>>(reviewDTOs, HttpStatus.OK);
