@@ -67,23 +67,31 @@ public class Vehicle {
 	private List<Request> requests = new ArrayList<Request>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<PriceList> priceList = new HashSet<PriceList>();
+	@ManyToMany
+	private List<PriceList> priceList = new ArrayList<PriceList>();
 
 	public Vehicle() {
 
 	}
 
-	public Vehicle(Long id, VehicleClass vehicleClass, int mileage, int proposedMileage, Renter owner, Boolean cdw,
-			int childSeatsNo) {
+	public Vehicle(Long id, List<VehicleImage> images, Renter owner, Model model, GasType gasType, String gearBox,
+			VehicleClass vehicleClass, int mileage, int proposedMileage, Boolean cdw, int childSeatsNo,
+			Set<VehicleFree> vehicleFree, List<Request> requests, List<PriceList> priceList) {
 		super();
 		this.id = id;
+		this.images = images;
+		this.owner = owner;
+		this.model = model;
+		this.gasType = gasType;
+		this.gearBox = gearBox;
 		this.vehicleClass = vehicleClass;
 		this.mileage = mileage;
 		this.proposedMileage = proposedMileage;
-		this.owner = owner;
 		this.cdw = cdw;
 		this.childSeatsNo = childSeatsNo;
+		this.vehicleFree = vehicleFree;
+		this.requests = requests;
+		this.priceList = priceList;
 	}
 
 	public Long getId() {
@@ -92,6 +100,46 @@ public class Vehicle {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public List<VehicleImage> getImages() {
+		return images;
+	}
+
+	public void setImages(List<VehicleImage> images) {
+		this.images = images;
+	}
+
+	public Renter getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Renter owner) {
+		this.owner = owner;
+	}
+
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
+	}
+
+	public GasType getGasType() {
+		return gasType;
+	}
+
+	public void setGasType(GasType gasType) {
+		this.gasType = gasType;
+	}
+
+	public String getGearBox() {
+		return gearBox;
+	}
+
+	public void setGearBox(String gearBox) {
+		this.gearBox = gearBox;
 	}
 
 	public VehicleClass getVehicleClass() {
@@ -118,14 +166,6 @@ public class Vehicle {
 		this.proposedMileage = proposedMileage;
 	}
 
-	public Renter getOwner() {
-		return owner;
-	}
-
-	public void setOwner(Renter owner) {
-		this.owner = owner;
-	}
-
 	public Boolean getCdw() {
 		return cdw;
 	}
@@ -142,6 +182,30 @@ public class Vehicle {
 		this.childSeatsNo = childSeatsNo;
 	}
 
+	public Set<VehicleFree> getVehicleFree() {
+		return vehicleFree;
+	}
+
+	public void setVehicleFree(Set<VehicleFree> vehicleFree) {
+		this.vehicleFree = vehicleFree;
+	}
+
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
+	}
+
+	public List<PriceList> getPriceList() {
+		return priceList;
+	}
+
+	public void setPriceList(List<PriceList> priceList) {
+		this.priceList = priceList;
+	}
+	
 	
 
 }

@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -6,51 +6,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.MapKeyColumn;
+import com.example.demo.model.PriceList;
+import com.example.demo.model.Vehicle;
 
-@Entity
-public class PriceList {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PriceListDTO {
+
 	private Long id;
-	
-	@ManyToMany
 	private List<Vehicle> vehicle = new ArrayList<Vehicle>();
-	
-	@Column(name="dateFrom", nullable = false)
 	private Calendar dateFrom;
-
-	@Column(name="dateTo", nullable = false)
 	private Calendar dateTo;
-	
-	@Column(name="pricePerMile")
 	private double pricePerMile;
-	
-	@Column(name="cdwPrice")
 	private double cdwPrice;
-	
-	@ElementCollection
-	@JoinTable(name="prices_values", joinColumns = @JoinColumn(name="id"))
-	@MapKeyColumn (name="name")
-	@Column(name="price")
 	private Map<String, Double> prices = new HashMap<String, Double>();
-
-	public PriceList() {
-
+	
+	public PriceListDTO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public PriceList(Long id, List<Vehicle> vehicle, Calendar dateFrom, Calendar dateTo, double pricePerMile,
-			double cdwPrice) {
+	public PriceListDTO(Long id, List<Vehicle> vehicle, Calendar dateFrom, Calendar dateTo, double pricePerMile,
+			double cdwPrice, Map<String, Double> prices) {
 		super();
 		this.id = id;
 		this.vehicle = vehicle;
@@ -58,6 +33,11 @@ public class PriceList {
 		this.dateTo = dateTo;
 		this.pricePerMile = pricePerMile;
 		this.cdwPrice = cdwPrice;
+		this.prices = prices;
+	}
+	
+	public PriceListDTO(PriceList p) {
+		this(p.getId(), p.getVehicle(), p.getDateFrom(), p.getDateTo(), p.getPricePerMile(), p.getCdwPrice(), p.getPrices());
 	}
 
 	public Long getId() {
@@ -115,10 +95,7 @@ public class PriceList {
 	public void setPrices(Map<String, Double> prices) {
 		this.prices = prices;
 	}
-
 	
-
 	
-
-
+	
 }

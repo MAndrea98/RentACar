@@ -5,3 +5,7 @@
 <div class = "container" *ngIf="_router.url.includes('list') && _router.url.includes('review')">
   <app-review-list-agent></app-review-list-agent>
 </div>
+
+<div class = "container" *ngIf="_router.url.includes('list') && _router.url.includes('priceList')">
+  <app-price-list-agent></app-price-list-agent>
+</div>
