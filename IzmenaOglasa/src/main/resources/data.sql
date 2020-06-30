@@ -12,6 +12,8 @@ insert into gas_type (name) values ('Benzin');
 
 insert into vehicle (owner_id, gear_box, mileage, proposed_mileage, cdw, child_seats_no, model_id, gas_type_id, 
 vehicle_class_id) values (1, '5', 300, 500, true, 2, 1, 1, 1);
+insert into vehicle (owner_id, gear_box, mileage, proposed_mileage, cdw, child_seats_no, model_id, gas_type_id, 
+vehicle_class_id) values (1, '5', 400, 600, true, 2, 1, 1, 1);
 
 insert into ad (vehicle_id, place, date, valid_tru, valid_from, date_from, date_to) 
 values (1, 'Novi Sad', '2020-06-20', '2020-06-21', '2020-06-29', '2020-06-20', '2020-07-14');
@@ -21,3 +23,15 @@ insert into review (ad_id, end_user_id, stars, content, accepted, deleted) value
 insert into review (ad_id, end_user_id, stars, content, accepted, deleted) values (1, 1, 4, 'Dobar', false, false);
 insert into review (ad_id, end_user_id, stars, content, accepted, deleted) values (1, 1, 2, 'Onako', false, false);
 insert into review (ad_id, end_user_id, stars, content, accepted, deleted) values (1, 1, 1, 'Nista nije valjalo', false, false);
+
+insert into price_list (date_from, date_to, price_per_mile, cdw_price) values ('2020-06-30', '2020-07-01', 50, 20);
+insert into price_list (date_from, date_to, price_per_mile, cdw_price) values ('2020-06-30', '2020-07-01', 30, 15);
+insert into price_list (date_from, date_to, price_per_mile, cdw_price) values ('2020-06-30', '2020-07-01', 15, 82);
+
+insert into prices_values (price_list_id, name, price) values (1, 'Kilometri', 200);
+insert into prices_values (price_list_id, name, price) values (1, 'Kilogrami', 150);
+insert into prices_values (price_list_id, name, price) values (2, 'Po sedistu', 300);
+
+insert into price_list_vehicle (price_list_id, vehicle_id) values (1, 1);
+insert into price_list_vehicle (price_list_id, vehicle_id) values (1, 2);
+

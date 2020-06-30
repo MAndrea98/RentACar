@@ -17,6 +17,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class PriceList {
 	
@@ -24,6 +26,7 @@ public class PriceList {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@JsonIgnore
 	@ManyToMany
 	private List<Vehicle> vehicle = new ArrayList<Vehicle>();
 	
@@ -40,7 +43,7 @@ public class PriceList {
 	private double cdwPrice;
 	
 	@ElementCollection
-	@JoinTable(name="prices_values", joinColumns = @JoinColumn(name="id"))
+	@JoinTable(name="prices_values", joinColumns = @JoinColumn(name="price_list_id"))
 	@MapKeyColumn (name="name")
 	@Column(name="price")
 	private Map<String, Double> prices = new HashMap<String, Double>();

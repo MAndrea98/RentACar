@@ -25,4 +25,8 @@ public class PriceListService {
 	public List<PriceList> findAll() {
 		return priceListRepository.findAll();
 	}
+
+	public void delete(Long id) {
+		priceListRepository.deleteById(id);
+	}
 }

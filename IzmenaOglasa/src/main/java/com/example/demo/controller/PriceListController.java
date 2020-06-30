@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,9 +25,9 @@ import com.example.demo.service.PriceListService;
 @CrossOrigin("http://localhost:4200")
 public class PriceListController {
 	
-	// TODO neophodno je izmeniti svaki priceList u programu, potrebno je dodati u skriptu, i njega prosiriti na ceo program
-	// treba odraditi frontend za dodavanje, brisanje i izmenu, potrebno je napraviti izlistavanje vehicle-a
-	// treba odraditi izlistavanje svih cena na frontu
+	// TODO neophodno je izmeniti svaki priceList u programu, potrebno je dodati u skriptu, 
+	// i njega prosiriti na ceo program
+	// treba odraditi frontend za dodavanje i izmenu
 	
 	@Autowired
 	private PriceListService priceListService;
@@ -63,5 +65,33 @@ public class PriceListController {
 		priceList.setVehicle(priceListDTO.getVehicle());
 		PriceList p = priceListService.save(priceList);
 		return new ResponseEntity<PriceListDTO>(new PriceListDTO(p), HttpStatus.OK); 
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<String> deletePriceList(@PathVariable("id") Long id) {
+		priceListService.delete(id);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value = "/removePrice/{id}/{key}")
+	public ResponseEntity<PriceListDTO> removePriceItem(@PathVariable("id") Long id, @PathVariable("key") String key) {
+		PriceList priceList = priceListService.findById(id);
+		priceList.getPrices().remove(key);
+		PriceList p = priceListService.save(priceList);
+		return new ResponseEntity<PriceListDTO>(new PriceListDTO(p), HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value = "/removeVehicle/{id}/{id_vehicle}")
+	public ResponseEntity<PriceListDTO> removeVehicle(@PathVariable("id") Long idP, @PathVariable("id_vehicle") Long idV) {
+		System.out.println("###" + idP + "  " + idV);
+		PriceList priceList = priceListService.findById(idP);
+		for (int i = 0; i < priceList.getVehicle().size(); i++) {
+			if (priceList.getVehicle().get(i).getId().equals(idV)) {
+				priceList.getVehicle().remove(i);
+			}
+		}
+		
+		PriceList p = priceListService.save(priceList);
+		return new ResponseEntity<PriceListDTO>(new PriceListDTO(p), HttpStatus.OK);
 	}
 }

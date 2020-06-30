@@ -4,7 +4,7 @@
    
     <table class="table table-striped table-responsive-md btn-table" border="1">
       <thead>
-      <title>Gas Types</title>
+      <title>Price list</title>
       <tr>
         <th scope="col">Id</th>
         <th scope="col">Date From</th>
@@ -20,16 +20,80 @@
       <tbody>
       <tr *ngFor="let price of priceListModelList">
         <td>{{price.id}}</td>
-        <td>{{price.dateFrom}}</td>
-        <td>{{price.dateTo}}</td>
+        <td>{{price.dateFrom.toString().substring(0, 10)}}</td>
+        <td>{{price.dateTo.toString().substring(0, 10)}}</td>
         <td>{{price.pricePerMile}}</td>
         <td>{{price.cdwPrice}}</td>
-        <td></td>
-        <td></td>
-        <td><button class="btn-success" (click)="editPriceList(price.id)">Edit</button></td>
+        <td><button class="btn-primary" (click)="vehicleOf(price)">Vehicles</button></td>
+        <td><button class="btn-primary" (click)="pricesOf(price)">Prices</button></td>
+        <td><button class="btn-success" (click)="editPriceList(price)">Edit</button></td>
         <td><button class="btn-danger" (click)="deletePriceList(price.id)">Delete</button></td>
       </tr>
       </tbody>
     </table>
-    <button class="btn-primary">Add new price list</button>
+    <div [hidden] = "hiddenPrices">
+    <table class="table table-striped table-responsive-md btn-table" border="1">
+      <thead>
+        <title>Prices</title>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Price</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of prices | keyvalue">
+          <td>{{p.key}}</td>
+          <td>{{p.value}}</td>
+          <td><button class="btn-success">Edit</button></td>
+          <td><button class="btn-danger" (click)="deletePrice(p.key)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn-primary">Add new item</button>
+    <br/>
+    </div>
+    <div [hidden] = "hiddenVehicle">
+      <table class="table table-striped table-responsive-md btn-table" border="1">
+      <thead>
+        <title>Vehicles</title>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Photo</th>
+        <th scope="col">Manufacturer</th>
+        <th scope="col">Model</th>
+        <th scope="col">Gas Type</th>
+        <th scope="col">Gear Box</th>
+        <th scope="col">Vehicle Class</th>
+        <th scope="col">Mileage</th>
+        <th scope="col">Proposed Mileage</th>
+        <th scope="col">CDW</th>
+        <th scope="col">Child Seats Number</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of vehicles">
+          <td>{{v.id}}</td>
+          <td></td>
+          <td>{{v.model.manufacturer.name}}</td>
+          <td>{{v.model.name}}</td>
+          <td>{{v.gasType.name}}</td>
+          <td>{{v.gearBox}}</td>
+          <td>{{v.vehicleClass.name}}</td>
+          <td>{{v.mileage}}</td>
+          <td>{{v.proposedMileage}}</td>
+          <td>{{v.cdw}}</td>
+          <td>{{v.childSeatsNo}}</td>
+          <td><button class="btn-success">Edit</button></td>
+          <td><button class="btn-danger" (click)="deleteVehicle(v.id)">Delete</button></td>
+        </tr>
+      </tbody>
+      </table>
+      <button class="btn-primary">Add new vehicle</button>
+      <br/>
+    </div>
+    <button class="btn-primary" (click)="addNewPrice()">Add new price list</button>
 </div>

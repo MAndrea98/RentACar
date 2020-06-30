@@ -1,4 +1,8 @@
 th {
-    background-color:olive;
-    text-align: center;
-  }
+  background-color:olive;
+  text-align: center;
+}
+
+td {
+  text-align: center;
+}
