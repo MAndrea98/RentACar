@@ -6,7 +6,7 @@ targetNamespace="http://localhost:8089/api/RazmenaPoruka/" elementFormDefault="q
   <xs:element name="sendMessageRequest">
   	<xs:complexType>
   		<xs:sequence>
-  			<xs:element name="message" type="tns:messageXML"/>
+  			<xs:element name="message" type="tns:messageRP"/>
   		</xs:sequence>
   	</xs:complexType>
   </xs:element>
@@ -25,7 +25,7 @@ targetNamespace="http://localhost:8089/api/RazmenaPoruka/" elementFormDefault="q
   <xs:element name="getAllMessageResponse">
   	<xs:complexType>
   		<xs:sequence>
-  			<xs:element name="messages" type="tns:messageXML" maxOccurs="unbounded"/>
+  			<xs:element name="messages" type="tns:messageRP" maxOccurs="unbounded"/>
   		</xs:sequence>
   	</xs:complexType>
   </xs:element>
@@ -33,7 +33,7 @@ targetNamespace="http://localhost:8089/api/RazmenaPoruka/" elementFormDefault="q
   <xs:element name="editMessageRequest">
   	<xs:complexType>
   		<xs:sequence>
-  			<xs:element name="message" type="tns:messageXML"/>
+  			<xs:element name="message" type="tns:messageRP"/>
   		</xs:sequence>
   	</xs:complexType>
   </xs:element>
@@ -62,39 +62,39 @@ targetNamespace="http://localhost:8089/api/RazmenaPoruka/" elementFormDefault="q
   	</xs:complexType>
   </xs:element> 
 
-  <xs:complexType name="messageXML">
+  <xs:complexType name="messageRP">
     <xs:sequence>
       <xs:element name="content" type="xs:string" minOccurs="0"/>
       <xs:element name="date" type="xs:dateTime" minOccurs="0"/>
-      <xs:element name="reciever" type="tns:userModelXML" minOccurs="0"/>
-      <xs:element name="sender" type="tns:userModelXML" minOccurs="0"/>
+      <xs:element name="reciever" type="tns:userModelRP" minOccurs="0"/>
+      <xs:element name="sender" type="tns:userModelRP" minOccurs="0"/>
       <xs:element name="subject" type="xs:string" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:long" use="required" />
   </xs:complexType>
   
-  <xs:complexType name="userModelXML">
+  <xs:complexType name="userModelRP">
     <xs:sequence>
-      <xs:element name="inbox" type="tns:messageXML" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="outbox" type="tns:messageXML" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="inbox" type="tns:messageRP" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="outbox" type="tns:messageRP" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="password" type="xs:string" minOccurs="0"/>
-      <xs:element name="permissions" type="tns:permissions" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="uloga" type="tns:userTypeXML" minOccurs="0"/>
+      <xs:element name="permissions" type="tns:permissionsRP" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="uloga" type="tns:userTypeRP" minOccurs="0"/>
       <xs:element name="username" type="xs:string" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="logedUser">
+  <xs:complexType name="logedUserRP">
     <xs:sequence>
       <xs:element name="userId" type="xs:long" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:simpleType name="permissions">
+  <xs:simpleType name="permissionsRP">
     <xs:restriction base="xs:string"/>
   </xs:simpleType>
 
-  <xs:simpleType name="userTypeXML">
+  <xs:simpleType name="userTypeRP">
     <xs:restriction base="xs:string">
       <xs:enumeration value="ENDUSER"/>
       <xs:enumeration value="RENTER"/>
