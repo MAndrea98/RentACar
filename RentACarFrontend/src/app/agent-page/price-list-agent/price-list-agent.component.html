@@ -95,5 +95,15 @@
       <button class="btn-primary">Add new vehicle</button>
       <br/>
     </div>
-    <button class="btn-primary" (click)="addNewPrice()">Add new price list</button>
+    <button class="btn-primary" (click)="addNewPriceForm()">Add new price list</button>
+    <div [hidden] = "addNewPriceListFormVisible">
+      <form>
+        <div class="form-group col-md-8">
+          <label for="patientName">pricePerMile </label>
+          <input value="{{ priceList.pricePerMile }}" class="form-control" />
+        </div>
+        
+        <button class="btn-primary" (click)="addNewPrice()">Submit</button>
+      </form>
+    </div>
 </div>

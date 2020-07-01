@@ -27,7 +27,10 @@ export class PriceListAgentComponent implements OnInit {
     vehicles: Vehicle[] = [];
     hiddenPrices: Boolean = true;
     hiddenVehicle: Boolean = true;
+    addNewPriceListFormVisible:Boolean = true;
     priceListID: number = 0;
+    myDate: Date = new Date;
+
 
     constructor(_router:Router, private http:HttpClient) {
       this.router=_router.url;
@@ -40,6 +43,7 @@ export class PriceListAgentComponent implements OnInit {
     home(): void {
       this.hiddenPrices = true;
       this.hiddenVehicle = true;
+      this.addNewPriceListFormVisible = true;
     }
     
     getPriceList():void {
@@ -74,8 +78,13 @@ export class PriceListAgentComponent implements OnInit {
       this.priceListID = price.id;
     }
 
-    addNewPrice(): void {
+    addNewPriceForm(): void {
       this.home();
+      this.addNewPriceListFormVisible = false;
+    }
+
+    addNewPrice(): void {
+      
     }
 
     editPriceList(price: PriceList):void {

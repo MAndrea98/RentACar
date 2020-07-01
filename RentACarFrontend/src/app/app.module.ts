@@ -37,6 +37,7 @@ import { AgentNavComponent } from './agent-nav/agent-nav.component';
 import { ReviewListAgentComponent } from './agent-page/review-list-agent/review-list-agent.component';
 import { UserReviewFormComponent } from './user-page/user-review-form/user-review-form.component';
 import { PriceListAgentComponent } from './agent-page/price-list-agent/price-list-agent.compose';
+import { MaterialModule } from './material.module';
 
 const appRoutes : Routes = [];
 
@@ -76,6 +77,7 @@ const appRoutes : Routes = [];
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
