@@ -53,7 +53,7 @@ public class Vehicle {
 	@Column(name="cdw")
 	private Boolean cdw;
 	
-	@Column(name="ChildSeatsNo")
+	@Column(name="childSeatsNo")
 	private int childSeatsNo;
 	
 	@JsonIgnore
