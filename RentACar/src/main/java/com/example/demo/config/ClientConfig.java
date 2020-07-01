@@ -1,12 +1,14 @@
 package com.example.demo.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 import com.example.demo.client.AdministratorClient;
 import com.example.demo.client.OcenjivanjeIKomentariClient;
 import com.example.demo.client.RazmenaPorukaClient;
 
+@Configuration
 public class ClientConfig {
 	
 	@Bean
