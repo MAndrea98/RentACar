@@ -27,7 +27,7 @@ public class PriceListController {
 	
 	// TODO neophodno je izmeniti svaki priceList u programu, potrebno je dodati u skriptu, 
 	// i njega prosiriti na ceo program
-	// treba odraditi frontend za dodavanje i izmenu
+	// treba odraditi frontend za dodavanje automobila u price list
 	
 	@Autowired
 	private PriceListService priceListService;
@@ -35,12 +35,20 @@ public class PriceListController {
 	@PostMapping
 	public ResponseEntity<PriceListDTO> addPriceList(@RequestBody PriceListDTO priceListDTO) {
 		PriceList priceList = new PriceList();
-		priceList.setDateFrom(priceListDTO.getDateFrom());
-		priceList.setDateTo(priceList.getDateTo());
-		priceList.setPrices(priceList.getPrices());
-		priceList.setCdwPrice(priceList.getCdwPrice());
-		priceList.setPricePerMile(priceList.getPricePerMile());
-		priceList.setVehicle(priceListDTO.getVehicle());
+		System.out.println(priceListDTO.getDateFrom());
+		priceList.getDateFrom().setTime(priceListDTO.getDateFrom());
+		priceList.getDateTo().setTime(priceListDTO.getDateTo());
+		priceList.setCdwPrice(priceListDTO.getCdwPrice());
+		priceList.setPricePerMile(priceListDTO.getPricePerMile());
+		PriceList p = priceListService.save(priceList);
+		return new ResponseEntity<PriceListDTO>(new PriceListDTO(p), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/addPriceValue/{id}")
+	public ResponseEntity<PriceListDTO> addPriceValue(@RequestBody List<String> prices, 
+													  @PathVariable("id") Long id) {
+		PriceList priceList = priceListService.findById(id);
+		priceList.getPrices().put(prices.get(0), Double.parseDouble(prices.get(1)));
 		PriceList p = priceListService.save(priceList);
 		return new ResponseEntity<PriceListDTO>(new PriceListDTO(p), HttpStatus.OK);
 	}
@@ -57,14 +65,23 @@ public class PriceListController {
 	@PutMapping
 	public ResponseEntity<PriceListDTO> editPriceList(@RequestBody PriceListDTO priceListDTO) {
 		PriceList priceList = priceListService.findById(priceListDTO.getId());
-		priceList.setDateFrom(priceListDTO.getDateFrom());
-		priceList.setDateTo(priceList.getDateTo());
-		priceList.setPrices(priceList.getPrices());
-		priceList.setCdwPrice(priceList.getCdwPrice());
-		priceList.setPricePerMile(priceList.getPricePerMile());
-		priceList.setVehicle(priceListDTO.getVehicle());
+		priceList.getDateFrom().setTime(priceListDTO.getDateFrom());
+		priceList.getDateTo().setTime(priceListDTO.getDateTo());
+		priceList.setCdwPrice(priceListDTO.getCdwPrice());
+		priceList.setPricePerMile(priceListDTO.getPricePerMile());
 		PriceList p = priceListService.save(priceList);
 		return new ResponseEntity<PriceListDTO>(new PriceListDTO(p), HttpStatus.OK); 
+	}
+	
+	@PutMapping(value = "/editPriceValue/{id}/{oldKey}")
+	public ResponseEntity<PriceListDTO> editPriceItemValue(@RequestBody List<String> prices, 
+			  											   @PathVariable("id") Long id,
+			  											   @PathVariable("oldKey") String oldKey) {
+		PriceList priceList = priceListService.findById(id);
+		priceList.getPrices().remove(oldKey);
+		priceList.getPrices().put(prices.get(0), Double.parseDouble(prices.get(1)));
+		PriceList p = priceListService.save(priceList);
+		return new ResponseEntity<PriceListDTO>(new PriceListDTO(p), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/{id}")
@@ -83,7 +100,6 @@ public class PriceListController {
 	
 	@DeleteMapping(value = "/removeVehicle/{id}/{id_vehicle}")
 	public ResponseEntity<PriceListDTO> removeVehicle(@PathVariable("id") Long idP, @PathVariable("id_vehicle") Long idV) {
-		System.out.println("###" + idP + "  " + idV);
 		PriceList priceList = priceListService.findById(idP);
 		for (int i = 0; i < priceList.getVehicle().size(); i++) {
 			if (priceList.getVehicle().get(i).getId().equals(idV)) {

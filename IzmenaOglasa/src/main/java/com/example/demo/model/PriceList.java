@@ -49,7 +49,8 @@ public class PriceList {
 	private Map<String, Double> prices = new HashMap<String, Double>();
 
 	public PriceList() {
-
+		dateFrom = Calendar.getInstance();
+		dateTo = Calendar.getInstance();
 	}
 
 	public PriceList(Long id, List<Vehicle> vehicle, Calendar dateFrom, Calendar dateTo, double pricePerMile,

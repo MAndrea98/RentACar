@@ -1,7 +1,7 @@
 package com.example.demo.dto;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +13,8 @@ public class PriceListDTO {
 
 	private Long id;
 	private List<Vehicle> vehicle = new ArrayList<Vehicle>();
-	private Calendar dateFrom;
-	private Calendar dateTo;
+	private Date dateFrom;
+	private Date dateTo;
 	private double pricePerMile;
 	private double cdwPrice;
 	private Map<String, Double> prices = new HashMap<String, Double>();
@@ -24,7 +24,7 @@ public class PriceListDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PriceListDTO(Long id, List<Vehicle> vehicle, Calendar dateFrom, Calendar dateTo, double pricePerMile,
+	public PriceListDTO(Long id, List<Vehicle> vehicle, Date dateFrom, Date dateTo, double pricePerMile,
 			double cdwPrice, Map<String, Double> prices) {
 		super();
 		this.id = id;
@@ -37,7 +37,7 @@ public class PriceListDTO {
 	}
 	
 	public PriceListDTO(PriceList p) {
-		this(p.getId(), p.getVehicle(), p.getDateFrom(), p.getDateTo(), p.getPricePerMile(), p.getCdwPrice(), p.getPrices());
+		this(p.getId(), p.getVehicle(), p.getDateFrom().getTime(), p.getDateTo().getTime(), p.getPricePerMile(), p.getCdwPrice(), p.getPrices());
 	}
 
 	public Long getId() {
@@ -56,19 +56,19 @@ public class PriceListDTO {
 		this.vehicle = vehicle;
 	}
 
-	public Calendar getDateFrom() {
+	public Date getDateFrom() {
 		return dateFrom;
 	}
 
-	public void setDateFrom(Calendar dateFrom) {
+	public void setDateFrom(Date dateFrom) {
 		this.dateFrom = dateFrom;
 	}
 
-	public Calendar getDateTo() {
+	public Date getDateTo() {
 		return dateTo;
 	}
 
-	public void setDateTo(Calendar dateTo) {
+	public void setDateTo(Date dateTo) {
 		this.dateTo = dateTo;
 	}
 
