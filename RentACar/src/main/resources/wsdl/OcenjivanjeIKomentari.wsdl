@@ -1,0 +1,329 @@
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:sch="http://localhost:8085/api/OcenjivanjeIKomentari/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://localhost:8085/api/OcenjivanjeIKomentari/"
+	targetNamespace="http://localhost:8085/api/OcenjivanjeIKomentari/">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified"
+			targetNamespace="http://localhost:8085/api/OcenjivanjeIKomentari/"
+			version="1.0">
+			<xs:element name="createReviewRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="review" type="tns:reviewDTOOIK" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="createReviewResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="review" type="tns:reviewDTOOIK" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="editReviewRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="review" type="tns:reviewDTOOIK" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="editReviewResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="review" type="tns:reviewDTOOIK" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="deleteReviewRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" type="xs:long" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="deleteReviewResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="response" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:complexType name="requestOIK">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="endUserXML"
+						type="tns:endUserOIK" />
+					<xs:element minOccurs="0" name="id" type="xs:long" />
+					<xs:element minOccurs="0" name="renterXML"
+						type="tns:renterOIK" />
+					<xs:element minOccurs="0" name="status" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="endUserOIK">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="address"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="id" type="xs:long" />
+					<xs:element minOccurs="0" name="idUser" type="xs:long" />
+					<xs:element minOccurs="0" name="name" type="xs:string" />
+					<xs:element minOccurs="0" name="phone" type="xs:string" />
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="requests" nillable="true" type="tns:requestOIK" />
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="reviews" nillable="true" type="tns:reviewOIK" />
+					<xs:element minOccurs="0" name="surname"
+						type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="reviewOIK">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="accepted"
+						type="xs:boolean" />
+					<xs:element minOccurs="0" name="ad" type="tns:ad" />
+					<xs:element minOccurs="0" name="content"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="deleted"
+						type="xs:boolean" />
+					<xs:element minOccurs="0" name="endUserXML"
+						type="tns:endUserOIK" />
+					<xs:element minOccurs="0" name="id" type="xs:long" />
+					<xs:element minOccurs="0" name="renterXML"
+						type="tns:renterOIK" />
+					<xs:element name="stars" type="xs:int" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="reviewDTOOIK">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="content"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="endUserUsername"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="id" type="xs:long" />
+					<xs:element minOccurs="0" name="renterUsername"
+						type="xs:string" />
+					<xs:element name="stars" type="xs:int" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ad">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="date" type="xs:dateTime" />
+					<xs:element name="free">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0"
+									name="entry">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element minOccurs="0" name="key"
+												type="xs:dateTime" />
+											<xs:element minOccurs="0" name="value"
+												type="xs:boolean" />
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="id" type="xs:long" />
+					<xs:element name="mileage" type="xs:int" />
+					<xs:element minOccurs="0" name="renterXML"
+						type="tns:renterOIK" />
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="reviews" nillable="true" type="tns:reviewOIK" />
+					<xs:element minOccurs="0" name="user"
+						type="tns:renterOIK" />
+					<xs:element minOccurs="0" name="validFrom"
+						type="xs:dateTime" />
+					<xs:element minOccurs="0" name="validTru"
+						type="xs:dateTime" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="renterOIK">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="ads" nillable="true" type="tns:ad" />
+					<xs:element minOccurs="0" name="id" type="xs:long" />
+					<xs:element minOccurs="0" name="idUser" type="xs:long" />
+					<xs:element minOccurs="0" name="priceListXML"
+						type="tns:priceListOIK" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="priceListOIK">
+				<xs:sequence>
+					<xs:element name="cdwPrice" type="xs:double" />
+					<xs:element name="datesPrice">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0"
+									name="entry">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element minOccurs="0" name="key"
+												type="xs:dateTime" />
+											<xs:element minOccurs="0" name="value"
+												type="xs:double" />
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="discount">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element maxOccurs="unbounded" minOccurs="0"
+									name="entry">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element minOccurs="0" name="key"
+												type="xs:dateTime" />
+											<xs:element minOccurs="0" name="value"
+												type="xs:double" />
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="id" type="xs:long" />
+					<xs:element name="pricePerMile" type="xs:double" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="userModelOIK">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="id" type="xs:long" />
+					<xs:element minOccurs="0" name="password"
+						type="xs:string" />
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="permissions" nillable="true" type="tns:permissionsOIK" />
+					<xs:element minOccurs="0" name="uloga"
+						type="tns:userTypeOIK" />
+					<xs:element minOccurs="0" name="username"
+						type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="reportOIK">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="id" type="xs:long" />
+					<xs:element minOccurs="0" name="requestXML"
+						type="tns:requestOIK" />
+					<xs:element minOccurs="0" name="reviewXML"
+						type="tns:reviewOIK" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="adminXML">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="id" type="xs:long" />
+					<xs:element minOccurs="0" name="user"
+						type="tns:userModelOIK" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:simpleType name="permissionsOIK">
+				<xs:restriction base="xs:string" />
+			</xs:simpleType>
+			<xs:simpleType name="userTypeOIK">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="ENDUSER" />
+					<xs:enumeration value="RENTER" />
+					<xs:enumeration value="ADMIN" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="deleteReviewResponse">
+		<wsdl:part element="tns:deleteReviewResponse"
+			name="deleteReviewResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createReviewResponse">
+		<wsdl:part element="tns:createReviewResponse"
+			name="createReviewResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="editReviewRequest">
+		<wsdl:part element="tns:editReviewRequest"
+			name="editReviewRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="deleteReviewRequest">
+		<wsdl:part element="tns:deleteReviewRequest"
+			name="deleteReviewRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="createReviewRequest">
+		<wsdl:part element="tns:createReviewRequest"
+			name="createReviewRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="editReviewResponse">
+		<wsdl:part element="tns:editReviewResponse"
+			name="editReviewResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="ReviewsPort">
+		<wsdl:operation name="deleteReview">
+			<wsdl:input message="tns:deleteReviewRequest"
+				name="deleteReviewRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:deleteReviewResponse"
+				name="deleteReviewResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createReview">
+			<wsdl:input message="tns:createReviewRequest"
+				name="createReviewRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:createReviewResponse"
+				name="createReviewResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="editReview">
+			<wsdl:input message="tns:editReviewRequest"
+				name="editReviewRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:editReviewResponse"
+				name="editReviewResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ReviewsPortSoap11"
+		type="tns:ReviewsPort">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="deleteReview">
+			<soap:operation soapAction="" />
+			<wsdl:input name="deleteReviewRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="deleteReviewResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="createReview">
+			<soap:operation soapAction="" />
+			<wsdl:input name="createReviewRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="createReviewResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="editReview">
+			<soap:operation soapAction="" />
+			<wsdl:input name="editReviewRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="editReviewResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ReviewsPortService">
+		<wsdl:port binding="tns:ReviewsPortSoap11"
+			name="ReviewsPortSoap11">
+			<soap:address location="http://localhost:8085/ws" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

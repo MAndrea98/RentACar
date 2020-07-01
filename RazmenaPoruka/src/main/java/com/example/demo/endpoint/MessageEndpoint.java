@@ -27,11 +27,11 @@ import localhost._8089.api.razmenaporuka.DeleteMessageResponse;
 import localhost._8089.api.razmenaporuka.EditMessageRequest;
 import localhost._8089.api.razmenaporuka.EditMessageResponse;
 import localhost._8089.api.razmenaporuka.GetAllMessageResponse;
-import localhost._8089.api.razmenaporuka.MessageXML;
+import localhost._8089.api.razmenaporuka.MessageRP;
 import localhost._8089.api.razmenaporuka.SendMessageRequest;
 import localhost._8089.api.razmenaporuka.SendMessageResponse;
-import localhost._8089.api.razmenaporuka.UserModelXML;
-import localhost._8089.api.razmenaporuka.UserTypeXML;
+import localhost._8089.api.razmenaporuka.UserModelRP;
+import localhost._8089.api.razmenaporuka.UserTypeRP;
 
 @Endpoint
 public class MessageEndpoint {
@@ -58,7 +58,6 @@ public class MessageEndpoint {
 	public SendMessageResponse sendMessage(@RequestPayload SendMessageRequest messageDTO) {
 		SendMessageResponse response = new SendMessageResponse();
 		
-		
 
 		UserModel sender = userModelService.findById(1L);
 		UserModel reciever = userModelService.findByUsername(messageDTO.getMessage().getReciever().getUsername());
@@ -74,6 +73,8 @@ public class MessageEndpoint {
 				return response;
 			}
 		}
+		
+		// TODO ispraviti gresku null vrednosti
 		//Uvek je vracao null pa sam za sada zakomentarisao
 		/*
 		 * Request request = requestService.findByParameters(renter, endUser,
@@ -101,9 +102,9 @@ public class MessageEndpoint {
 		GetAllMessageResponse response = new GetAllMessageResponse();
 		for (Message m : user.getInbox())
 			if (!m.isDeleted()) {
-				MessageXML msg = new MessageXML();
-				UserModelXML receiver = new UserModelXML();
-				UserModelXML sender = new UserModelXML();
+				MessageRP msg = new MessageRP();
+				UserModelRP receiver = new UserModelRP();
+				UserModelRP sender = new UserModelRP();
 
 				receiver.setPassword(user.getPassword());
 				receiver.setUsername(user.getUsername());
@@ -178,17 +179,17 @@ public class MessageEndpoint {
 		return xmlCalendar;
 	}
 
-	public static UserTypeXML toUserTypeXML(UserType uloga) {
-		UserTypeXML ulogaXML;
+	public static UserTypeRP toUserTypeXML(UserType uloga) {
+		UserTypeRP ulogaXML;
 
 		if (uloga == UserType.ADMIN) {
-			ulogaXML = UserTypeXML.ADMIN;
+			ulogaXML = UserTypeRP.ADMIN;
 		} else if (uloga == UserType.END_USER) {
-			ulogaXML = UserTypeXML.ENDUSER;
+			ulogaXML = UserTypeRP.ENDUSER;
 		} else if (uloga == UserType.RENTER) {
-			ulogaXML = UserTypeXML.RENTER;
+			ulogaXML = UserTypeRP.RENTER;
 		} else {
-			ulogaXML = UserTypeXML.ENDUSER;
+			ulogaXML = UserTypeRP.ENDUSER;
 		}
 
 		return ulogaXML;
