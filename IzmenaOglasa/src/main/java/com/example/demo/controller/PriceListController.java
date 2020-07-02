@@ -28,7 +28,6 @@ public class PriceListController {
 	
 	// TODO neophodno je izmeniti svaki priceList u programu, potrebno je dodati u skriptu, 
 	// i njega prosiriti na ceo program
-	// treba odraditi frontend za dodavanje automobila u price list
 	
 	@Autowired
 	private PriceListService priceListService;

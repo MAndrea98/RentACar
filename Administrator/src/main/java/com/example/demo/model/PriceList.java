@@ -1,14 +1,17 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -18,8 +21,9 @@ public class PriceList {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Vehicle vehicle;
+	@JsonIgnore
+	@ManyToMany
+	private List<Vehicle> vehicle = new ArrayList<Vehicle>();
 	
 	@Column(name="dateFrom", nullable = false)
 	private Calendar dateFrom;
@@ -78,11 +82,11 @@ public class PriceList {
 		this.cdwPrice = cdwPrice;
 	}
 
-	public Vehicle getVehicle() {
+	public List<Vehicle> getVehicle() {
 		return vehicle;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
+	public void setVehicle(List<Vehicle> vehicle) {
 		this.vehicle = vehicle;
 	}
 	
