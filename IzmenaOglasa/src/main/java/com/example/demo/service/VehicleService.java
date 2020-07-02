@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class VehicleService {
 		return vehicleRepository.findById(id).orElse(null);
 	}
 	
-	public Vehicle findByOwner(Renter owner) {
+	public List<Vehicle> findByOwner(Renter owner) {
 		return vehicleRepository.findByOwner(owner);
 	}
 }

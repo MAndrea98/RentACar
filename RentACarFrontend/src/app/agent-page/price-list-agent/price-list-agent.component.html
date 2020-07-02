@@ -90,84 +90,121 @@
         </tr>
       </tbody>
       </table>
-      <button class="btn-primary">Add new vehicle</button>
+      <button class="btn-primary" (click)="getMyVehicles()">Add new vehicle</button>
       <br/>
     </div>
+  <div [hidden] = "addVehicleToPriceListVisible">
+    <table class="table table-striped table-responsive-md btn-table" border="1">
+      <thead>
+        <title>Vehicles</title>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Photo</th>
+        <th scope="col">Manufacturer</th>
+        <th scope="col">Model</th>
+        <th scope="col">Gas Type</th>
+        <th scope="col">Gear Box</th>
+        <th scope="col">Vehicle Class</th>
+        <th scope="col">Mileage</th>
+        <th scope="col">Proposed Mileage</th>
+        <th scope="col">CDW</th>
+        <th scope="col">Child Seats Number</th>
+        <th scope="col">Add</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of myVehicles">
+          <td>{{v.id}}</td>
+          <td></td>
+          <td>{{v.model.manufacturer.name}}</td>
+          <td>{{v.model.name}}</td>
+          <td>{{v.gasType.name}}</td>
+          <td>{{v.gearBox}}</td>
+          <td>{{v.vehicleClass.name}}</td>
+          <td>{{v.mileage}}</td>
+          <td>{{v.proposedMileage}}</td>
+          <td>{{v.cdw}}</td>
+          <td>{{v.childSeatsNo}}</td>
+          <td><button class="btn-primary" (click)="addVehicle(v)">Add vehicle</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
     <button class="btn-primary" (click)="addNewPriceForm()">Add new price list</button>
-    <div [hidden] = "addNewPriceListFormVisible">
-      <form>
-        <div class="form-group col-md-8">
-          <label for="patientName">Price Per Mile </label>
-          <input #pricePerMileInput class="form-control" />
-        </div>
-        <div class="form-group col-md-8">
-          <label for="patientName">CDW price</label>
-          <input #priceCDWInput class="form-control" />
-        </div>
-        <div class="form-group col-md-8">
-          <label for="patientName">Price from</label>
-          <input #fromDateInput type="text" class="form-control" placeholder=''/>
-        </div>
-        <div class="form-group col-md-8">
-          <label for="patientName">Price to</label>
-          <input #toDateInput type="text" class="form-control" placeholder=''/>
-        </div>
-        <button class="btn-primary" (click)="addNewPrice()">Submit</button>
-      </form>
-    </div>
-    <div [hidden] = "addNewPriceValueVisible">
-      <form>
-        <div class="form-group col-md-8">
-          <label for="patientName">Item</label>
-          <input #itemInput class="form-control" />
-        </div>
-        <div class="form-group col-md-8">
-          <label for="patientName">Value</label>
-          <input #valueInput class="form-control" />
-        </div>
-        <button class="btn-primary" (click)="addNewPriceValueSend()">Submit</button>
-      </form>
-    </div>
-    <div [hidden] = "editPriceListFormVisible">
-      <form>
-        <div class="form-group col-md-8">
-          <label for="patientName">Id</label>
-          <input #editPriceId class="form-control" disabled/>
-        </div>
-        <div class="form-group col-md-8">
-          <label for="patientName">Price Per Mile </label>
-          <input #editPricePerMileInput class="form-control" />
-        </div>
-        <div class="form-group col-md-8">
-          <label for="patientName">CDW price</label>
-          <input #editPriceCDWInput class="form-control" />
-        </div>
-        <div class="form-group col-md-8">
-          <label for="patientName">Price from</label>
-          <input #editFromDateInput type="text" class="form-control" placeholder=''/>
-        </div>
-        <div class="form-group col-md-8">
-          <label for="patientName">Price to</label>
-          <input #editToDateInput type="text" class="form-control" placeholder=''/>
-        </div>
-        <button class="btn-success" (click)="editPriceListSend()">Edit price list</button>
-      </form>
-    </div>
-    <div [hidden] = "editPriceValueVisible">
-      <form>
-        <div class="form-group col-md-8">
-          <label for="patientName">Old item name</label>
-          <input #editOldItemInput class="form-control" disabled/>
-        </div>
-        <div class="form-group col-md-8">
-          <label for="patientName">Item name</label>
-          <input #editItemInput class="form-control" />
-        </div>
-        <div class="form-group col-md-8">
-          <label for="patientName">Value</label>
-          <input #editValueInput class="form-control" />
-        </div>
-        <button class="btn-primary" (click)="editPriceListValueSend()">Submit</button>
-      </form>
-    </div>
+  <div [hidden] = "addNewPriceListFormVisible">
+    <form>
+      <div class="form-group col-md-8">
+        <label for="patientName">Price Per Mile </label>
+        <input #pricePerMileInput class="form-control" />
+      </div>
+      <div class="form-group col-md-8">
+        <label for="patientName">CDW price</label>
+        <input #priceCDWInput class="form-control" />
+      </div>
+      <div class="form-group col-md-8">
+        <label for="patientName">Price from</label>
+        <input #fromDateInput type="text" class="form-control" placeholder=''/>
+      </div>
+      <div class="form-group col-md-8">
+        <label for="patientName">Price to</label>
+        <input #toDateInput type="text" class="form-control" placeholder=''/>
+      </div>
+      <button class="btn-primary" (click)="addNewPrice()">Submit</button>
+    </form>
+  </div>
+  <div [hidden] = "addNewPriceValueVisible">
+    <form>
+      <div class="form-group col-md-8">
+        <label for="patientName">Item</label>
+        <input #itemInput class="form-control" />
+      </div>
+      <div class="form-group col-md-8">
+        <label for="patientName">Value</label>
+        <input #valueInput class="form-control" />
+      </div>
+      <button class="btn-primary" (click)="addNewPriceValueSend()">Submit</button>
+    </form>
+  </div>
+  <div [hidden] = "editPriceListFormVisible">
+    <form>
+      <div class="form-group col-md-8">
+        <label for="patientName">Id</label>
+        <input #editPriceId class="form-control" disabled/>
+      </div>
+      <div class="form-group col-md-8">
+        <label for="patientName">Price Per Mile </label>
+        <input #editPricePerMileInput class="form-control" />
+      </div>
+      <div class="form-group col-md-8">
+        <label for="patientName">CDW price</label>
+        <input #editPriceCDWInput class="form-control" />
+      </div>
+      <div class="form-group col-md-8">
+        <label for="patientName">Price from</label>
+        <input #editFromDateInput type="text" class="form-control" placeholder=''/>
+      </div>
+      <div class="form-group col-md-8">
+        <label for="patientName">Price to</label>
+        <input #editToDateInput type="text" class="form-control" placeholder=''/>
+      </div>
+      <button class="btn-success" (click)="editPriceListSend()">Edit price list</button>
+    </form>
+  </div>
+  <div [hidden] = "editPriceValueVisible">
+    <form>
+      <div class="form-group col-md-8">
+        <label for="patientName">Old item name</label>
+        <input #editOldItemInput class="form-control" disabled/>
+      </div>
+      <div class="form-group col-md-8">
+        <label for="patientName">Item name</label>
+        <input #editItemInput class="form-control" />
+      </div>
+      <div class="form-group col-md-8">
+        <label for="patientName">Value</label>
+        <input #editValueInput class="form-control" />
+      </div>
+      <button class="btn-primary" (click)="editPriceListValueSend()">Submit</button>
+    </form>
+  </div>
 </div>

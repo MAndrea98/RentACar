@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.PriceListDTO;
 import com.example.demo.model.PriceList;
+import com.example.demo.model.Vehicle;
 import com.example.demo.service.PriceListService;
 
 @RestController
@@ -49,6 +50,15 @@ public class PriceListController {
 													  @PathVariable("id") Long id) {
 		PriceList priceList = priceListService.findById(id);
 		priceList.getPrices().put(prices.get(0), Double.parseDouble(prices.get(1)));
+		PriceList p = priceListService.save(priceList);
+		return new ResponseEntity<PriceListDTO>(new PriceListDTO(p), HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/addVehicleToPriceList/{id}")
+	public ResponseEntity<PriceListDTO> addVehicleToPriceList(@RequestBody Vehicle vehicle, 
+															  @PathVariable("id") Long id) {
+		PriceList priceList = priceListService.findById(id);
+		priceList.getVehicle().add(vehicle);
 		PriceList p = priceListService.save(priceList);
 		return new ResponseEntity<PriceListDTO>(new PriceListDTO(p), HttpStatus.OK);
 	}

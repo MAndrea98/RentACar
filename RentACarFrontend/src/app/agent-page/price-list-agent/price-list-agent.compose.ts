@@ -38,14 +38,17 @@ export class PriceListAgentComponent implements OnInit {
     }
 
     priceListModelList:PriceList[] = [];
+    myVehicles: Vehicle[] = [];
     prices: Map<String, number> = new Map;
     vehicles: Vehicle[] = [];
     hiddenPrices: Boolean = true;
     hiddenVehicle: Boolean = true;
+    addVehicleToPriceListVisible: Boolean = true;
     addNewPriceListFormVisible:Boolean = true;
     addNewPriceValueVisible: Boolean = true;
     editPriceListFormVisible: Boolean = true;
     editPriceValueVisible: Boolean = true;
+
     priceListID: number = 0;
     fromDateString: string = "";
     toDateString: string = "";
@@ -67,7 +70,8 @@ export class PriceListAgentComponent implements OnInit {
       this.addNewPriceValueVisible = true;
       this.editPriceListFormVisible = true;
       this.editPriceValueVisible = true;
-
+      this.addVehicleToPriceListVisible = true;
+      
       this.fromDateInput.nativeElement.value = "";
       this.toDateInput.nativeElement.value = "";
       this.priceCDWInput.nativeElement.value = "";
@@ -92,6 +96,20 @@ export class PriceListAgentComponent implements OnInit {
         console.log(err.message);
       }
     )
+    }
+
+    getMyVehicles() {
+      let url = "http://localhost:8080/api/izmena-oglasa/vehicle/myVehicles";
+      this.http.get(url).subscribe(
+        (res: Vehicle[]) => {
+          this.myVehicles = [];
+          this.myVehicles = res;
+          this.addVehicleToPriceListVisible = false;
+        },
+        err=>{
+          alert('Something went wrong');
+        }
+      )
     }
 
     pricesOf(price: PriceList): void {
@@ -153,6 +171,22 @@ export class PriceListAgentComponent implements OnInit {
         }
       )
     }
+
+    addVehicle(vehicle: Vehicle): void {
+      let url = "http://localhost:8080/api/izmena-oglasa/priceList/addVehicleToPriceList/" + this.priceListID;
+      this.http.post(url, vehicle).subscribe(
+        (res: PriceList)=>{
+          this.home();
+          this.getPriceList();
+          this.vehicles = res.vehicle;
+          this.hiddenVehicle = false;
+        },
+        err=>{
+          alert('Something went wrong');
+        }
+      )
+    }
+    
 
     editPriceList(price: PriceList):void {
       this.home();
