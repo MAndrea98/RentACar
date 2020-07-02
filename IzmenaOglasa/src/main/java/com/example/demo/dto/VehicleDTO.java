@@ -1,91 +1,64 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import com.example.demo.model.GasType;
+import com.example.demo.model.Model;
+import com.example.demo.model.PriceList;
+import com.example.demo.model.Renter;
+import com.example.demo.model.Request;
+import com.example.demo.model.Vehicle;
+import com.example.demo.model.VehicleClass;
+import com.example.demo.model.VehicleFree;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
-@Entity
-public class Vehicle {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class VehicleDTO {
 	private Long id;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<VehicleImage> images = new ArrayList<VehicleImage>();
-	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
 	private Renter owner;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Model model;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private GasType gasType;
-	
-	@Column(name="gearBox")
 	private String gearBox;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private VehicleClass vehicleClass;
-	
-	@Column(name="mileage")
 	private int mileage;
-	
-	@Column(name="proposedMileage")
 	private int proposedMileage;
-	
-	@Column(name="cdw")
 	private Boolean cdw;
-	
-	@Column(name="childSeatsNo")
 	private int childSeatsNo;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<VehicleFree> vehicleFree = new HashSet<VehicleFree>();
-	
-	@JsonIgnore
-	@ManyToMany
+	private List<Request> requests = new ArrayList<Request>();
 	private List<PriceList> priceList = new ArrayList<PriceList>();
 	
-	public Vehicle() {
-		
-	}
-	
-	public Vehicle(Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
-			int mileage, int proposedMileage, Renter owner, Boolean cdw, int childSeatsNo) {
+	public VehicleDTO() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	public VehicleDTO(Long id, Renter owner, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
+			int mileage, int proposedMileage, Boolean cdw, int childSeatsNo,
+			Set<VehicleFree> vehicleFree, List<Request> requests, List<PriceList> priceList) {
+		super();
+		this.id = id;
+		this.owner = owner;
 		this.model = model;
 		this.gasType = gasType;
 		this.gearBox = gearBox;
 		this.vehicleClass = vehicleClass;
 		this.mileage = mileage;
 		this.proposedMileage = proposedMileage;
-		this.owner = owner;
 		this.cdw = cdw;
 		this.childSeatsNo = childSeatsNo;
+		this.vehicleFree = vehicleFree;
+		this.requests = requests;
+		this.priceList = priceList;
 	}
-	
-	public Vehicle (Vehicle v) {
-		this(v.getModel(), v.getGasType(), v.getGearBox(), v.getVehicleClass(), v.getMileage(),
-				v.getProposedMileage(), v.getOwner(), v.getCdw(), v.getChildSeatsNo());
+
+
+
+	public VehicleDTO(Vehicle v) {
+		this(v.getId(), v.getOwner(), v.getModel(), v.getGasType(), v.getGearBox(), v.getVehicleClass(), v.getMileage(),
+				v.getProposedMileage(), v.getCdw(), v.getChildSeatsNo(), v.getVehicleFree(), v.getRequests(), v.getPriceList());
 	}
 
 	public Long getId() {
@@ -94,22 +67,6 @@ public class Vehicle {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public List<VehicleImage> getImages() {
-		return images;
-	}
-
-	public void setImages(List<VehicleImage> images) {
-		this.images = images;
-	}
-
-	public Renter getOwner() {
-		return owner;
-	}
-
-	public void setOwner(Renter owner) {
-		this.owner = owner;
 	}
 
 	public Model getModel() {
@@ -160,6 +117,14 @@ public class Vehicle {
 		this.proposedMileage = proposedMileage;
 	}
 
+	public Renter getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Renter owner) {
+		this.owner = owner;
+	}
+
 	public Boolean getCdw() {
 		return cdw;
 	}
@@ -176,21 +141,30 @@ public class Vehicle {
 		this.childSeatsNo = childSeatsNo;
 	}
 
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
+	}
+
 	public Set<VehicleFree> getVehicleFree() {
 		return vehicleFree;
 	}
+
 
 	public void setVehicleFree(Set<VehicleFree> vehicleFree) {
 		this.vehicleFree = vehicleFree;
 	}
 
+
 	public List<PriceList> getPriceList() {
 		return priceList;
 	}
 
+
 	public void setPriceList(List<PriceList> priceList) {
 		this.priceList = priceList;
 	}
-
-	
 }

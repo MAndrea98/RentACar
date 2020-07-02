@@ -34,16 +34,16 @@ public class Vehicle {
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
 	private Renter owner;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Model model;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private GasType gasType;
 	
 	@Column(name="gearBox")
 	private String gearBox;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private VehicleClass vehicleClass;
 	
 	@Column(name="mileage")
@@ -68,8 +68,8 @@ public class Vehicle {
 	
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<PriceList> priceList = new HashSet<PriceList>();
+	@ManyToMany
+	private List<PriceList> priceList = new ArrayList<PriceList>();
 	
 	public Vehicle() {
 		
@@ -77,7 +77,7 @@ public class Vehicle {
 
 	public Vehicle(Long id, List<VehicleImage> images, Renter owner, Model model, GasType gasType, String gearBox,
 			VehicleClass vehicleClass, int mileage, int proposedMileage, Boolean cdw, int childSeatsNo,
-			Set<VehicleFree> vehicleFree, List<Request> requests, Set<PriceList> priceList) {
+			Set<VehicleFree> vehicleFree, List<Request> requests, List<PriceList> priceList) {
 		super();
 		this.id = id;
 		this.images = images;
@@ -199,11 +199,11 @@ public class Vehicle {
 		this.requests = requests;
 	}
 
-	public Set<PriceList> getPriceList() {
+	public List<PriceList> getPriceList() {
 		return priceList;
 	}
 
-	public void setPriceList(Set<PriceList> priceList) {
+	public void setPriceList(List<PriceList> priceList) {
 		this.priceList = priceList;
 	}
 	
