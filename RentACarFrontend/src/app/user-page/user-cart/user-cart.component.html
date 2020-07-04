@@ -17,6 +17,7 @@
               <th scope="col">Proposed Mileage</th>
               <th scope="col">CDW</th>
               <th scope="col">Child Seats Number</th>
+              <th scope="col">Owner id</th>
               <th scope="col">Send request</th>
               <th scope="col">Remove</th>
             </tr>
@@ -34,11 +35,23 @@
                 <td>{{v.proposedMileage}}</td>
                 <td>{{v.cdw}}</td>
                 <td>{{v.childSeatsNo}}</td>
+                <td>{{v.owner.id}}</td>
                 <td><button class="btn-success" (click) = "sendRequest(v.id)">Send request</button></td>
-                <td><button class="btn-danger">Remove</button></td>
+                <td><button class="btn-danger" (click) = "removeFromCart(v.id)">Remove</button></td>
               </tr>
             </tbody>
         </table>
+    </div>
+    <div>
+      <table>
+        <tr>
+        <td>Select owner id for bundle: </td>
+        <td><select #ownerID>
+          <option *ngFor="let id of ids">{{id}}</option>
+        </select></td>
+        <td><button class="btn-success" (click) = "sendBundle()">Send bundle</button></td>
+        </tr>
+      </table>
     </div>
 
 </div>

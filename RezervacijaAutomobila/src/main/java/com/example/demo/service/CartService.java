@@ -17,6 +17,6 @@ public class CartService {
 	}
 
 	public Cart save(Cart cart) {
-		return cartRepository.save(cart);
+		return cartRepository.saveAndFlush(cart);
 	}
 }

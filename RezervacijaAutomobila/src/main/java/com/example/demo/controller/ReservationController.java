@@ -77,11 +77,14 @@ public class ReservationController {
 		System.out.println("####" + cart.getEndUserID() + "####" + cart.getVehicles().size());
 		for (int i = 0; i < cart.getVehicles().size(); i++) {
 			if (cart.getVehicles().get(i).getId().equals(idVehicle)) {
-				cart.getVehicles().remove(i);
+				Vehicle veh = cart.getVehicles().get(i);
+				cart.getVehicles().remove(cart.getVehicles().get(i));
+				veh.getCarts().remove(cart);
+				vehicleService.save(veh);
 			}
 		}
 		Cart c = cartService.save(cart);
-		System.out.println("####" + cart.getEndUserID() + "####" + cart.getVehicles().size());
+		System.out.println("####" + cart.getEndUserID() + "####" + cart.getVehicles().size() + "##" + c.getVehicles().size());
 		System.out.println("#####izasao");
 		return new ResponseEntity<String>("The request has been successfully sent.", HttpStatus.OK);
 	}
@@ -104,6 +107,20 @@ public class ReservationController {
 		}
 		Request request = new Request(vehicles, RequestStatus.PENDING, endUser);
 		requestService.save(request);
+		Cart cart = cartService.findByEndUserID(endUser.getId());
+		System.out.println("####" + cart.getEndUserID() + "####" + cart.getVehicles().size());
+		for (int i = 0; i < cart.getVehicles().size(); i++) {
+			for (VehicleDTO v : vehicleDTOlist) {
+				if (cart.getVehicles().get(i).getId().equals(v.getId())) {
+					Vehicle veh = cart.getVehicles().get(i);
+					cart.getVehicles().remove(cart.getVehicles().get(i));
+					veh.getCarts().remove(cart);
+					vehicleService.save(veh);
+				}
+			}
+		}
+		Cart c = cartService.save(cart);
+		System.out.println("####" + cart.getEndUserID() + "####" + cart.getVehicles().size() + "##" + c.getVehicles().size());
 		return new ResponseEntity<String>("The requests have been successfully sent.", HttpStatus.OK);
 	}
 	
