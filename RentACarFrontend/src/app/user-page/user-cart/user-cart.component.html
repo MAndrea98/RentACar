@@ -1,0 +1,44 @@
+<div class="containter">
+    <app-user-nav></app-user-nav>
+    <br/>
+    <div>
+        <table class="table table-striped table-responsive-md btn-table" border="1">
+            <thead>
+              <title>Vehicles</title>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Photo</th>
+              <th scope="col">Manufacturer</th>
+              <th scope="col">Model</th>
+              <th scope="col">Gas Type</th>
+              <th scope="col">Gear Box</th>
+              <th scope="col">Vehicle Class</th>
+              <th scope="col">Mileage</th>
+              <th scope="col">Proposed Mileage</th>
+              <th scope="col">CDW</th>
+              <th scope="col">Child Seats Number</th>
+              <th scope="col">Send request</th>
+              <th scope="col">Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let v of cart">
+                <td>{{v.id}}</td>
+                <td></td>
+                <td>{{v.model.manufacturer.name}}</td>
+                <td>{{v.model.name}}</td>
+                <td>{{v.gasType.name}}</td>
+                <td>{{v.gearBox}}</td>
+                <td>{{v.vehicleClass.name}}</td>
+                <td>{{v.mileage}}</td>
+                <td>{{v.proposedMileage}}</td>
+                <td>{{v.cdw}}</td>
+                <td>{{v.childSeatsNo}}</td>
+                <td><button class="btn-success" (click) = "sendRequest(v.id)">Send request</button></td>
+                <td><button class="btn-danger">Remove</button></td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

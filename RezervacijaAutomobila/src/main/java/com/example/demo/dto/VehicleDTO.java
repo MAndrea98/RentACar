@@ -14,6 +14,7 @@ import com.example.demo.model.Request;
 import com.example.demo.model.Vehicle;
 import com.example.demo.model.VehicleClass;
 import com.example.demo.model.VehicleFree;
+import com.example.demo.model.VehicleImage;
 
 public class VehicleDTO {
 

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +29,10 @@ import com.example.demo.service.VehicleService;
 
 @RestController
 @RequestMapping("/reservation")
+@CrossOrigin("http://localhost:4200")
 public class ReservationController {
 	
+	//TODO: Potrebno je odraditi bundle na frontu i prosirivanje baze na ceo i agentsku aplikaciju
 	@Autowired
 	private VehicleService vehicleService;
 	
@@ -59,16 +62,27 @@ public class ReservationController {
 	}
 	
 	@PostMapping("/createSingle")
-	public ResponseEntity<String> createSingleRequest(@RequestBody VehicleDTO vehicleDTO) {
+	public ResponseEntity<String> createSingleRequest(@RequestBody Long idVehicle) {
 		//EndUser endUser = endUserService.findByIdUser(LogedUser.getInstance().getUserId());
+		System.out.println("#####usao");
 		EndUser endUser = endUserService.findByIdUser(1L);
 		if (endUser == null)
 			return new ResponseEntity<String>("You don't have permission to do this task.", HttpStatus.BAD_REQUEST);
 		List<Vehicle> vehicles = new ArrayList<Vehicle>();
-		Vehicle v = vehicleService.findById(vehicleDTO.getId());
+		Vehicle v = vehicleService.findById(idVehicle);
 		vehicles.add(v);
 		Request request = new Request(vehicles, RequestStatus.PENDING, endUser);
 		requestService.save(request);
+		Cart cart = cartService.findByEndUserID(endUser.getId());
+		System.out.println("####" + cart.getEndUserID() + "####" + cart.getVehicles().size());
+		for (int i = 0; i < cart.getVehicles().size(); i++) {
+			if (cart.getVehicles().get(i).getId().equals(idVehicle)) {
+				cart.getVehicles().remove(i);
+			}
+		}
+		Cart c = cartService.save(cart);
+		System.out.println("####" + cart.getEndUserID() + "####" + cart.getVehicles().size());
+		System.out.println("#####izasao");
 		return new ResponseEntity<String>("The request has been successfully sent.", HttpStatus.OK);
 	}
 	

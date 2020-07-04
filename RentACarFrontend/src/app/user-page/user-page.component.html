@@ -5,3 +5,7 @@
 <div class="container" *ngIf="_router.url.includes('ad') && _router.url.includes('new')">
   <app-new-ad-form></app-new-ad-form>
 </div>
+
+<div class="container" *ngIf="_router.url.includes('cart')">
+  <app-user-cart></app-user-cart>
+</div>

@@ -31,7 +31,7 @@ public class Vehicle {
 	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<VehicleImage> images = new ArrayList<VehicleImage>();
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
 	private Renter owner;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -62,10 +62,12 @@ public class Vehicle {
 	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<VehicleFree> vehicleFree = new HashSet<VehicleFree>();
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "vehicles_requests", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
 	private List<Request> requests = new ArrayList<Request>();
 	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "vehicles_carts", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cart_id", referencedColumnName = "id"))
 	private List<Cart> carts = new ArrayList<Cart>();
