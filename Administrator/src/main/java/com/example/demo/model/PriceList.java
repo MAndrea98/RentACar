@@ -2,14 +2,20 @@ package com.example.demo.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapKeyColumn;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,6 +42,12 @@ public class PriceList {
 	
 	@Column(name="cdwPrice")
 	private double cdwPrice;
+	
+	@ElementCollection
+	@JoinTable(name="prices_values", joinColumns = @JoinColumn(name="price_list_id"))
+	@MapKeyColumn (name="name")
+	@Column(name="price")
+	private Map<String, Double> prices = new HashMap<String, Double>();
 	
 	
 	public PriceList() {
@@ -88,6 +100,14 @@ public class PriceList {
 
 	public void setVehicle(List<Vehicle> vehicle) {
 		this.vehicle = vehicle;
+	}
+
+	public Map<String, Double> getPrices() {
+		return prices;
+	}
+
+	public void setPrices(Map<String, Double> prices) {
+		this.prices = prices;
 	}
 	
 	
