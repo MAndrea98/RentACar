@@ -3,29 +3,29 @@ package com.example.demo.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.model.Ad;
 import com.example.demo.model.Cart;
-import com.example.demo.model.Vehicle;
 
 public class CartDTO {
 
 	private Long id;
 	private Long endUserID;
-	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
+	private List<Ad> ads = new ArrayList<Ad>();
 	
 	public CartDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CartDTO(Long id, Long endUserID, List<Vehicle> vehicles) {
+	public CartDTO(Long id, Long endUserID, List<Ad> ads) {
 		super();
 		this.id = id;
 		this.endUserID = endUserID;
-		this.vehicles = vehicles;
+		this.ads = ads;
 	}
 	
 	public CartDTO(Cart c) {
-		this(c.getId(), c.getEndUserID(), c.getVehicles());
+		this(c.getId(), c.getEndUserID(), c.getAds());
 	}
 
 	public Long getId() {
@@ -44,12 +44,12 @@ public class CartDTO {
 		this.endUserID = endUserID;
 	}
 
-	public List<Vehicle> getVehicles() {
-		return vehicles;
+	public List<Ad> getVehicles() {
+		return ads;
 	}
 
-	public void setVehicles(List<Vehicle> vehicles) {
-		this.vehicles = vehicles;
+	public void setVehicles(List<Ad> ads) {
+		this.ads = ads;
 	}
 	
 	

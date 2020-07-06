@@ -1,16 +1,22 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Ad {
@@ -42,24 +48,29 @@ public class Ad {
 
 	@ManyToMany
 	private List<EndUser> favoriteFor;
+	
+	@JsonIgnore
+	@ManyToMany( cascade = {
+		    CascadeType.PERSIST,
+		    CascadeType.MERGE
+		})
+	@JoinTable(name = "ads_requests", joinColumns = @JoinColumn(name = "ad_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
+	private List<Request> requests = new ArrayList<Request>();
+	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "ads_carts", joinColumns = @JoinColumn(name = "ad_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cart_id", referencedColumnName = "id"))
+	private List<Cart> carts = new ArrayList<Cart>();
 
 	public Ad() {
 
 	}
 
-	public Ad(Long id, Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom,
-			Calendar dateFrom, Calendar dateTo,
-			List<EndUser> favoriteFor) {
-		super();
-		this.id = id;
-		this.vehicle = vehicle;
-		this.place = place;
-		this.date = date;
-		this.validTru = validTru;
-		this.validFrom = validFrom;
-		this.dateFrom = dateFrom;
-		this.dateTo = dateTo;
-		this.favoriteFor = favoriteFor;
+	public List<Request> getRequests() {
+		return requests;
+	}
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
 	}
 
 	public Long getId() {
@@ -134,5 +145,14 @@ public class Ad {
 		this.favoriteFor = favoriteFor;
 	}
 
+	public List<Cart> getCarts() {
+		return carts;
+	}
+
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
+	}
+
+	
 	
 }

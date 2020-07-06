@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dto.VehicleDTO;
+import com.example.demo.dto.AdDTO;
+import com.example.demo.model.Ad;
 import com.example.demo.model.Cart;
 import com.example.demo.model.EndUser;
-import com.example.demo.model.Vehicle;
-import com.example.demo.model.VehicleClass;
+import com.example.demo.service.AdService;
 import com.example.demo.service.CartService;
 import com.example.demo.service.EndUserService;
-import com.example.demo.service.VehicleService;
 
 @RestController
 @RequestMapping("/cart")
@@ -34,36 +33,32 @@ public class CartController {
 	private EndUserService endUserService;
 	
 	@Autowired
-	private VehicleService vehicleService;
+	private AdService adService;
 
 	@GetMapping
-	public ResponseEntity<List<VehicleDTO>> myCart() {
+	public ResponseEntity<List<AdDTO>> myCart() {
 		EndUser endUser = endUserService.findByIdUser(1L);
 		Cart cart =  cartService.findByEndUserID(endUser.getId());
-		System.out.println("####" + cart.getEndUserID() + "####" + cart.getVehicles().size());
-		List<VehicleDTO> vehicleDTOs = new ArrayList<VehicleDTO>();
-		for (Vehicle v : cart.getVehicles()) {
-			vehicleDTOs.add(new VehicleDTO(v));
+		List<AdDTO> adDTOs = new ArrayList<AdDTO>();
+		for (Ad a : cart.getAds()) {
+			adDTOs.add(new AdDTO(a));
 		}
-		System.out.println("####" + vehicleDTOs.size());
-		return new ResponseEntity<List<VehicleDTO>>(vehicleDTOs, HttpStatus.OK);
+		return new ResponseEntity<List<AdDTO>>(adDTOs, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<String> removeFromCart(@PathVariable("id") Long id) {
 		EndUser endUser = endUserService.findByIdUser(1L);
 		Cart cart =  cartService.findByEndUserID(endUser.getId());
-		System.out.println("####" + cart.getEndUserID() + "####" + cart.getVehicles().size());
-		for (int i = 0 ; i < cart.getVehicles().size(); i++) {
-			if (cart.getVehicles().get(i).getId().equals(id)) {
-				Vehicle v = cart.getVehicles().get(i);
-				cart.getVehicles().remove(cart.getVehicles().get(i));
-				v.getCarts().remove(cart);
-				vehicleService.save(v);
+		for (int i = 0 ; i < cart.getAds().size(); i++) {
+			if (cart.getAds().get(i).getId().equals(id)) {
+				Ad a = cart.getAds().get(i);
+				cart.getAds().remove(cart.getAds().get(i));
+				a.getCarts().remove(cart);
+				adService.save(a);
 			}
 		}
-		Cart c = cartService.save(cart);
-		System.out.println("####" + c.getVehicles().size() + "####" + cart.getVehicles().size());
+		cartService.save(cart);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 }

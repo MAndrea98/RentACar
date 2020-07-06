@@ -56,7 +56,7 @@ insert into price_list_vehicle (price_list_id, vehicle_id) values (1, 2);
 
 insert into cart (end_user_id) values (1);
 
-insert into vehicles_carts (vehicle_id, cart_id) values (2, 1);
-insert into vehicles_carts (vehicle_id, cart_id) values (3, 1);
-insert into vehicles_carts (vehicle_id, cart_id) values (4, 1);
+insert into ads_carts (ad_id, cart_id) values (2, 1);
+insert into ads_carts (ad_id, cart_id) values (3, 1);
+insert into ads_carts (ad_id, cart_id) values (4, 1);
 

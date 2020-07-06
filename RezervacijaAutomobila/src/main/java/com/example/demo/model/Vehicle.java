@@ -12,8 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -64,16 +62,6 @@ public class Vehicle {
 	
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "vehicles_requests", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
-	private List<Request> requests = new ArrayList<Request>();
-	
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "vehicles_carts", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cart_id", referencedColumnName = "id"))
-	private List<Cart> carts = new ArrayList<Cart>();
-	
-	@JsonIgnore
-	@ManyToMany
 	private List<PriceList> priceList = new ArrayList<PriceList>();
 	
 	public Vehicle() {
@@ -82,7 +70,7 @@ public class Vehicle {
 
 	public Vehicle(Long id, List<VehicleImage> images, Renter owner, Model model, GasType gasType, String gearBox,
 			VehicleClass vehicleClass, int mileage, int proposedMileage, Boolean cdw, int childSeatsNo,
-			Set<VehicleFree> vehicleFree, List<Request> requests, List<Cart> carts, List<PriceList> priceList) {
+			Set<VehicleFree> vehicleFree, List<PriceList> priceList) {
 		super();
 		this.id = id;
 		this.images = images;
@@ -96,8 +84,6 @@ public class Vehicle {
 		this.cdw = cdw;
 		this.childSeatsNo = childSeatsNo;
 		this.vehicleFree = vehicleFree;
-		this.requests = requests;
-		this.carts = carts;
 		this.priceList = priceList;
 	}
 
@@ -195,22 +181,6 @@ public class Vehicle {
 
 	public void setVehicleFree(Set<VehicleFree> vehicleFree) {
 		this.vehicleFree = vehicleFree;
-	}
-
-	public List<Request> getRequests() {
-		return requests;
-	}
-
-	public void setRequests(List<Request> requests) {
-		this.requests = requests;
-	}
-
-	public List<Cart> getCarts() {
-		return carts;
-	}
-
-	public void setCarts(List<Cart> carts) {
-		this.carts = carts;
 	}
 
 	public List<PriceList> getPriceList() {
