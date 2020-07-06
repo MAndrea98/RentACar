@@ -13,12 +13,15 @@ import {NewAdFormComponent} from "./user-page/new-ad-form/new-ad-form.component"
 import {ReviewListComponent} from "./admin-page/review-list/review-list.component";
 import {AgentPageComponent} from "./agent-page/agent-page.component";
 import {ReviewListAgentComponent} from "./agent-page/review-list-agent/review-list-agent.component";
+import { PriceListAgentComponent } from './agent-page/price-list-agent/price-list-agent.compose';
+import { UserCartComponent } from './user-page/user-cart/user-cart.component';
 
 
-const routes: Routes = [{
-  path:'adminPage',
-  component:AdminPageComponent
-},
+const routes: Routes = [
+  {
+    path:'adminPage',
+    component:AdminPageComponent
+  },
   {
     path:'userPage',
     component: UserPageComponent
@@ -68,8 +71,16 @@ const routes: Routes = [{
     component: ReviewListAgentComponent
   },
   {
+    path:'agentPage/priceList/list',
+    component: PriceListAgentComponent
+  },
+  {
     path:'userPage/review/add',
     component: UserPageComponent
+  },
+  {
+    path:'userPage/cart',
+    component: UserCartComponent
   }
 ];
 

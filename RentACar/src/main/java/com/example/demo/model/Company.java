@@ -31,6 +31,9 @@ public class Company {
 	@Column(name="address",nullable=false)
 	private String address;
 	
+	@Column(name="poslovniMaticniBroj",nullable=false)
+	private String poslovniMaticniBroj;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="company",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Agent> agents = new ArrayList<Agent>();
@@ -39,12 +42,13 @@ public class Company {
 		
 	}
 
-	public Company(Renter renter, String name, String address, List<Agent> agents) {
+	public Company(Renter renter, String name, String address, List<Agent> agents, String poslovniMaticniBroj) {
 		super();
 		this.renter = renter;
 		this.name = name;
 		this.address = address;
 		this.agents = agents;
+		this.poslovniMaticniBroj = poslovniMaticniBroj;
 	}
 
 	public Long getId() {
@@ -85,6 +89,14 @@ public class Company {
 
 	public void setAgents(List<Agent> agents) {
 		this.agents = agents;
+	}
+	
+	public void setPoslovniMaticniBroj(String poslovniMaticniBroj) {
+		this.poslovniMaticniBroj = poslovniMaticniBroj;
+	}
+
+	public String getPoslovniMaticniBroj() {
+		return poslovniMaticniBroj;
 	}
 	
 	

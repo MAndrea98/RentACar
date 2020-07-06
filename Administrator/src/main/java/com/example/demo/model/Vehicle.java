@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -32,16 +33,16 @@ public class Vehicle {
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
 	private Renter owner;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Model model;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private GasType gasType;
 	
 	@Column(name="gearBox")
 	private String gearBox;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private VehicleClass vehicleClass;
 	
 	@Column(name="mileage")
@@ -53,7 +54,7 @@ public class Vehicle {
 	@Column(name="cdw")
 	private Boolean cdw;
 	
-	@Column(name="ChildSeatsNo")
+	@Column(name="childSeatsNo")
 	private int childSeatsNo;
 	
 	@JsonIgnore
@@ -61,8 +62,8 @@ public class Vehicle {
 	private Set<VehicleFree> vehicleFree = new HashSet<VehicleFree>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<PriceList> priceList = new HashSet<PriceList>();
+	@ManyToMany
+	private List<PriceList> priceList = new ArrayList<PriceList>();
 	
 	public Vehicle() {
 		
@@ -183,11 +184,11 @@ public class Vehicle {
 		this.vehicleFree = vehicleFree;
 	}
 
-	public Set<PriceList> getPriceList() {
+	public List<PriceList> getPriceList() {
 		return priceList;
 	}
 
-	public void setPriceList(Set<PriceList> priceList) {
+	public void setPriceList(List<PriceList> priceList) {
 		this.priceList = priceList;
 	}
 

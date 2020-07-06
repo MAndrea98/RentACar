@@ -35,8 +35,7 @@ export class ReviewListComponent implements OnInit {
     this.http.get(url).subscribe(
       res=>{
         let i = 0
-        for(let r in res){
-
+        for(let r in res) {
           this.reviewModelList.push(res[i]);
           i++;
         }
@@ -55,7 +54,6 @@ export class ReviewListComponent implements OnInit {
     this.reviewModel.id = id;
     this.http.put(url,this.reviewModel,{responseType:'text'}).subscribe(
       res=>{
-        alert("Successfully Accepted");
         location.reload();
       },
       err => {
@@ -69,7 +67,6 @@ export class ReviewListComponent implements OnInit {
     this.reviewModel.id = id;
     this.http.put(url,this.reviewModel,{responseType:'text'}).subscribe(
       res=>{
-        alert("Successfully Declined");
         location.reload();
       },
       err => {

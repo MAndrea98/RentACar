@@ -1,14 +1,23 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.MapKeyColumn;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class PriceList {
@@ -17,8 +26,9 @@ public class PriceList {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Vehicle vehicle;
+	@JsonIgnore
+	@ManyToMany
+	private List<Vehicle> vehicle = new ArrayList<Vehicle>();
 	
 	@Column(name="dateFrom", nullable = false)
 	private Calendar dateFrom;
@@ -32,11 +42,17 @@ public class PriceList {
 	@Column(name="cdwPrice")
 	private double cdwPrice;
 	
+	@ElementCollection
+	@JoinTable(name="prices_values", joinColumns = @JoinColumn(name="price_list_id"))
+	@MapKeyColumn (name="name")
+	@Column(name="price")
+	private Map<String, Double> prices = new HashMap<String, Double>();
+	
 	public PriceList() {
 		
 	}
 
-	public PriceList(Long id, Vehicle vehicle, Calendar dateFrom, Calendar dateTo, double pricePerMile,
+	public PriceList(Long id, List<Vehicle> vehicle, Calendar dateFrom, Calendar dateTo, double pricePerMile,
 			double cdwPrice) {
 		super();
 		this.id = id;
@@ -55,11 +71,11 @@ public class PriceList {
 		this.id = id;
 	}
 
-	public Vehicle getVehicle() {
+	public List<Vehicle> getVehicle() {
 		return vehicle;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
+	public void setVehicle(List<Vehicle> vehicle) {
 		this.vehicle = vehicle;
 	}
 
@@ -93,6 +109,14 @@ public class PriceList {
 
 	public void setCdwPrice(double cdwPrice) {
 		this.cdwPrice = cdwPrice;
+	}
+
+	public Map<String, Double> getPrices() {
+		return prices;
+	}
+
+	public void setPrices(Map<String, Double> prices) {
+		this.prices = prices;
 	}
 
 	

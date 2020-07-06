@@ -2,7 +2,7 @@
   <app-admin-nav></app-admin-nav>
   <br/>
 
-  <table class="table-striped" border="1">
+  <table class="table table-striped table-responsive-md btn-table" border="1" >
     <thead>
     <title>Gas Types</title>
     <tr>
@@ -22,8 +22,11 @@
       <td>{{rev.renterUsername}}</td>
       <td>{{rev.stars}}</td>
       <td>{{rev.content}}</td>
-      <td><button class="btn-primary" (click)="acceptComment(rev.id)">Accept</button></td>
-      <td><button class="btn-danger" (click)="declineComment(rev.id)">Decline</button></td>
+      <td>
+        <div [hidden] = "rev.accepted"><button class="btn-primary" (click)="acceptComment(rev.id)">Accept</button></div>
+        <div [hidden] = "!rev.accepted">Accepted</div>
+      </td>
+      <td><div [hidden] = "rev.accepted"><button class="btn-danger" (click)="declineComment(rev.id)">Decline</button></div></td>
     </tr>
     </tbody>
   </table>

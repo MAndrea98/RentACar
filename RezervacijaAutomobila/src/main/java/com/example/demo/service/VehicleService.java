@@ -16,4 +16,8 @@ public class VehicleService {
 		return vehicleRepository.findById(id).orElse(null);
 
 	}
+
+	public Vehicle save(Vehicle v) {
+		return vehicleRepository.saveAndFlush(v);
+	}
 }

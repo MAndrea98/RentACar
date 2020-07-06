@@ -14,6 +14,7 @@ import com.example.demo.model.Request;
 import com.example.demo.model.Vehicle;
 import com.example.demo.model.VehicleClass;
 import com.example.demo.model.VehicleFree;
+import com.example.demo.model.VehicleImage;
 
 public class VehicleDTO {
 
@@ -30,7 +31,7 @@ public class VehicleDTO {
 	private Set<VehicleFree> vehicleFree = new HashSet<VehicleFree>();
 	private List<Request> requests = new ArrayList<Request>();
 	private List<Cart> carts = new ArrayList<Cart>();
-	private Set<PriceList> priceList = new HashSet<PriceList>();
+	private List<PriceList> priceList = new ArrayList<PriceList>();
 	
 	public VehicleDTO() {
 		super();
@@ -40,7 +41,7 @@ public class VehicleDTO {
 	
 	public VehicleDTO(Long id, Renter owner, Model model, GasType gasType, String gearBox, VehicleClass vehicleClass,
 			int mileage, int proposedMileage, Boolean cdw, int childSeatsNo,
-			Set<VehicleFree> vehicleFree, List<Request> requests, List<Cart> carts, Set<PriceList> priceList) {
+			Set<VehicleFree> vehicleFree, List<Request> requests, List<Cart> carts, List<PriceList> priceList) {
 		super();
 		this.id = id;
 		this.owner = owner;
@@ -173,12 +174,12 @@ public class VehicleDTO {
 	}
 
 
-	public Set<PriceList> getPriceList() {
+	public List<PriceList> getPriceList() {
 		return priceList;
 	}
 
 
-	public void setPriceList(Set<PriceList> priceList) {
+	public void setPriceList(List<PriceList> priceList) {
 		this.priceList = priceList;
 	}
 }
