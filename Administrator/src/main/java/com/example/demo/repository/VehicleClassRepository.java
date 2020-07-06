@@ -17,4 +17,6 @@ public interface VehicleClassRepository extends JpaRepository<VehicleClass, Long
 	public VehicleClass save(VehicleClass v);
 	
 	public void delete(VehicleClass v);
+	
+	public void flush();
 }

@@ -62,4 +62,10 @@ export class GasTableComponent implements OnInit {
 
 
   }
+
+  editRow(id):void{
+    localStorage.setItem("gasID", id);
+
+    location.href = "./adminPage/gasType/add";
+  }
 }

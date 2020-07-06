@@ -17,4 +17,6 @@ public interface GasTypeRepository extends JpaRepository<GasType, Long>{
 	public Optional<GasType> findById(Long id);
 	
 	public void delete(GasType g);
+	
+	public void flush();
 }

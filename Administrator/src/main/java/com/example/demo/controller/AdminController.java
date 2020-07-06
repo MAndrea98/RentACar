@@ -280,6 +280,111 @@ public class AdminController {
 	public ResponseEntity<List<GasType>> getGasType(){
 		return new ResponseEntity<List<GasType>>(gasTypeService.findAll(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/gasType/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<GasType> getGasTypeById(@PathVariable Long id){
+		
+		
+		return new ResponseEntity<GasType>(gasTypeService.findById(id).get(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/vehicle/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<Vehicle> getVehicleById(@PathVariable Long id){
+		return new ResponseEntity<Vehicle>(vehicleService.findById(id).get(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/vehicleClass/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<VehicleClass> getVehicleClassById(@PathVariable Long id){
+		return new ResponseEntity<VehicleClass>(vehicleClassService.findById(id).get(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/model/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<Model> getModelById(@PathVariable Long id){
+		return new ResponseEntity<Model>(modelService.findById(id).get(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/manufacturer/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<Manufacturer> getManufacturerById(@PathVariable Long id){
+		return new ResponseEntity<Manufacturer>(manufacturerService.findById(id).get(), HttpStatus.OK);
+	}
+	
+	
+	@PutMapping("/vehicle")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> editVehicle(Vehicle v){
+		Vehicle oldV = vehicleService.findById(v.getId()).get();
+		oldV.setCdw(v.getCdw());
+		oldV.setChildSeatsNo(v.getChildSeatsNo());
+		oldV.setGasType(v.getGasType());
+		oldV.setGearBox(v.getGearBox());
+		oldV.setMileage(v.getMileage());
+		oldV.setModel(v.getModel());
+		oldV.setOwner(v.getOwner());
+		oldV.setPriceList(v.getPriceList());
+		oldV.setProposedMileage(v.getProposedMileage());
+		oldV.setVehicleClass(v.getVehicleClass());
+		oldV.setVehicleFree(v.getVehicleFree());
+		
+		vehicleService.save(oldV);
+		vehicleService.flush();
+		
+		return new ResponseEntity<String>("Edited vehicle", HttpStatus.OK);
+	}
+	
+	@PutMapping("/vehicleClass")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> editVehicleClass(VehicleClass v){
+		VehicleClass oldV = vehicleClassService.findById(v.getId()).get();
+		oldV.setName(v.getName());
+		
+		vehicleClassService.save(oldV);
+		vehicleClassService.flush();
+		
+		return new ResponseEntity<String>("Edited vehicle class", HttpStatus.OK);
+	}
+	
+	@PutMapping("/model")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> editModel(Model m){
+		Model oldM = modelService.findById(m.getId()).get();
+		
+		oldM.setManufacturer(m.getManufacturer());
+		oldM.setName(m.getName());
+		
+		modelService.save(m);
+		modelService.flush();
+		
+		return new ResponseEntity<String>("Edited model", HttpStatus.OK);
+	}
+	
+	@PutMapping("/manufacturer")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> editManufacturer(Manufacturer m){
+		Manufacturer oldM = manufacturerService.findById(m.getId()).get();
+		
+		oldM.setName(m.getName());
+		
+		return new ResponseEntity<String>("Edited manufacturer", HttpStatus.OK);
+	}
+	
+	@PutMapping("/gasType")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> editGasType(GasType g){
+		GasType oldGt = gasTypeService.findById(g.getId()).get();
+		oldGt.setName(g.getName());
+		
+		gasTypeService.save(oldGt);
+		gasTypeService.flush();
+		
+		return new ResponseEntity<String>("Edited gas type", HttpStatus.OK);
+	}
+	
+	
 
 	@DeleteMapping("/vehicle")
 	public ResponseEntity<String> deleteVehicle(Vehicle v){

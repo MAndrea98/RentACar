@@ -24,6 +24,7 @@
     "@angular/router": "~9.1.0",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
     "@syncfusion/ej2-angular-calendars": "^18.1.57",
+    "@syncfusion/ej2-angular-grids": "^18.1.59",
     "angular-material-datepicker": "^1.0.2",
     "bootstrap": "^4.5.0",
     "date-fns": "^2.14.0",
