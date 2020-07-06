@@ -4,7 +4,6 @@ import {GasType} from "./GasType";
 import {VehicleClass} from "./VehicleClass";
 import {PriceList} from "./PriceList";
 import {Renter} from "./Renter";
-import {Cart} from "./Cart";
 import { VehicleFree } from './VehicleFree';
 
 export class Vehicle{
@@ -21,8 +20,6 @@ export class Vehicle{
   cdw: boolean;
   childSeatsNo: number;
   vehicleFree: Array<VehicleFree>;
-  requests: Array<Request>;
-  carts: Array<Cart>;
   priceList: Array<PriceList>;
 
   constructor() {

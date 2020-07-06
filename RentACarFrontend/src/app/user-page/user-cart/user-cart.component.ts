@@ -2,6 +2,7 @@ import { OnInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Vehicle } from 'src/app/model/Vehicle';
+import { Ad } from 'src/app/model/Ad';
 
 @Component({
     selector: 'app-user-cart',
@@ -13,9 +14,9 @@ export class UserCartComponent implements OnInit {
     @ViewChild('ownerID') ownerID: ElementRef;
 
     router: String;
-    cart: Vehicle[] = [];
+    cart: Ad[] = [];
     ids: number[] = [];
-    bundle: Vehicle[] = [];
+    bundle: Ad[] = [];
  
     constructor(_router:Router, private http:HttpClient) {
         this.router=_router.url;
@@ -30,11 +31,11 @@ export class UserCartComponent implements OnInit {
         this.ids = [];
         let url = "http://localhost:8080/api/rezervacija-automobila/cart";
         this.http.get(url).subscribe(
-            (res: Vehicle[])=>{
+            (res: Ad[])=>{
                 this.cart = res;
                 for (var i: number = 0; i < this.cart.length; i++) {
-                    if (!this.ids.includes(this.cart[i].owner.id)) {
-                        this.ids.push(this.cart[i].owner.id);
+                    if (!this.ids.includes(this.cart[i].vehicle.owner.id)) {
+                        this.ids.push(this.cart[i].vehicle.owner.id);
                     }
                 }
             },
@@ -62,7 +63,7 @@ export class UserCartComponent implements OnInit {
     sendBundle(): void {
         this.bundle = [];
         for (var i: number = 0; i < this.cart.length; i++) {
-            if (this.cart[i].owner.id == this.ownerID.nativeElement.value) {
+            if (this.cart[i].vehicle.owner.id == this.ownerID.nativeElement.value) {
                 this.bundle.push(this.cart[i]);
             }
         }
