@@ -146,7 +146,7 @@ public class MessageEndpoint {
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteMessageRequest")
 	@ResponsePayload
 	public DeleteMessageResponse deleteMessage(@RequestPayload DeleteMessageRequest request) {
-		
+		System.err.println(request.getMessageId());
 		Message message = messageService.findById(request.getMessageId());
 		message.setDeleted(true);
 		messageService.save(message);

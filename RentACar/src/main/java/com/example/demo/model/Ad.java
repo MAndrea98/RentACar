@@ -52,12 +52,15 @@ public class Ad {
 	@ManyToMany
 	private List<EndUser> favoriteFor;
 	
+	@Column(name="mileageLimit")
+	private int mileageLimit;
+	
 	public Ad() {
 
 	}
 
 	public Ad(Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom, 
-			Calendar dateFrom, Calendar dateTo) {
+			Calendar dateFrom, Calendar dateTo, int mileageLimit) {
 		super();
 		this.vehicle = vehicle;
 		this.place = place;
@@ -66,6 +69,7 @@ public class Ad {
 		this.validFrom = validFrom;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
+		this.mileageLimit = mileageLimit;
 	}
 
 	public int getNumberOfReviews() {
@@ -146,6 +150,14 @@ public class Ad {
 
 	public void setFavoriteFor(List<EndUser> favoriteFor) {
 		this.favoriteFor = favoriteFor;
+	}
+
+	public int getMileageLimit() {
+		return mileageLimit;
+	}
+
+	public void setMileageLimit(int mileageLimit) {
+		this.mileageLimit = mileageLimit;
 	}
 
 }

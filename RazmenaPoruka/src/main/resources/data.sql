@@ -8,7 +8,8 @@ insert into renter (id_user) values (3);
 /*
 insert into request (renter_id, end_user_id, status) values (2, 1, 'RESERVED'); 
 
+
+
+insert into renter (id_user) values (2);*/
 insert into message(subject,content,date,deleted) values ('Proba1','Proba1','2020-6-20',false);
-*/
-insert into renter (id_user) values (2);
 
