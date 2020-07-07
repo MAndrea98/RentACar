@@ -3,6 +3,8 @@ import { Request } from 'src/app/model/Request';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Ad } from 'src/app/model/Ad';
+import { Message } from 'src/app/model/Message';
+import { UserModel } from 'src/app/model/UserModel';
 
 @Component({
     selector: 'app-user-requests',
@@ -19,9 +21,16 @@ export class UserRequestComponent implements OnInit {
     hiddenVehicle: Boolean = true;
     ads: Ad[] = [];
     reqID: number = 0;
+    adID: number = 0;
     askOwnerHidden: Boolean = true;
+    allMessagesHidden: Boolean = true;
     textMessage: string = "";
     subjectMessage: string = "";
+    message: Message = new Message;
+    sender: UserModel;
+    receiver: UserModel;
+    request: Request;
+    messages: Message[] = [];
 
     constructor(_router:Router, private http:HttpClient) {
         this.router=_router.url;
@@ -49,24 +58,61 @@ export class UserRequestComponent implements OnInit {
         this.hiddenVehicle = false;
         this.ads = req.ads;
         this.reqID = req.id;
+        this.askOwnerHidden = true;
+        this.allMessagesHidden = true;
     }
 
-    askOwner(): void {
+    askOwner(req: Request): void {
         this.hiddenVehicle = true;
-        this.reqID = 0;
         this.askOwnerHidden = false;
+        this.allMessagesHidden = true;
+        this.request = req;
     }
 
     askOwnerSend(): void {
         this.subjectMessage = this.subject.nativeElement.value;
         this.textMessage = this.text.nativeElement.value;
-        alert(this.subjectMessage + " " + this.textMessage);
+        this.message.subject = this.subjectMessage;
+        this.message.content = this.textMessage;
+        let url = "http://localhost:8080/api/razmena-poruka/user/" + this.request.ads[0].vehicle.owner.idUser;
+        this.http.get(url).subscribe(
+            (res1:UserModel)=> {
+                this.receiver = res1;
+                this.message.receiver = this.receiver;
+                url = "http://localhost:8080/api/razmena-poruka/message/" + this.request.id;
+                this.http.post(url, this.message).subscribe(
+                    res=> {
+                        this.askOwnerHidden = true;
+                    },
+                    err=>{
+                        alert('Something went wrong 3');
+                        console.log(err.message);
+                    }
+                )
+            },
+            err=>{
+                alert('Something went wrong 2');
+                console.log(err.message);
+            }
+        )
+            
     }
 
     allMessages(): void {
-        alert('All messages');
         this.hiddenVehicle = true;
         this.askOwnerHidden = true;
+        let url = "http://localhost:8080/api/razmena-poruka/message/" + this.request.id;
+        this.http.get(url).subscribe(
+            (res:Message[])=> {
+                this.messages = [];
+                this.messages = res;
+                this.allMessagesHidden = false;
+            },
+            err=>{
+                alert('Something went wrong 3');
+                console.log(err.message);
+            }
+        )
     }
 
 }

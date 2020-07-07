@@ -19,7 +19,7 @@
                     <td>{{req.id}}</td>
                     <td>{{req.status}}</td>
                     <td><button class="btn-primary" (click)="vehicles(req)">Vehicles</button></td>
-                    <td><div [hidden]="req.status!='RESERVED'"><button class="btn-primary" (click)="askOwner()">Ask owner</button></div></td>
+                    <td><div [hidden]="req.status!='RESERVED'"><button class="btn-primary" (click)="askOwner(req)">Ask owner</button></div></td>
                     <td><div [hidden]="req.status!='RESERVED'"><button class="btn-primary" (click)="allMessages()">All messages</button></div></td>
                 </tr>
             </tbody>
@@ -74,5 +74,28 @@
         <textarea #text class="form-control" placeholder="Message content..."></textarea>
         <br/>
         <button class="btn-primary" (click)="askOwnerSend()">Send message to owner</button>
+    </div>
+    <div [hidden] = "allMessagesHidden">
+        <table class="table table-striped table-responsive-md btn-table" border="1">
+            <thead>
+                <title>Messages</title>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Sender</th>
+                    <th scope="col">Reciever</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Content</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let m of messages">
+                    <td>{{m.id}}</td>
+                    <td>{{m.sender.username}}</td>
+                    <td>{{m.receiver.username}}</td>
+                    <td>{{m.subject}}</td>
+                    <td>{{m.content}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
