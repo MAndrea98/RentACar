@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.Ad;
 import com.example.demo.model.EndUser;
-import com.example.demo.model.Renter;
 import com.example.demo.model.Request;
+import com.example.demo.model.RequestStatus;
 import com.example.demo.repository.RequestRepository;
 
 @Service
@@ -24,8 +25,12 @@ public class RequestService {
 		return requestRepository.findAll();
 	}
 	
-	public Request findByParameters(Renter renter, EndUser endUser, String status) {
-		return requestRepository.findByRenterAndEndUserAndStatus(renter, endUser, status);
+	public Request findByParameters(EndUser endUser, RequestStatus status, Ad ad) {
+		return requestRepository.findByEndUserAndStatus(endUser, status);
+	}
+
+	public Request findById(Long id) {
+		return requestRepository.findById(id).orElse(null);
 	}
 
 }

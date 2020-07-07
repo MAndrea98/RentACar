@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.dto.AdDTO;
 import com.example.demo.dto.CartDTO;
@@ -28,6 +30,7 @@ import com.example.demo.service.CartService;
 import com.example.demo.service.EndUserService;
 import com.example.demo.service.RequestService;
 
+@RefreshScope
 @RestController
 @RequestMapping("/reservation")
 @CrossOrigin("http://localhost:4200")
@@ -46,6 +49,9 @@ public class ReservationController {
 	
 	@Autowired
 	private AdService adService;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 	
 	@GetMapping("/addToCart/{id}")
 	public ResponseEntity<CartDTO> addToCart(@PathVariable("id") Long id) {
@@ -129,6 +135,14 @@ public class ReservationController {
 		Request request = requestService.findById(requestID);
 		request.setStatus(RequestStatus.RESERVED);
 		requestService.save(request);
+		
+		Request requestForMessages = new Request();
+		requestForMessages.setId(request.getId());
+		requestForMessages.setEndUser(request.getEndUser());
+		requestForMessages.setStatus(request.getStatus());
+		requestForMessages.setAds(new ArrayList<Ad>());
+		String url = "http://localhost:8080/api/razmena-poruka/request/";
+		
 		List<Request> allRequests = requestService.findAll();
 		for (Request r : allRequests) {
 			for (Ad a : request.getAds()) {
@@ -136,8 +150,13 @@ public class ReservationController {
 					r.setStatus(RequestStatus.DENIED);
 					requestService.save(r);
 				}
+				url += a.getId() + "&";
 			}
 		}
+		System.out.println(request.getAds());
+        System.out.println("URL" + url);
+        ResponseEntity<String> emp = restTemplate.postForEntity(url, requestForMessages, String.class);
+        System.out.println("RESPONSE " + emp);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
@@ -146,6 +165,10 @@ public class ReservationController {
 		Request request = requestService.findById(requestID);
 		request.setStatus(RequestStatus.DENIED);
 		requestService.save(request);
+		String url = "http://localhost:8080/api/razmena-poruka/request";
+        System.out.println("URL" + url);
+        ResponseEntity<String> emp = restTemplate.postForEntity(url, request, String.class);
+        System.out.println("RESPONSE " + emp);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
@@ -154,6 +177,10 @@ public class ReservationController {
 		Request request = requestService.findById(requestDTO.getId());
 		request.setStatus(RequestStatus.CANCELED);
 		requestService.save(request);
+		String url = "http://localhost:8080/api/razmena-poruka/request";
+        System.out.println("URL" + url);
+        ResponseEntity<String> emp = restTemplate.postForEntity(url, request, String.class);
+        System.out.println("RESPONSE " + emp);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
@@ -161,3 +188,6 @@ public class ReservationController {
 	
 
 }
+
+
+

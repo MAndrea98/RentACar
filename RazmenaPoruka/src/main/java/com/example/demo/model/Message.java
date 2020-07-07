@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Message {
@@ -36,11 +37,14 @@ public class Message {
 	@Column(name="deleted", nullable = false)
 	private boolean deleted;
 	
+	@OneToOne
+	private Request request;
+	
 	public Message() {
 		this.deleted = false;
 	}
 
-	public Message(UserModel sender, UserModel reciever, String subject, String content, Calendar date) {
+	public Message(UserModel sender, UserModel reciever, String subject, String content, Calendar date, Request request) {
 		super();
 		this.sender = sender;
 		this.reciever = reciever;
@@ -48,9 +52,18 @@ public class Message {
 		this.content = content;
 		this.date = date;
 		this.deleted = false;
+		this.request = request;
 	}
 	
-	
+	public Message(UserModel sender, UserModel reciever, String subject, String content, Calendar date) {
+		super();
+		this.sender = sender;
+		this.reciever = reciever;
+		this.subject = subject;
+		this.content = content;
+		this.date = date;
+	}
+
 
 	public Long getId() {
 		return id;
@@ -107,6 +120,21 @@ public class Message {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
+
+	public Request getRequest() {
+		return request;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
+	}
+
+	@Override
+	public String toString() {
+		return "Message [id=" + id + ", sender=" + sender + ", reciever=" + reciever + ", subject=" + subject
+				+ ", content=" + content + ", date=" + date + ", deleted=" + deleted + ", request=" + request + "]";
+	}
+	
 	
 	
 	

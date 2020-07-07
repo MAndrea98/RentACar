@@ -45,9 +45,6 @@ public class Ad {
 
 	@Column(name="dateTo", nullable = false)
 	private Calendar dateTo;
-
-	@ManyToMany
-	private List<EndUser> favoriteFor;
 	
 	@JsonIgnore
 	@ManyToMany( cascade = {
@@ -56,11 +53,6 @@ public class Ad {
 		})
 	@JoinTable(name = "ads_requests", joinColumns = @JoinColumn(name = "ad_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
 	private List<Request> requests = new ArrayList<Request>();
-	
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "ads_carts", joinColumns = @JoinColumn(name = "ad_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cart_id", referencedColumnName = "id"))
-	private List<Cart> carts = new ArrayList<Cart>();
 
 	public Ad() {
 
@@ -79,7 +71,6 @@ public class Ad {
 		this.dateTo = dateTo;
 		this.requests = requests;
 	}
-
 
 
 	public List<Request> getRequests() {
@@ -152,30 +143,5 @@ public class Ad {
 	public void setDateTo(Calendar dateTo) {
 		this.dateTo = dateTo;
 	}
-
-	public List<EndUser> getFavoriteFor() {
-		return favoriteFor;
-	}
-
-	public void setFavoriteFor(List<EndUser> favoriteFor) {
-		this.favoriteFor = favoriteFor;
-	}
-
-	public List<Cart> getCarts() {
-		return carts;
-	}
-
-	public void setCarts(List<Cart> carts) {
-		this.carts = carts;
-	}
-
-	@Override
-	public String toString() {
-		return "Ad [id=" + id + ", vehicle=" + vehicle + ", place=" + place + ", date=" + date + ", validTru="
-				+ validTru + ", validFrom=" + validFrom + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo
-				+ ", favoriteFor=" + favoriteFor + ", requests=" + requests + ", carts=" + carts + "]";
-	}
-
-	
 	
 }

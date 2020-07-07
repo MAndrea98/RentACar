@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Request {
@@ -15,67 +21,67 @@ public class Request {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Renter renter;
-
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private EndUser endUser;
-
+	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "requests")
+	private List<Ad> ads = new ArrayList<Ad>();
+	
 	@Column(name="status")
-	private String status;
+	private RequestStatus status;
 
 	public Request() {
 
 	}
 
-	public Request(Long id, Renter renter, EndUser endUser, String status) {
+	public Request(Long id, EndUser endUser, List<Ad> ads, RequestStatus status) {
 		super();
 		this.id = id;
-		this.renter = renter;
 		this.endUser = endUser;
+		this.ads = ads;
 		this.status = status;
 	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-
-
-	public Renter getRenter() {
-		return renter;
-	}
-
-
-
-	public void setRenter(Renter renter) {
-		this.renter = renter;
-	}
-
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public EndUser getEndUser() {
 		return endUser;
 	}
 
-
 	public void setEndUser(EndUser endUser) {
 		this.endUser = endUser;
 	}
+
+	public List<Ad> getAds() {
+		return ads;
+	}
+
+	public void setAds(List<Ad> ads) {
+		this.ads = ads;
+	}
+
+	public RequestStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(RequestStatus status) {
+		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Request [id=" + id + ", endUser=" + endUser + ", ads=" + ads + ", status=" + status + "]";
+	}
+
+	
 
 
 }
