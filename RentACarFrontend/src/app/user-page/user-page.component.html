@@ -9,3 +9,11 @@
 <div class="container" *ngIf="_router.url.includes('cart')">
   <app-user-cart></app-user-cart>
 </div>
+
+<div class="container" *ngIf="_router.url.includes('request')">
+  <app-user-requests></app-user-requests>
+</div>
+
+<div class="container" *ngIf="_router.url.includes('messages')">
+  <app-user-messages></app-user-messages>
+</div>

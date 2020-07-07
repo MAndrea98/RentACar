@@ -40,6 +40,8 @@ import { PriceListAgentComponent } from './agent-page/price-list-agent/price-lis
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { UserCartComponent } from './user-page/user-cart/user-cart.component';
 import { RequestListAgentComponent } from './agent-page/request-list-agent/request-list-agent.component';
+import { UserRequestComponent } from './user-page/user-requests/user-requests.component';
+import { UserMessagesComponent } from './user-page/user-messages/user-messages.component';
 
 
 const appRoutes : Routes = [];
@@ -75,7 +77,9 @@ const appRoutes : Routes = [];
     ReviewListAgentComponent,
     UserReviewFormComponent,
     PriceListAgentComponent,
-    UserCartComponent
+    UserCartComponent,
+    UserRequestComponent,
+    UserMessagesComponent
   ],
   imports: [
     BrowserModule,

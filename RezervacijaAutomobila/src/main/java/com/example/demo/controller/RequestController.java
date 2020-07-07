@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.RequestDTO;
 import com.example.demo.model.Ad;
+import com.example.demo.model.EndUser;
 import com.example.demo.model.Renter;
 import com.example.demo.model.Request;
 import com.example.demo.model.RequestStatus;
+import com.example.demo.service.EndUserService;
 import com.example.demo.service.RenterService;
 import com.example.demo.service.RequestService;
 
@@ -29,6 +31,9 @@ public class RequestController {
 	
 	@Autowired
 	private RenterService renterService;
+	
+	@Autowired
+	private EndUserService endUserService;
 	
 	@GetMapping
 	public ResponseEntity<List<RequestDTO>> allMyRequests() {
@@ -52,6 +57,17 @@ public class RequestController {
 			}
 		}
 		System.out.println(requestDTOs.size());
+		return new ResponseEntity<List<RequestDTO>>(requestDTOs, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/endUser")
+	public ResponseEntity<List<RequestDTO>> endUserAllrequests() {
+		EndUser endUser = endUserService.findByIdUser(1L);
+		List<Request> requests = requestService.findByEndUser(endUser);
+		List<RequestDTO> requestDTOs = new ArrayList<RequestDTO>();
+		for (Request r : requests) {
+			requestDTOs.add(new RequestDTO(r));
+		}
 		return new ResponseEntity<List<RequestDTO>>(requestDTOs, HttpStatus.OK);
 	}
 }

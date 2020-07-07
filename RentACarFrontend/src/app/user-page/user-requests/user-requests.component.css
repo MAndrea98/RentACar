@@ -1,0 +1,12 @@
+th {
+    background-color:olive;
+    text-align: center;
+}
+  
+td {
+    text-align: center;
+}
+
+textarea, input {
+    background-color:lightblue;
+}
