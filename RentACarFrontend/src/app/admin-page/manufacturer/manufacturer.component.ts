@@ -21,15 +21,37 @@ export class ManufacturerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem("manID") != null){
+      let url = "http://localhost:8087/admin/manufacturer/" + localStorage.getItem("manID");
+      this.http.get(url).subscribe(
+        res=>{this.manufacturerModel = res as Manufacturer;},
+        err=>{alert("Something went wrong"); console.log(err.message);})
+    }
   }
 
   sendManufacturer():void{
     console.log("sent");
     let url = "http://localhost:8087/admin/manufacturer";
-    this.http.post(url, this.manufacturerModel, {responseType:'text'}).subscribe(
-      res=>{alert("Manufacturer added"); location.reload();},
-      err=>{alert("Something went wrong"); console.log(err.message);}
-    )
+    if(localStorage.getItem("manID") != null){
+      this.manufacturerModel.id = Number(localStorage.getItem("manID"));
+      console.log(localStorage.getItem("manID"));
+      console.log(this.manufacturerModel);
+      this.http.put(url, this.manufacturerModel,{responseType:'text'}).subscribe(
+        res=>{alert("Manufacturer changed"); localStorage.removeItem('manID'); location.reload();},
+        err=>{alert('Something went wrong'); console.log(err.message);}
+      )
+    }else {
+      this.http.post(url, this.manufacturerModel, {responseType: 'text'}).subscribe(
+        res => {
+          alert("Manufacturer added");
+          location.reload();
+        },
+        err => {
+          alert("Something went wrong");
+          console.log(err.message);
+        }
+      )
+    }
   }
 
 }

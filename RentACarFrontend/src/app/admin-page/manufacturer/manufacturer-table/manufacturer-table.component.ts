@@ -56,4 +56,10 @@ export class ManufacturerTableComponent implements OnInit {
       })
   }
 
+  editRow(id):void{
+    localStorage.setItem("manID", id);
+    console.log(id);
+    location.href="./adminPage/manufacturer/add";
+  }
+
 }

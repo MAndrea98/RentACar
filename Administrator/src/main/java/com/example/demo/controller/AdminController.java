@@ -316,7 +316,7 @@ public class AdminController {
 	
 	@PutMapping("/vehicle")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ResponseEntity<String> editVehicle(Vehicle v){
+	public ResponseEntity<String> editVehicle(@RequestBody Vehicle v){
 		Vehicle oldV = vehicleService.findById(v.getId()).get();
 		oldV.setCdw(v.getCdw());
 		oldV.setChildSeatsNo(v.getChildSeatsNo());
@@ -338,7 +338,7 @@ public class AdminController {
 	
 	@PutMapping("/vehicleClass")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ResponseEntity<String> editVehicleClass(VehicleClass v){
+	public ResponseEntity<String> editVehicleClass(@RequestBody VehicleClass v){
 		VehicleClass oldV = vehicleClassService.findById(v.getId()).get();
 		oldV.setName(v.getName());
 		
@@ -350,7 +350,7 @@ public class AdminController {
 	
 	@PutMapping("/model")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ResponseEntity<String> editModel(Model m){
+	public ResponseEntity<String> editModel(@RequestBody Model m){
 		Model oldM = modelService.findById(m.getId()).get();
 		
 		oldM.setManufacturer(m.getManufacturer());
@@ -364,17 +364,20 @@ public class AdminController {
 	
 	@PutMapping("/manufacturer")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ResponseEntity<String> editManufacturer(Manufacturer m){
+	public ResponseEntity<String> editManufacturer(@RequestBody Manufacturer m){
 		Manufacturer oldM = manufacturerService.findById(m.getId()).get();
 		
 		oldM.setName(m.getName());
+		manufacturerService.save(m);
+		manufacturerService.flush();
 		
 		return new ResponseEntity<String>("Edited manufacturer", HttpStatus.OK);
 	}
 	
 	@PutMapping("/gasType")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ResponseEntity<String> editGasType(GasType g){
+	public ResponseEntity<String> editGasType(@RequestBody GasType g){
+		System.out.println(g.toString());
 		GasType oldGt = gasTypeService.findById(g.getId()).get();
 		oldGt.setName(g.getName());
 		

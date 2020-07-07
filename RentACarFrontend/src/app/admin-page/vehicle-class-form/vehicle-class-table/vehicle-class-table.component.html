@@ -8,13 +8,14 @@
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Name</th>
-      <th scope="col">Action</th>
+      <th scope="col" colspan = "2">Action</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let cl of classModelList">
       <td>{{cl.id}}</td>
       <td>{{cl.name}}</td>
+      <td><button class = "btn-primary" (click)="editRow(cl.id)">Edit</button> </td>
       <td><button class="btn-danger" (click)="deleteRow(cl.id)" >Remove</button></td>
     </tr>
     </tbody>
