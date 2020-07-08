@@ -49,25 +49,25 @@ public class LoginRegisterController {
 	}
 	
 	@PostMapping("/registerAgent/{poslovniMaticniBroj}")
-	public ResponseEntity<Agent> registerAgent(@RequestBody Agent a, @PathVariable("poslovniMaticniBroj") String poslovniMaticniBroj) {
+	public ResponseEntity<String> registerAgent(@RequestBody Agent a, @PathVariable("poslovniMaticniBroj") String poslovniMaticniBroj) {
 		List<Agent> registered = agentService.findAll();
 		System.err.println(a.getName() + " " + a.getSurname() + " " + a.getAddress() + " " + poslovniMaticniBroj);
 		try {
 			Company c = companyService.findByPoslovniMaticniBroj(poslovniMaticniBroj);
 			a.setCompany(c);
 		} catch (Exception e) {
-			return new ResponseEntity<Agent>(HttpStatus.CONFLICT);
+			return new ResponseEntity<String>(HttpStatus.CONFLICT);
 		}
 		
 		for(Agent ag:registered) {
 			if(ag.getName().equals(a.getName()) && ag.getSurname().equals(a.getSurname())) {
 				System.out.println("Agent je vec registrovan!");
-				return new ResponseEntity<Agent>(HttpStatus.CONFLICT);
+				return new ResponseEntity<String>(HttpStatus.CONFLICT);
 			}
 		}
 		
 		agentService.save(a);
-		return new ResponseEntity<Agent>(a, HttpStatus.OK);
+		return new ResponseEntity<String>(a.getId().toString(), HttpStatus.OK);
 	}
 	
 	@PostMapping("/{user}")

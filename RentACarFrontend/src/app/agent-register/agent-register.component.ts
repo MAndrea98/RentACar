@@ -36,11 +36,11 @@ export class AgentRegisterComponent implements OnInit {
   agentRegister(): void {
     console.log(this.agent);
     let url = "http://localhost:8081/auth/registerAgent/"+this.poslovniMaticniBroj;
-    this.http.post(url,this.agent,).subscribe(
-      (res:Agent)=>{
-        alert(res.id);
+    this.http.post(url,this.agent, {responseType:'text'}).subscribe(
+      res=>{
+        alert(res);
         location.href="http://localhost:4200/agentPage";
-        localStorage.setItem("agent",res.id.toString());
+        localStorage.setItem("agent",res);
       },
       err=>{alert("Something went wrong"); console.log(err.message);}
     )
