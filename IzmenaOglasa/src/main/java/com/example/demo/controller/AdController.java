@@ -30,19 +30,8 @@ public class AdController {
 		if(ad.equals(null)) {
 			return new ResponseEntity<String>("",HttpStatus.NO_CONTENT);
 		}
-
-		Ad newAd = new Ad();
-		newAd.setDate(ad.getDate());
-		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
-		/*HashMap<Calendar,Boolean> newFree = (HashMap<Calendar, Boolean>) ad.getFree();
-		newAd.setFree(newFree);
-		newAd.setMileage(ad.getMileage());
-		newAd.setUser(ad.getUser());*/
-		newAd.setValidFrom(ad.getValidFrom());
-		newAd.setValidTru(ad.getValidTru());
-		newAd.setVehicle(ad.getVehicle());
-
-		adService.save(newAd);
+		
+		adService.save(ad);
 		return new ResponseEntity<String>("",HttpStatus.CREATED);
 
 	}

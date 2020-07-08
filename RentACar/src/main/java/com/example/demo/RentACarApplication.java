@@ -17,7 +17,7 @@ public class RentACarApplication {
 		SpringApplication.run(RentACarApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	CommandLineRunner test(RazmenaPorukaClient razmenaPorukaClient) {
 		return args -> {
 			MessageRP m = new MessageRP();
@@ -31,5 +31,5 @@ public class RentACarApplication {
 			SendMessageResponse response = razmenaPorukaClient.sendMessage(m);
 			System.err.println(response.getResponse());
 		};
-	}
+	}*/
 }

@@ -4,11 +4,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.consumingwebservice.DeleteMessageRequest;
+import com.example.consumingwebservice.DeleteMessageResponse;
+import com.example.consumingwebservice.EditMessageResponse;
+import com.example.consumingwebservice.GetAllMessageResponse;
+import com.example.consumingwebservice.MessageRP;
+import com.example.consumingwebservice.SendMessageResponse;
+import com.example.demo.client.RazmenaPorukaClient;
 import com.example.demo.dto.MessageDTO;
 import com.example.demo.model.EndUser;
 import com.example.demo.model.Message;
@@ -41,8 +50,12 @@ public class MessageController {
 	
 	@Autowired
 	RequestService requestService;
+	
+	@Autowired
+	RazmenaPorukaClient razmenaPorukaClient;
 
-	@PostMapping
+	
+	/*@PostMapping
 	public ResponseEntity<MessageDTO> sendMessage(@RequestBody MessageDTO messageDTO) {
 		//UserModel sender = userModelService.findById(LogedUser.getInstance().getUserId());
 		UserModel sender = userModelService.findById(1L);
@@ -71,9 +84,14 @@ public class MessageController {
 		Message message = new Message(sender, reciever, messageDTO.getSubject(), messageDTO.getContent(), Calendar.getInstance());
 		Message m = messageService.save(message);
 		return new ResponseEntity<MessageDTO>(new MessageDTO(m), HttpStatus.CREATED);
+	}*/
+	
+	@PostMapping
+	public SendMessageResponse sendMessageSOAP(@RequestBody MessageRP request) {
+		return razmenaPorukaClient.sendMessage(request);
 	}
 	
-	@GetMapping
+	/*@GetMapping
 	public ResponseEntity<List<Message>> getAllMessage() {
 		//UserModel user = userModelService.findById(LogedUser.getInstance().getUserId());
 		UserModel user = userModelService.findById(3L);
@@ -83,8 +101,14 @@ public class MessageController {
 				allNotDeletedMessages.add(m);
 		
 		return new ResponseEntity<List<Message>>(allNotDeletedMessages, HttpStatus.OK);
+	}*/
+	
+	@GetMapping
+	public GetAllMessageResponse getAllMessageSOAP() {
+		return razmenaPorukaClient.getAllMessages();
 	}
 	
+	/*
 	@PutMapping
 	public ResponseEntity<MessageDTO> editMessage(@RequestBody MessageDTO messageDTO) {
 		Message message = messageService.findById(messageDTO.getId());
@@ -92,13 +116,26 @@ public class MessageController {
 		message.setContent(messageDTO.getContent());
 		Message m = messageService.save(message);
 		return new ResponseEntity<MessageDTO>(new MessageDTO(m), HttpStatus.OK);
+	}*/
+	
+	@PutMapping
+	public EditMessageResponse editMessageSOAP(@RequestBody MessageRP request ) {
+		return razmenaPorukaClient.editMessage(request);
 	}
 	
+	/*
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<MessageDTO> deleteMessage(@PathVariable("id") Long id) {
 		Message message = messageService.findById(id);
 		message.setDeleted(true);
 		Message m = messageService.save(message);
 		return new ResponseEntity<MessageDTO>(new MessageDTO(m), HttpStatus.OK);
+	}*/
+	
+	@DeleteMapping(value="/{id}")
+	public DeleteMessageResponse deleteMessageSOAP(@PathVariable Long id) {
+		DeleteMessageRequest request = new DeleteMessageRequest();
+		request.setMessageId(id);
+		return razmenaPorukaClient.deleteMessage(request.getMessageId());
 	}
 }
