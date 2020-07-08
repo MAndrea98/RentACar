@@ -7,6 +7,6 @@ td {
     text-align: center;
 }
 
-textarea, input {
+textarea, input, select, option {
     background-color:lightblue;
 }

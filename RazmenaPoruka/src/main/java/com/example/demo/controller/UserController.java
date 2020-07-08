@@ -22,6 +22,9 @@ public class UserController {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UserModel> getUser(@PathVariable("id") Long id) {
-		return new ResponseEntity<UserModel>(userModelService.findById(id), HttpStatus.OK);
+		System.out.println("###" + id);
+		UserModel userModel = userModelService.findById(id);
+		System.out.println(userModel);
+		return new ResponseEntity<UserModel>(userModel, HttpStatus.OK);
 	}
 }

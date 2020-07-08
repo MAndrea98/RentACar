@@ -10,7 +10,7 @@
                     <th scope="col">Id</th>
                     <th scope="col">Status</th>
                     <th scope="col">Vehicles</th>
-                    <th scope="col">Ask owner</th>
+                    <th scope="col">Permission</th>
                     <th scope="col">All messages</th>
                 </tr>
             </thead>
@@ -19,8 +19,19 @@
                     <td>{{req.id}}</td>
                     <td>{{req.status}}</td>
                     <td><button class="btn-primary" (click)="vehicles(req)">Vehicles</button></td>
-                    <td><div [hidden]="req.status!='RESERVED'"><button class="btn-primary" (click)="askOwner(req)">Ask owner</button></div></td>
-                    <td><div [hidden]="req.status!='RESERVED'"><button class="btn-primary" (click)="allMessages()">All messages</button></div></td>
+                    <div [hidden]="req.status!='RESERVED'">
+                        <td>
+                            <button class="btn-primary" (click)="askOwner(req)">Ask owner</button>
+                            <br/>
+                            <button class="btn-primary" (click)="endRenting(req)">End renting</button>
+                        </td>
+                    </div>
+                    <div [hidden]="req.status!='ENDED'">
+                        <td>
+                            <button class="btn-primary" (click)="addComment(req)">Add comment</button>
+                        </td>
+                    </div>
+                    <td><div><button class="btn-primary" (click)="allMessages(req)">All messages</button></div></td>
                 </tr>
             </tbody>
         </table>
@@ -97,5 +108,18 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div [hidden] = "reviewHidden">
+        <select class="form-control" #stars>
+            <option>5</option>
+            <option>4</option>
+            <option>3</option>
+            <option>2</option>
+            <option>1</option>
+        </select>
+        <br/>
+        <textarea #contentReview class="form-control" placeholder="Review content..."></textarea>
+        <br/>
+        <button class="btn-primary" (click)="sendReview()">Send review</button>
     </div>
 </div>

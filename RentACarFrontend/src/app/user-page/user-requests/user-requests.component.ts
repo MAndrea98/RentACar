@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Ad } from 'src/app/model/Ad';
 import { Message } from 'src/app/model/Message';
 import { UserModel } from 'src/app/model/UserModel';
+import { ReviewDTO } from 'src/app/model/ReviewDTO';
 
 @Component({
     selector: 'app-user-requests',
@@ -15,6 +16,8 @@ import { UserModel } from 'src/app/model/UserModel';
 export class UserRequestComponent implements OnInit {
     @ViewChild('subject') subject: ElementRef;
     @ViewChild('text') text: ElementRef;
+    @ViewChild('stars') stars: ElementRef;
+    @ViewChild('contentReview') contentReview: ElementRef;
 
     router: String;
     requests: Request[] = [];
@@ -24,6 +27,7 @@ export class UserRequestComponent implements OnInit {
     adID: number = 0;
     askOwnerHidden: Boolean = true;
     allMessagesHidden: Boolean = true;
+    reviewHidden: Boolean = true;
     textMessage: string = "";
     subjectMessage: string = "";
     message: Message = new Message;
@@ -31,6 +35,8 @@ export class UserRequestComponent implements OnInit {
     receiver: UserModel;
     request: Request;
     messages: Message[] = [];
+    review: ReviewDTO = null;
+    requestID: number = 0;
 
     constructor(_router:Router, private http:HttpClient) {
         this.router=_router.url;
@@ -98,10 +104,10 @@ export class UserRequestComponent implements OnInit {
             
     }
 
-    allMessages(): void {
+    allMessages(req: Request): void {
         this.hiddenVehicle = true;
         this.askOwnerHidden = true;
-        let url = "http://localhost:8080/api/razmena-poruka/message/" + this.request.id;
+        let url = "http://localhost:8080/api/razmena-poruka/message/" + req.id;
         this.http.get(url).subscribe(
             (res:Message[])=> {
                 this.messages = [];
@@ -110,6 +116,61 @@ export class UserRequestComponent implements OnInit {
             },
             err=>{
                 alert('Something went wrong 3');
+                console.log(err.message);
+            }
+        )
+    }
+
+    endRenting(req: Request): void {
+        let url = "http://localhost:8080/api/rezervacija-automobila/reservation/endRenting";
+        this.http.put(url, req).subscribe(
+            res=> {
+                this.getAllRequest();
+            },
+            err=>{
+                alert('Something went wrong');
+                console.log(err.message);
+            }
+        )
+    }
+
+    addComment(req: Request): void {
+        this.review = new ReviewDTO;
+        this.review.requestID = req.id;
+        let url = "http://localhost:8080/api/razmena-poruka/user/" + req.ads[0].vehicle.owner.idUser;
+        this.http.get(url).subscribe(
+            (res1:UserModel)=> {
+                this.review.renterUsername = res1.username;
+                url = "http://localhost:8080/api/razmena-poruka/user/" + req.endUser.idUser;
+                this.http.get(url).subscribe(
+                    (res2:UserModel)=> {
+                        this.review.endUserUsername = res2.username;
+                        this.reviewHidden = false;
+                    },
+                    err=>{
+                        alert('Something went wrong 3');
+                        console.log(err.message);
+                    }
+                )
+            },
+            err=>{
+                alert('Something went wrong 2');
+                console.log(err.message);
+            }
+        )
+    }
+
+    sendReview(): void {
+        this.review.stars = this.stars.nativeElement.value;
+        this.review.content = this.stars.nativeElement.value;
+        let url = "http://localhost:8080/api/ocenjivanje-i-komentari/review";
+        this.http.post(url, this.review).subscribe(
+            res=>{
+                this.reviewHidden = true;
+                this.getAllRequest();
+            },
+            err=>{
+                alert('Something went wrong');
                 console.log(err.message);
             }
         )

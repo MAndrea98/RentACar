@@ -5,49 +5,38 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.Ad;
 import com.example.demo.model.Request;
-import com.example.demo.service.AdService;
 import com.example.demo.service.RequestService;
 
 @RefreshScope
 @RestController
-@RequestMapping(value = "/request")
-@CrossOrigin("http://localhost:4200")
-public class RequestController {
+@RequestMapping(value = "/call")
+@CrossOrigin
+public class CommunicationController {
 
 	@Autowired
 	private RequestService requestService;
 	
-	@Autowired
-	private AdService adService;
-	
-	@PostMapping(value = "/{adsIds}")
-	public ResponseEntity<String> saveRequest(@RequestBody Request request, 
-											  @PathVariable("adsIds") String adsIds) {
-		String[] splitter = adsIds.split("&");
-		for (String s : splitter) {
-			Ad a = adService.findById(Long.parseLong(s));
-			a.getRequests().add(request);
-			adService.save(a);
-		}
-		Request r = requestService.save(request);
-		System.out.println(r);
-		return new ResponseEntity<String>("Uspesno", HttpStatus.OK);
+	@PostMapping(value = "/addRequest")
+	public ResponseEntity<String> addRequest(@RequestBody Request request) {
+		System.out.println("####" + request);
+		requestService.save(request);
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
-	@PutMapping
-	public ResponseEntity<String> updateRequest(@RequestBody Request request) {
+	@PutMapping(value = "/editRequest")
+	public ResponseEntity<String> editRequest(@RequestBody Request request) {
+		System.out.println("####" + request);
 		Request r = requestService.findById(request.getId());
 		r.setStatus(request.getStatus());
 		requestService.save(r);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+	
 }

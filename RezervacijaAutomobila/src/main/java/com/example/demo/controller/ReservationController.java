@@ -36,7 +36,7 @@ import com.example.demo.service.RequestService;
 @CrossOrigin("http://localhost:4200")
 public class ReservationController {
 	
-	//TODO: Potrebno je odraditi bundle na frontu i prosirivanje baze na ceo i agentsku aplikaciju
+	//TODO: Potrebno je odraditi prosirivanje baze na ceo i agentsku aplikaciju
 	
 	@Autowired
 	private CartService cartService;
@@ -141,7 +141,7 @@ public class ReservationController {
 		requestForMessages.setEndUser(request.getEndUser());
 		requestForMessages.setStatus(request.getStatus());
 		requestForMessages.setAds(new ArrayList<Ad>());
-		String url = "http://localhost:8080/api/razmena-poruka/request/";
+		String url = "http://localhost:8089/request/";
 		
 		List<Request> allRequests = requestService.findAll();
 		for (Request r : allRequests) {
@@ -157,6 +157,9 @@ public class ReservationController {
         System.out.println("URL" + url);
         ResponseEntity<String> emp = restTemplate.postForEntity(url, requestForMessages, String.class);
         System.out.println("RESPONSE " + emp);
+        
+        String url1 = "http://localhost:8085/call/addRequest";
+        ResponseEntity<String> emp1 = restTemplate.postForEntity(url1, request, String.class);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
@@ -165,10 +168,11 @@ public class ReservationController {
 		Request request = requestService.findById(requestID);
 		request.setStatus(RequestStatus.DENIED);
 		requestService.save(request);
-		String url = "http://localhost:8080/api/razmena-poruka/request";
+		String url = "http://localhost:8089/request";
         System.out.println("URL" + url);
-        ResponseEntity<String> emp = restTemplate.postForEntity(url, request, String.class);
-        System.out.println("RESPONSE " + emp);
+        restTemplate.put(url, request);
+        String url1 = "http://localhost:8085/call/editRequest";
+        restTemplate.put(url1, request);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
@@ -177,10 +181,24 @@ public class ReservationController {
 		Request request = requestService.findById(requestDTO.getId());
 		request.setStatus(RequestStatus.CANCELED);
 		requestService.save(request);
-		String url = "http://localhost:8080/api/razmena-poruka/request";
+		String url = "http://localhost:8089/request";
         System.out.println("URL" + url);
-        ResponseEntity<String> emp = restTemplate.postForEntity(url, request, String.class);
-        System.out.println("RESPONSE " + emp);
+        restTemplate.put(url, request);
+        String url1 = "http://localhost:8085/call/editRequest";
+        restTemplate.put(url1, request);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@PutMapping(value = "/endRenting")
+	public ResponseEntity<String> endRenting(@RequestBody RequestDTO requestDTO) {
+		Request request = requestService.findById(requestDTO.getId());
+		request.setStatus(RequestStatus.ENDED);
+		requestService.save(request);
+		String url = "http://localhost:8089/request";
+        System.out.println("URL" + url);
+        restTemplate.put(url, request);
+        String url1 = "http://localhost:8085/call/editRequest";
+        restTemplate.put(url1, request);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
