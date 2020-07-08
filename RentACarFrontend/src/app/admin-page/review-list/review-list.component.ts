@@ -18,7 +18,8 @@ export class ReviewListComponent implements OnInit {
     stars:0,
     content:null,
     accepted:false,
-    deleted:false
+    deleted:false,
+    requestID:0
   }
   reviewModelList:ReviewDTO[] = [];
 
