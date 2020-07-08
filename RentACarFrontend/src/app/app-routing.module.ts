@@ -16,6 +16,7 @@ import {ReviewListAgentComponent} from "./agent-page/review-list-agent/review-li
 import { PriceListAgentComponent } from './agent-page/price-list-agent/price-list-agent.compose';
 import { UserCartComponent } from './user-page/user-cart/user-cart.component';
 import { AgentRegisterComponent } from './agent-register/agent-register.component';
+import { CompanyRegisterComponent } from './company-register/company-register.component';
 
 
 
@@ -87,6 +88,10 @@ const routes: Routes = [
   {
     path: 'agentRegister',
     component: AgentRegisterComponent
+  },
+  {
+    path: 'companyRegister',
+    component: CompanyRegisterComponent
   }
 ];
 

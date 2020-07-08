@@ -40,7 +40,6 @@ export class AgentRegisterComponent implements OnInit {
       res=>{
         alert(res);
         location.href="http://localhost:4200/agentPage";
-        localStorage.setItem("agent",res);
       },
       err=>{alert("Something went wrong"); console.log(err.message);}
     )

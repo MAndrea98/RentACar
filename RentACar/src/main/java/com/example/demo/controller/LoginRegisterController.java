@@ -35,17 +35,19 @@ public class LoginRegisterController {
 	AgentService agentService;
 	
 	@PostMapping("/registerCompany")
-	public ResponseEntity<Company> registerUser(@RequestBody Company c){
-		
+	public ResponseEntity<String> registerUser(@RequestBody Company c){
+		System.err.println(c.getName() + " " + c.getAddress() + " " + c.getPoslovniMaticniBroj());
+		c.setRenter(new Renter());
 		List<Company> registered = companyService.findAll();
 		for(Company comp:registered) {
 			if(comp.getPoslovniMaticniBroj().equals(c.getPoslovniMaticniBroj())) {
-				System.out.println("Kompanija je vec registrovana!");
-				return new ResponseEntity<Company>(HttpStatus.CONFLICT);
+				String err = "Kompanija je vec registrovana!";
+				System.out.println(err);
+				return new ResponseEntity<String>(err,HttpStatus.CONFLICT);
 			}
 		}
 		companyService.save(c);
-		return new ResponseEntity<Company>(c, HttpStatus.OK);
+		return new ResponseEntity<String>("Registration successful",HttpStatus.OK);
 	}
 	
 	@PostMapping("/registerAgent/{poslovniMaticniBroj}")

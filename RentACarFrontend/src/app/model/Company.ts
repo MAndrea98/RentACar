@@ -5,9 +5,10 @@ export class Company{
 
   id: number;
   renter: Renter;
-  nameC: String;
+  name: String;
   address: String;
   agents: Array<Agent>;
+  poslovniMaticniBroj: String;
 
   constructor() {
   }
