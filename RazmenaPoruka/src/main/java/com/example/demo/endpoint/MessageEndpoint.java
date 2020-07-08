@@ -147,11 +147,16 @@ public class MessageEndpoint {
 	@ResponsePayload
 	public DeleteMessageResponse deleteMessage(@RequestPayload DeleteMessageRequest request) {
 		System.err.println(request.getMessageId());
+		DeleteMessageResponse response = new DeleteMessageResponse();
 		Message message = messageService.findById(request.getMessageId());
+		if(message.isDeleted()) {
+			response.setResponse("MESSAGE ALREADY DELETED");
+			return response;
+		}
 		message.setDeleted(true);
 		messageService.save(message);
 		
-		DeleteMessageResponse response = new DeleteMessageResponse();
+		
 		response.setResponse("DELETE SUCCESSFUL");
 		return response;		
 	}

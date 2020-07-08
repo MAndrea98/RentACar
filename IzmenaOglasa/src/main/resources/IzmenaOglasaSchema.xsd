@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:tns="http://localhost:8084/api/IzmenaOglasa/"
+targetNamespace="http://localhost:8084/api/IzmenaOglasa/" elementFormDefault="qualified">
+
+  <xs:complexType name="priceListDTOIO">
+    <xs:sequence>
+      <xs:element name="cdwPrice" type="xs:double"/>
+      <xs:element name="dateFrom" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dateTo" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="pricePerMile" type="xs:double"/>
+      <xs:element name="prices">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:string"/>
+                  <xs:element name="value" minOccurs="0" type="xs:double"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="vehicle" type="tns:vehicleIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="vehicleIO">
+    <xs:sequence>
+      <xs:element name="cdw" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="childSeatsNo" type="xs:int"/>
+      <xs:element name="gasType" type="tns:gasTypeIO" minOccurs="0"/>
+      <xs:element name="gearBox" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="images" type="tns:vehicleImageIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="mileage" type="xs:int"/>
+      <xs:element name="model" type="tns:modelIO" minOccurs="0"/>
+      <xs:element name="owner" type="tns:renterIO" minOccurs="0"/>
+      <xs:element name="priceList" type="tns:priceListIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="proposedMileage" type="xs:int"/>
+      <xs:element name="requests" type="tns:requestIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="vehicleClass" type="tns:vehicleClassIO" minOccurs="0"/>
+      <xs:element name="vehicleFree" type="tns:vehicleFreeIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="gasTypeIO">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="vehicleImageIO">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="image" type="xs:byte" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="modelIO">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="manufacturer" type="tns:manufacturerIO" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="manufacturerIO">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="renterIO">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="idUser" type="xs:long" minOccurs="0"/>
+      <xs:element name="vehicles" type="tns:vehicleIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="priceListIO">
+    <xs:sequence>
+      <xs:element name="cdwPrice" type="xs:double"/>
+      <xs:element name="dateFrom" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dateTo" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="pricePerMile" type="xs:double"/>
+      <xs:element name="prices">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:string"/>
+                  <xs:element name="value" minOccurs="0" type="xs:double"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="vehicle" type="tns:vehicleIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="requestIO">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="status" type="tns:requestStatusIO" minOccurs="0"/>
+      <xs:element name="vehicle" type="tns:vehicleIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="vehicles" type="tns:vehicleIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="vehicleClassIO">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="vehicleFreeIO">
+    <xs:sequence>
+      <xs:element name="dateFrom" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dateTo" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="vehicle" type="tns:vehicleIO" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="vehicleDTOIO">
+    <xs:sequence>
+      <xs:element name="cdw" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="childSeatsNo" type="xs:int"/>
+      <xs:element name="gasType" type="tns:gasTypeIO" minOccurs="0"/>
+      <xs:element name="gearBox" type="xs:string" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="mileage" type="xs:int"/>
+      <xs:element name="model" type="tns:modelIO" minOccurs="0"/>
+      <xs:element name="owner" type="tns:renterIO" minOccurs="0"/>
+      <xs:element name="priceList" type="tns:priceListIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="proposedMileage" type="xs:int"/>
+      <xs:element name="requests" type="tns:requestIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="vehicleClass" type="tns:vehicleClassIO" minOccurs="0"/>
+      <xs:element name="vehicleFree" type="tns:vehicleFreeIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="endUserIO">
+    <xs:sequence>
+      <xs:element name="address" type="xs:string" minOccurs="0"/>
+      <xs:element name="favorites" type="tns:adIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="idUser" type="xs:long" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="phone" type="xs:string" minOccurs="0"/>
+      <xs:element name="requsets" type="tns:requestIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="reviews" type="tns:reviewIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="surname" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="adIO">
+    <xs:sequence>
+      <xs:element name="date" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dateFrom" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="dateTo" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="favoriteFor" type="tns:endUserIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="listOfReviews" type="tns:reviewIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="numberOfReviews" type="xs:int"/>
+      <xs:element name="place" type="xs:string" minOccurs="0"/>
+      <xs:element name="validFrom" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="validTru" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="vehicle" type="tns:vehicleIO" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="reviewIO">
+    <xs:sequence>
+      <xs:element name="accepted" type="xs:boolean"/>
+      <xs:element name="ad" type="tns:adIO" minOccurs="0"/>
+      <xs:element name="content" type="xs:string" minOccurs="0"/>
+      <xs:element name="deleted" type="xs:boolean"/>
+      <xs:element name="endUser" type="tns:endUserIO" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="stars" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userModelIO">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      <xs:element name="permissions" type="tns:permissionsIO" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="uloga" type="tns:userTypeIO" minOccurs="0"/>
+      <xs:element name="username" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="permissionsIO" final="extension restriction">
+    <xs:complexContent>
+      <xs:extension base="tns:permissionCollectionIO">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="permissionCollectionIO" abstract="true">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="discountIO">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="priceList" type="tns:priceListIO" minOccurs="0"/>
+      <xs:element name="validFrom" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="validTru" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="value" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="adDTOIO">
+    <xs:sequence>
+      <xs:element name="date" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="validFrom" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="validTru" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="vehicle" type="tns:vehicleIO" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="requestStatusIO">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PENDING"/>
+      <xs:enumeration value="RESERVED"/>
+      <xs:enumeration value="DENIED"/>
+      <xs:enumeration value="CANCELED"/>
+      <xs:enumeration value="ENDED"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="userTypeIO">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="END_USER"/>
+      <xs:enumeration value="RENTER"/>
+      <xs:enumeration value="COMPANY"/>
+      <xs:enumeration value="ADMIN"/>
+      <xs:enumeration value="AGENT"/>
+      <xs:enumeration value="NOT_ACTIVE"/>
+      <xs:enumeration value="BLOCKED"/>
+      <xs:enumeration value="REMOVED"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

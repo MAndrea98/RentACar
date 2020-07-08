@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Agent;
 import com.example.demo.model.Company;
-import com.example.demo.model.UserModel;
 import com.example.demo.service.AgentService;
 import com.example.demo.service.CompanyService;
 
