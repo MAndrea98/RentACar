@@ -3,9 +3,9 @@ import {Company} from './Company';
 
 export class Agent{
 
-  id: number;
+  id:number;
   renter: Renter;
-  nameA: String;
+  name: String;
   surname: String;
   address: String;
   phone: String;
