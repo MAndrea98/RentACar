@@ -225,9 +225,13 @@ public class AdminController {
 	@PostMapping("/model")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ResponseEntity<String> newModel(@RequestBody Model m){
-		Model m1 = new Model(m);
+		Model m1 = new Model();
+		System.out.println(m.toString());
+		Manufacturer man = manufacturerService.findById(m.getManufacturer().getId()).get();
+		m1.setName(m.getName());
+		m1.setManufacturer(man);
 		modelService.save(m1);
-		
+		modelService.flush();
 		return new ResponseEntity<String>("Model added", HttpStatus.OK);
 	}
 	
@@ -437,5 +441,28 @@ public class AdminController {
 	@PutMapping("/definePermission")
 	public ResponseEntity<String> definePermissions() {
 		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/user")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<UserModel>> getUsers(){
+		
+		return new ResponseEntity<List<UserModel>>(userModelService.findAll(), HttpStatus.OK);
+	}
+	
+	@PutMapping("/user/{id}")
+	public ResponseEntity<String> blockUser(@PathVariable Long id){
+		
+		UserModel u = userModelService.findById(id);
+		u.setUloga(UserType.BLOCKED);
+		return new ResponseEntity<String>("User blocked", HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/user/{id}")
+	public ResponseEntity<String> deleteUser(@PathVariable Long id){
+		UserModel u = userModelService.findById(id);
+		u.setUloga(UserType.REMOVED);
+		
+		return new ResponseEntity<String>("User removed", HttpStatus.OK);
 	}
 }

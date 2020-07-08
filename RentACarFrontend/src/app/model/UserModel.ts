@@ -1,4 +1,6 @@
 import {Message} from "./Message";
+import {UserType} from "./UserType";
+import{PermissionsEnum} from "./PermissionsEnum";
 
 export class UserModel{
 
