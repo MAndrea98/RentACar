@@ -44,10 +44,10 @@ export class CreateAdFormComponent implements OnInit {
   createAd(): void {
     console.log('create ad');
     let url="http://localhost:8081/ad/create/"+this.modelName
-    this.http.post(url,this.ad, {responseType: 'text'}).subscribe(
+    this.http.post(url,this.ad, {responseType: 'json'}).subscribe(
       res=>{
         alert('success');
-        location.href="http://localhost:4200/agentPage";
+        //location.href="http://localhost:4200/agentPage";
       },
       err=>{
         alert('Something went wrong');

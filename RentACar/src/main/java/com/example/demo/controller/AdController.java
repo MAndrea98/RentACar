@@ -63,9 +63,9 @@ public class AdController {
 	private ModelService modelService;
 
 	@PostMapping(value="/create/{modelName}")
-	public ResponseEntity<String> createAd(@RequestBody Ad ad, @PathVariable("modelName") String modelName) {
+	public ResponseEntity<Ad> createAd(@RequestBody Ad ad, @PathVariable("modelName") String modelName) {
 		if(ad.equals(null) || modelName.equals(null)) {
-			return new ResponseEntity<String>("",HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Ad>(HttpStatus.NO_CONTENT);
 		}
 		
 		Model m = modelService.findByName(modelName);
@@ -74,7 +74,7 @@ public class AdController {
 		System.err.println(v.getId());
 		ad.setVehicle(v);
 		adService.save(ad);
-		return new ResponseEntity<String>("OK",HttpStatus.OK);
+		return new ResponseEntity<Ad>(ad,HttpStatus.OK);
 
 	}
 	
