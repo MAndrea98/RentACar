@@ -121,6 +121,13 @@ public class UserModel {
 	public void setPermissions(Set<Permissions> permissions) {
 		this.permissions = permissions;
 	}
+
+	@Override
+	public String toString() {
+		return "UserModel [id=" + id + ", username=" + username + ", password=" + password + ", uloga=" + uloga
+				+ ", inbox=" + inbox + ", outbox=" + outbox + ", permissions=" + permissions + "]";
+	}
+	
 	
 	
 }

@@ -3,12 +3,13 @@ package com.example.demo.dto;
 import java.util.Calendar;
 
 import com.example.demo.model.Message;
+import com.example.demo.model.UserModel;
 
 public class MessageDTO {
 
 	private Long id;
-	private String senderUsername;
-	private String receiverUsername;
+	private UserModel sender;
+	private UserModel receiver;
 	private String subject;
 	private String content;
 	private Calendar date;
@@ -17,11 +18,11 @@ public class MessageDTO {
 		
 	}
 
-	public MessageDTO(Long id, String senderUsername, String receiverUsername, String subject, String content, Calendar date) {
+	public MessageDTO(Long id, UserModel sender, UserModel receiver, String subject, String content, Calendar date) {
 		super();
 		this.id = id;
-		this.senderUsername = senderUsername;
-		this.receiverUsername = receiverUsername;
+		this.sender = sender;
+		this.receiver = receiver;
 		this.subject = subject;
 		this.content = content;
 		this.date = date;
@@ -29,8 +30,8 @@ public class MessageDTO {
 
 	public MessageDTO(Message m) {
 		this(m.getId(), 
-			m.getSender().getUsername(), 
-			m.getReciever().getUsername(), 
+			m.getSender(), 
+			m.getReciever(), 
 			m.getSubject(), 
 			m.getContent(), 
 			m.getDate());
@@ -44,20 +45,20 @@ public class MessageDTO {
 		this.id = id;
 	}
 
-	public String getSenderUsername() {
-		return senderUsername;
+	public UserModel getSender() {
+		return sender;
 	}
 
-	public void setSenderUsername(String senderUsername) {
-		this.senderUsername = senderUsername;
+	public void setSender(UserModel sender) {
+		this.sender = sender;
 	}
 
-	public String getReceiverUsername() {
-		return receiverUsername;
+	public UserModel getReceiver() {
+		return receiver;
 	}
 
-	public void setReceiverUsername(String receiverUsername) {
-		this.receiverUsername = receiverUsername;
+	public void setReceiver(UserModel receiver) {
+		this.receiver = receiver;
 	}
 
 	public String getSubject() {
@@ -83,6 +84,14 @@ public class MessageDTO {
 	public void setDate(Calendar date) {
 		this.date = date;
 	}
+
+	@Override
+	public String toString() {
+		return "MessageDTO [id=" + id + ", sender=" + sender + ", receiver=" + receiver + ", subject=" + subject
+				+ ", content=" + content + ", date=" + date + "]";
+	}
+	
+	
 	
 	
 }

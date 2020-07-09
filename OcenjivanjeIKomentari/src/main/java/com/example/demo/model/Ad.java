@@ -10,7 +10,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Ad {
@@ -21,6 +26,14 @@ public class Ad {
 	
 	@Column(name = "vehicle_id")
 	private Long vehicleID;
+	
+	@JsonIgnore
+	@ManyToMany( cascade = {
+		    CascadeType.PERSIST,
+		    CascadeType.MERGE
+		})
+	@JoinTable(name = "ads_requests", joinColumns = @JoinColumn(name = "ad_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
+	private List<Request> requests = new ArrayList<Request>();
 
 	@OneToMany(mappedBy="ad", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> listOfReviews = new ArrayList<Review>();
@@ -62,6 +75,24 @@ public class Ad {
 	public void setNumberOfReviews(int numberOfReviews) {
 		this.numberOfReviews = numberOfReviews;
 	}
+
+	public Long getVehicleID() {
+		return vehicleID;
+	}
+
+	public void setVehicleID(Long vehicleID) {
+		this.vehicleID = vehicleID;
+	}
+
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
+	}
+	
+	
 
 	
 }

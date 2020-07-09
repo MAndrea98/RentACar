@@ -4,11 +4,12 @@ export class Message{
 
   id: number;
   sender: UserModel
-  reciever: UserModel;
+  receiver: UserModel;
   subject: String;
-  contentM: String;
+  content: String;
   dateM: Date;
 
   constructor() {
   }
 }
+

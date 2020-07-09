@@ -1,10 +1,10 @@
-import {Vehicle} from './Vehicle';
+import { Ad } from './Ad';
 
 export class Cart{
 
   id: number;
   endUserId: number;
-  vehicles: Array<Vehicle>;
+  ads: Array<Ad>;
 
   constructor() {
   }

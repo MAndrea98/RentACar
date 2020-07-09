@@ -20,13 +20,13 @@ values (1, 'Novi Sad', '2020-06-20', '2020-06-21', '2020-06-29', '2020-06-20', '
 
 insert into ad (vehicle_id, place, date, valid_tru, valid_from, date_from, date_to) 
 values (2, 'Novi Sad', '2020-06-20', '2020-06-21', '2020-06-30', '2020-06-20', '2020-07-16');
-
+/*
 insert into review (ad_id, end_user_id, stars, content, accepted, deleted) values (1, 1, 3, 'OK', false, false);
 insert into review (ad_id, end_user_id, stars, content, accepted, deleted) values (2, 1, 5, 'Odlicno', true, false);
 insert into review (ad_id, end_user_id, stars, content, accepted, deleted) values (1, 1, 4, 'Dobar', false, false);
 insert into review (ad_id, end_user_id, stars, content, accepted, deleted) values (2, 1, 2, 'Onako', false, false);
 insert into review (ad_id, end_user_id, stars, content, accepted, deleted) values (1, 1, 1, 'Nista nije valjalo', false, false);
-
+*/
 insert into price_list (date_from, date_to, price_per_mile, cdw_price) values ('2020-06-30', '2020-07-01', 50, 20);
 insert into price_list (date_from, date_to, price_per_mile, cdw_price) values ('2020-06-30', '2020-07-01', 30, 15);
 insert into price_list (date_from, date_to, price_per_mile, cdw_price) values ('2020-06-30', '2020-07-01', 15, 82);

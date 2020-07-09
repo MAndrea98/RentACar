@@ -1,19 +1,19 @@
-import {Renter} from './Renter';
 import {EndUser} from './EndUser';
 import {Vehicle} from './Vehicle';
+import { Cart } from './Cart';
+import { Request } from './Request';
 
 export class Ad{
   id: number;
-  renter: Renter;
-  endUser: EndUser;
   vehicle: Vehicle;
   place: String;
-  dated: Date;
+  date: Date;
   validTru: Date;
   validFrom: Date;
   dateTo: Date;
-  free: Map<Date, boolean>;
-  mileage: number;
+  favoriteFor: Array<EndUser>;
+  requests: Array<Request>;
+  carts: Array<Cart>
 
   constructor() {
   }

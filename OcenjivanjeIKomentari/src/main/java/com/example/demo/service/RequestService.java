@@ -23,4 +23,8 @@ public class RequestService {
 	public Request findById(Long requestID) {
 		return requestRepository.findById(requestID).orElse(null);
 	}
+
+	public Request save(Request request) {
+		return requestRepository.save(request);
+	}
 }

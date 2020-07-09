@@ -3,7 +3,6 @@ import { PriceList } from '../../model/PriceList';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Vehicle } from 'src/app/model/Vehicle';
-import { parse, isThisISOWeek } from 'date-fns';
 
 @Component({
     selector: 'app-price-list-agent',

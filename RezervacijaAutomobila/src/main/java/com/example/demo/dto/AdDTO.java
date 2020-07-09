@@ -1,20 +1,19 @@
 package com.example.demo.dto;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
+import com.example.demo.model.Ad;
+import com.example.demo.model.Cart;
 import com.example.demo.model.EndUser;
-import com.example.demo.model.Renter;
+import com.example.demo.model.Request;
 import com.example.demo.model.Vehicle;
 
 
 public class AdDTO {
 
-
 	private Long id;
-	private Renter renter;
-	private EndUser endUser;
 	private Vehicle vehicle;
 	private String place;
 	private Calendar date;
@@ -22,17 +21,18 @@ public class AdDTO {
 	private Calendar validFrom;
 	private Calendar dateFrom;
 	private Calendar dateTo;
-	private Map<Calendar, Boolean> free = new HashMap<Calendar, Boolean>();
-	private int mileage;
+	private List<EndUser> favoriteFor;
+	private List<Request> requests = new ArrayList<Request>();
+	private List<Cart> carts = new ArrayList<Cart>();
 
 	public AdDTO() {
 
 	}
 
-	public AdDTO(Renter renter, Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom,
-			Calendar dateFrom, Calendar dateTo, HashMap<Calendar, Boolean> free, int mileage) {
+	public AdDTO(Long id, Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom,
+			Calendar dateFrom, Calendar dateTo, List<EndUser> favoriteFor, List<Request> requests, List<Cart> carts) {
 		super();
-		this.renter = renter;
+		this.id = id;
 		this.vehicle = vehicle;
 		this.place = place;
 		this.date = date;
@@ -40,57 +40,62 @@ public class AdDTO {
 		this.validFrom = validFrom;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
-		this.free = free;
-		this.mileage = mileage;
+		this.favoriteFor = favoriteFor;
+		this.requests = requests;
+		this.carts = carts;
 	}
-	public Renter getUser() {
-		return renter;
+
+	public AdDTO(Ad a) {
+		this(a.getId(), a.getVehicle(), a.getPlace(), a.getDate(), a.getValidTru(), a.getValidFrom(), a.getDateFrom(),
+				a.getDateTo(), a.getFavoriteFor(), a.getRequests(), a.getCarts());
 	}
-	public void setUser(Renter renter) {
-		this.renter = renter;
+
+	public Long getId() {
+		return id;
 	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Vehicle getVehicle() {
 		return vehicle;
 	}
+
 	public void setVehicle(Vehicle vehicle) {
 		this.vehicle = vehicle;
 	}
-	public Calendar getDate() {
-		return date;
-	}
-	public void setDate(Calendar date) {
-		this.date = date;
-	}
-	public Calendar getValidTru() {
-		return validTru;
-	}
-	public void setValidTru(Calendar validTru) {
-		this.validTru = validTru;
-	}
-	public Calendar getValidFrom() {
-		return validFrom;
-	}
-	public void setValidFrom(Calendar validFrom) {
-		this.validFrom = validFrom;
-	}
-	public Map<Calendar, Boolean> getFree() {
-		return free;
-	}
-	public void setFree(HashMap<Calendar, Boolean> free) {
-		this.free = free;
-	}
-	public int getMileage() {
-		return mileage;
-	}
-	public void setMileage(int mileage) {
-		this.mileage = mileage;
-	}
+
 	public String getPlace() {
 		return place;
 	}
 
 	public void setPlace(String place) {
 		this.place = place;
+	}
+
+	public Calendar getDate() {
+		return date;
+	}
+
+	public void setDate(Calendar date) {
+		this.date = date;
+	}
+
+	public Calendar getValidTru() {
+		return validTru;
+	}
+
+	public void setValidTru(Calendar validTru) {
+		this.validTru = validTru;
+	}
+
+	public Calendar getValidFrom() {
+		return validFrom;
+	}
+
+	public void setValidFrom(Calendar validFrom) {
+		this.validFrom = validFrom;
 	}
 
 	public Calendar getDateFrom() {
@@ -108,6 +113,32 @@ public class AdDTO {
 	public void setDateTo(Calendar dateTo) {
 		this.dateTo = dateTo;
 	}
+
+	public List<EndUser> getFavoriteFor() {
+		return favoriteFor;
+	}
+
+	public void setFavoriteFor(List<EndUser> favoriteFor) {
+		this.favoriteFor = favoriteFor;
+	}
+
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
+	}
+
+	public List<Cart> getCarts() {
+		return carts;
+	}
+
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
+	}
+	
+	
 
 
 }
