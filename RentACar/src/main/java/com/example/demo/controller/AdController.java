@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -130,12 +132,30 @@ public class AdController {
 	}
 
 	@PostMapping(value="/occupy/{dateFrom}/{dateTo}")
-	public ResponseEntity<String> occupy(@PathParam("dateFrom") Date dateFrom, @PathParam("dateTo") Date dateTo, @RequestBody Ad ad){
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(dateFrom);
-		calendar.setTime(dateTo);
-
-		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
+	public ResponseEntity<String> occupy(@PathVariable("dateFrom") String dateFrom, @PathVariable("dateTo") String dateTo, @RequestBody Ad ad){
+		
+		if(dateFrom == null || dateTo == null || ad == null) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+		
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		LocalDate date1 = LocalDate.parse(dateFrom,dateTimeFormatter);
+		LocalDate date2 = LocalDate.parse(dateFrom,dateTimeFormatter);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-dd-MM");
+		formatter.format(date1);
+		formatter.format(date2);
+		System.out.println(date1);
+		System.out.println(date2);
+		
+		Calendar c1= Calendar.getInstance();
+		c1.set(date1.getYear(), date1.getMonthValue(), date1.getDayOfMonth());
+		
+		Calendar c2= Calendar.getInstance();
+		c2.set(date2.getYear(), date2.getMonthValue(), date2.getDayOfMonth());
+		
+		ad.setDateFrom(c1);
+		ad.setDateTo(c2);
 
 		Vehicle vehicle = ad.getVehicle();
 		List<Request> list = requestService.findAll();
@@ -161,7 +181,6 @@ public class AdController {
 			}
 		}
 		return listOfFoundAds;
-
 	}
 
 	@PostMapping(value="/statsMileage")
