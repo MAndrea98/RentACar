@@ -1,0 +1,35 @@
+<br/>
+<form #adPost="ngForm" (ngSubmit)="createAd()" novalidate>
+	<div class="form-group">
+		<label for="name">Place</label>
+		<input id="place" name="place" type="text" class="form-control" [(ngModel)]="ad.place" /> 
+	</div>
+	<div class="form-group">
+		<label for="dateFrom">Date: </label>
+		<ejs-datepicker name="date" id="date" [(ngModel)]="ad.date">
+		</ejs-datepicker>
+	</div>
+	<div class="form-group">
+		<label for="dateFrom">From: </label>
+		<ejs-datepicker name="dateFrom" id="dateFrom" [(ngModel)]="ad.dateFrom">
+		</ejs-datepicker>
+	</div>
+	<div class="form-group">
+		<label for="dateFrom">To: </label>
+		<ejs-datepicker name="dateTo" id="dateTo" [(ngModel)]="ad.dateTo">
+		</ejs-datepicker>
+	</div>
+	<div class="form-group">
+		<label for="mileageLimit">Mileage Limit</label><br/>
+		<input type="number" name="mileageLimit" id="mileageLimit" [(ngModel)]="ad.mileageLimit"/>
+	</div>
+	<div class="form-group">
+		<label for="vehicle">Vehicle</label><br/>
+		<select name="vehicle" [(ngModel)]="modelName">
+			<option *ngFor="let model of models" [value]="model.name">
+				{{model.name}}
+			</option>
+		</select>
+	</div>
+	<button type="submit">Submit</button>
+</form>

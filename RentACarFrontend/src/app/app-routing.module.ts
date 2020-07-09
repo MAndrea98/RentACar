@@ -17,6 +17,7 @@ import { PriceListAgentComponent } from './agent-page/price-list-agent/price-lis
 import { UserCartComponent } from './user-page/user-cart/user-cart.component';
 import { AgentRegisterComponent } from './agent-register/agent-register.component';
 import { CompanyRegisterComponent } from './company-register/company-register.component';
+import { CreateAdFormComponent } from './agent-page/create-ad-form/create-ad-form.component';
 
 
 
@@ -92,6 +93,10 @@ const routes: Routes = [
   {
     path: 'companyRegister',
     component: CompanyRegisterComponent
+  },
+  {
+    path:'agentPage/ad/new',
+    component: CreateAdFormComponent
   }
 ];
 

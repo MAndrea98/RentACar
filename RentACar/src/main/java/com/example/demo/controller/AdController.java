@@ -14,14 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.AdDTO;
 import com.example.demo.model.Ad;
 import com.example.demo.model.Discount;
+import com.example.demo.model.Model;
 import com.example.demo.model.PriceList;
 import com.example.demo.model.Renter;
 import com.example.demo.model.Request;
@@ -31,12 +34,14 @@ import com.example.demo.model.Search;
 import com.example.demo.model.Vehicle;
 import com.example.demo.service.AdService;
 import com.example.demo.service.DiscountService;
+import com.example.demo.service.ModelService;
 import com.example.demo.service.RequestService;
 import com.example.demo.service.ReviewService;
 import com.example.demo.service.VehicleService;
 
+@RestController
 @RequestMapping(value="/ad")
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin("http://localhost:4200")
 public class AdController {
 
 	@Autowired
@@ -53,13 +58,21 @@ public class AdController {
 	
 	@Autowired
 	private VehicleService vehicleService;
+	
+	@Autowired
+	private ModelService modelService;
 
-	@PostMapping(value="/create")
-	public ResponseEntity<String> createAd(@RequestBody Ad ad) {
-		if(ad.equals(null)) {
+	@PostMapping(value="/create/{modelName}")
+	public ResponseEntity<String> createAd(@RequestBody Ad ad, @PathVariable("modelName") String modelName) {
+		if(ad.equals(null) || modelName.equals(null)) {
 			return new ResponseEntity<String>("",HttpStatus.NO_CONTENT);
 		}
-
+		
+		Model m = modelService.findByName(modelName);
+		
+		Vehicle v = vehicleService.findByModel(m);
+		System.err.println(v.getId());
+		ad.setVehicle(v);
 		adService.save(ad);
 		return new ResponseEntity<String>("OK",HttpStatus.OK);
 

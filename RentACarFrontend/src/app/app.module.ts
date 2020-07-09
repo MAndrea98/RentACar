@@ -41,6 +41,8 @@ import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { UserCartComponent } from './user-page/user-cart/user-cart.component';
 import { AgentRegisterComponent } from './agent-register/agent-register.component';
 import { CompanyRegisterComponent } from './company-register/company-register.component';
+import { CreateAdFormComponent } from './agent-page/create-ad-form/create-ad-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 const appRoutes : Routes = [];
@@ -77,14 +79,16 @@ const appRoutes : Routes = [];
     PriceListAgentComponent,
     UserCartComponent,
     AgentRegisterComponent,
-    CompanyRegisterComponent
+    CompanyRegisterComponent,
+    CreateAdFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    DatePickerModule
+    DatePickerModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

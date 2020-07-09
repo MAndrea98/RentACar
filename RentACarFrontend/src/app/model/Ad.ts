@@ -8,12 +8,12 @@ export class Ad{
   endUser: EndUser;
   vehicle: Vehicle;
   place: String;
-  dated: Date;
+  date: Date;
   validTru: Date;
   validFrom: Date;
   dateTo: Date;
-  free: Map<Date, boolean>;
-  mileage: number;
+  dateFrom: Date;
+  mileageLimit: number;
 
   constructor() {
   }

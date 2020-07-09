@@ -2,7 +2,7 @@ import {Manufacturer} from "./Manufacturer";
 
 export class Model{
   id: number;
-  nameM: String;
+  name: String;
   manufacturer: Manufacturer;
 
   constructor() {

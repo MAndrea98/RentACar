@@ -31,18 +31,22 @@ public class Vehicle {
 	@OneToMany(mappedBy="vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<VehicleImage> images = new ArrayList<VehicleImage>();
 	
+	@JsonIgnore 
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.LAZY)
 	private Renter owner;
 	
+	@JsonIgnore 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Model model;
 	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private GasType gasType;
 	
 	@Column(name="gearBox")
 	private String gearBox;
 	
+	@JsonIgnore 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private VehicleClass vehicleClass;
 	
