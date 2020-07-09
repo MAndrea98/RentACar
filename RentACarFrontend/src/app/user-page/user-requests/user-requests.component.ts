@@ -162,7 +162,7 @@ export class UserRequestComponent implements OnInit {
 
     sendReview(): void {
         this.review.stars = this.stars.nativeElement.value;
-        this.review.content = this.stars.nativeElement.value;
+        this.review.content = this.contentReview.nativeElement.value;
         let url = "http://localhost:8080/api/ocenjivanje-i-komentari/review";
         this.http.post(url, this.review).subscribe(
             res=>{
