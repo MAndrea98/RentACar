@@ -18,6 +18,8 @@ import { UserCartComponent } from './user-page/user-cart/user-cart.component';
 import { RequestListAgentComponent } from './agent-page/request-list-agent/request-list-agent.component';
 import { UserRequestComponent } from './user-page/user-requests/user-requests.component';
 import { UserMessagesComponent } from './user-page/user-messages/user-messages.component';
+import { AgentRegisterComponent } from './agent-register/agent-register.component';
+import { CompanyRegisterComponent } from './company-register/company-register.component';
 
 
 const routes: Routes = [
@@ -96,6 +98,14 @@ const routes: Routes = [
   {
     path:'userPage/messages',
     component: UserMessagesComponent
+  },
+  {
+    path: 'agentRegister',
+    component: AgentRegisterComponent
+  },
+  {
+    path: 'companyRegister',
+    component: CompanyRegisterComponent
   }
 ];
 

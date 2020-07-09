@@ -1,0 +1,16 @@
+<br/>
+<form #agentPost="ngForm" (ngSubmit)="companyRegister()" novalidate>
+	<div class="form-group">
+		<label for="name">Company Name</label>
+		<input id="name" name="name" type="text" class="form-control" [(ngModel)]="company.name"/>
+	</div>
+	<div class="form-group">
+		<label for="address">Company Address</label>
+		<input id="address" name="address" type="text" class="form-control" [(ngModel)]="company.address" />
+	</div>
+	<div class="form-group">
+		<label for="poslovniMaticniBroj">Business registration number</label>
+		<input id="poslovniMaticniBroj" name="poslovniMaticniBroj" type="text" class="form-control" [(ngModel)]="company.poslovniMaticniBroj"/>
+	</div>
+	<button type="submit">Submit</button>
+</form>

@@ -21,7 +21,7 @@ public class Renter {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="idUser", nullable = false, unique = true)
+	@Column(name="idUser", unique = true)
 	private Long idUser;
 	
 	@JsonIgnore

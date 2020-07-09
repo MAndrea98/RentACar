@@ -24,4 +24,5 @@ values (3, 'Novi Sad', '2020-06-20', '2020-06-21', '2020-06-30', '2020-06-20', '
 insert into ad (vehicle_id, place, date, valid_tru, valid_from, date_from, date_to) 
 values (4, 'Novi Sad', '2020-06-20', '2020-06-21', '2020-06-30', '2020-06-20', '2020-07-16');
 
+insert into message(subject,content,date,deleted) values ('Proba1','Proba1','2020-6-20',false);
 

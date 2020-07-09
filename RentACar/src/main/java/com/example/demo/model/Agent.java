@@ -32,7 +32,7 @@ public class Agent {
 	@Column(name="phone", nullable = false)
 	private String phone;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Company company;
 	
 	public Agent() {

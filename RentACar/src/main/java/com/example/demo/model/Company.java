@@ -22,7 +22,7 @@ public class Company {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Renter renter;
 	
 	@Column(name="name",nullable=false)
