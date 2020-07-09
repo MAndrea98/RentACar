@@ -76,5 +76,23 @@ public class Ad {
 		this.numberOfReviews = numberOfReviews;
 	}
 
+	public Long getVehicleID() {
+		return vehicleID;
+	}
+
+	public void setVehicleID(Long vehicleID) {
+		this.vehicleID = vehicleID;
+	}
+
+	public List<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
+	}
+	
+	
+
 	
 }

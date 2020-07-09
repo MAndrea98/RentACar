@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,8 +52,8 @@ public class ReservationController {
 	@Autowired
 	private AdService adService;
 	
-	@Autowired
-	private RestTemplate restTemplate;
+	/*@Autowired
+	private RestTemplate restTemplate;*/
 	
 	@GetMapping("/addToCart/{id}")
 	public ResponseEntity<CartDTO> addToCart(@PathVariable("id") Long id) {
@@ -71,17 +73,14 @@ public class ReservationController {
 	@PostMapping("/createSingle")
 	public ResponseEntity<String> createSingleRequest(@RequestBody Long idAds) {
 		//EndUser endUser = endUserService.findByIdUser(LogedUser.getInstance().getUserId());
-		System.out.println("#####usao");
 		EndUser endUser = endUserService.findByIdUser(1L);
 		if (endUser == null)
 			return new ResponseEntity<String>("You don't have permission to do this task.", HttpStatus.BAD_REQUEST);
 		List<Ad> ads = new ArrayList<Ad>();
 		Ad ad = adService.findById(idAds);
 		ads.add(ad);
-		System.out.println("### save, size: " + ads.size());
 		Request request = new Request(ads, RequestStatus.PENDING, endUser);
-		Request r = requestService.save(request);
-		System.out.println("### save, ads size: " + r.getAds().size());
+		requestService.save(request);
 		Cart cart = cartService.findByEndUserID(endUser.getId());
 		for (int i = 0; i < cart.getAds().size(); i++) {
 			if (cart.getAds().get(i).getId().equals(idAds)) {
@@ -142,6 +141,9 @@ public class ReservationController {
 		requestForMessages.setStatus(request.getStatus());
 		requestForMessages.setAds(new ArrayList<Ad>());
 		String url = "http://localhost:8089/request/";
+		String url1 = "http://localhost:8085/call/addRequest";
+		String url2 = "http://localhost:8085/call/adAds";
+		String requestBody = requestID + "=";
 		
 		List<Request> allRequests = requestService.findAll();
 		for (Request r : allRequests) {
@@ -151,20 +153,32 @@ public class ReservationController {
 					requestService.save(r);
 				}
 				url += a.getId() + "&";
+				requestBody += a.getId() + "&";
 			}
 		}
+		ClientHttpRequestFactory requestFactory = new     
+			      HttpComponentsClientHttpRequestFactory();
+
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
 		System.out.println(request.getAds());
-        System.out.println("URL" + url);
+        System.out.println("URL " + url);
         ResponseEntity<String> emp = restTemplate.postForEntity(url, requestForMessages, String.class);
         System.out.println("RESPONSE " + emp);
-        
-        String url1 = "http://localhost:8085/call/addRequest";
+        System.out.println("URL " + url1);
         ResponseEntity<String> emp1 = restTemplate.postForEntity(url1, request, String.class);
+        System.out.println("RESPONSE " + emp1);
+        ResponseEntity<String> emp2 = restTemplate.postForEntity(url2, requestBody, String.class);
+        System.out.println("RESPONSE " + emp2);
+        System.out.println("URL " + url2);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
 	@PutMapping("/decline")
 	public ResponseEntity<String> declineRequest(@RequestBody Long requestID) {
+		ClientHttpRequestFactory requestFactory = new     
+			      HttpComponentsClientHttpRequestFactory();
+
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
 		Request request = requestService.findById(requestID);
 		request.setStatus(RequestStatus.DENIED);
 		requestService.save(request);
@@ -178,6 +192,10 @@ public class ReservationController {
 	
 	@PutMapping("/cancel")
 	public ResponseEntity<String> cancelRequest(@RequestBody RequestDTO requestDTO) {
+		ClientHttpRequestFactory requestFactory = new     
+			      HttpComponentsClientHttpRequestFactory();
+
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
 		Request request = requestService.findById(requestDTO.getId());
 		request.setStatus(RequestStatus.CANCELED);
 		requestService.save(request);
@@ -191,6 +209,10 @@ public class ReservationController {
 	
 	@PutMapping(value = "/endRenting")
 	public ResponseEntity<String> endRenting(@RequestBody RequestDTO requestDTO) {
+		ClientHttpRequestFactory requestFactory = new     
+			      HttpComponentsClientHttpRequestFactory();
+
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
 		Request request = requestService.findById(requestDTO.getId());
 		request.setStatus(RequestStatus.ENDED);
 		requestService.save(request);

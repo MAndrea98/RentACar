@@ -17,4 +17,5 @@ public class EndUserService {
 	public Optional<EndUser> findByIdUser(Long id) {
 		return endUserRepository.findByIdUser(id);
 	}
+
 }

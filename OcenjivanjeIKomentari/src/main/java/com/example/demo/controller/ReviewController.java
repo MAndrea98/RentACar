@@ -49,7 +49,7 @@ public class ReviewController {
 	private ReportService reportService;
 	
 	@Autowired
-	private RestTemplate restTemplate;
+	private RestTemplate restTemplate1;
 	
 	@PostMapping
 	public ResponseEntity<ReviewDTO> createReview(@RequestBody ReviewDTO reviewDTO) {
@@ -67,15 +67,16 @@ public class ReviewController {
 		review.setEndUser(endUser);
 		review.setContent(reviewDTO.getContent());
 		review.setStars(reviewDTO.getStars());
+		review.setAd(request.getAds().get(0));
 		Review r = reviewService.save(review);
 		String s = review.toString();
 		System.out.println(s);
 		
 		Report report = new Report(request, review);
 		reportService.save(report);
-		String url = "http://localhost:8087/call";
+		String url = "http://localhost:8087/call/addReview/" + request.getAds().get(0).getId();
         System.out.println("URL: " + url);
-        restTemplate.put(url, s);
+        restTemplate1.put(url, reviewDTO);
 		
 		return new ResponseEntity<ReviewDTO>(new ReviewDTO(r, request, endUserUser, renterUser),HttpStatus.OK);
 	}
