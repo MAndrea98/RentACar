@@ -91,14 +91,15 @@ public class ReviewController {
 		if (renter == null)
 			return new ResponseEntity<List<ReviewDTO>>(HttpStatus.BAD_REQUEST);
 		//System.out.println("##" + user.getUsername() + " " + renter.getReviews().size());
+		List<Review> reviews = reviewService.findAll();
 		List<ReviewDTO> reviewDTOs = new ArrayList<ReviewDTO>();
-		// TODO find error
-		/*for (Review r : renter.getReviews()) {
-			if (!r.isDeleted()) {
+		
+		for (Review r : reviews) {
+			if (!r.isDeleted() && r.getAd().getVehicle().getOwner().getId().equals(renter.getId())) {
 				UserModel endUser = userModelService.findById(r.getEndUser().getIdUser());
 				reviewDTOs.add(new ReviewDTO(r, user.getUsername(), endUser.getUsername()));
 			}
-		}*/
+		}
 		return new ResponseEntity<List<ReviewDTO>>(reviewDTOs, HttpStatus.OK);
 	}
 	
