@@ -38,7 +38,6 @@ import com.example.demo.service.RequestService;
 @CrossOrigin("http://localhost:4200")
 public class ReservationController {
 	
-	//TODO: Potrebno je odraditi prosirivanje baze na ceo i agentsku aplikaciju
 	
 	@Autowired
 	private CartService cartService;

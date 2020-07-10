@@ -31,9 +31,9 @@ import com.example.demo.service.RequestService;
 import com.example.demo.service.ReviewService;
 import com.example.demo.service.UserModelService;
 
+@RestController
 @RequestMapping("/review")
 @CrossOrigin("http://localhost:4200")
-@RestController
 public class ReviewController {
 	
 	@Autowired
@@ -64,7 +64,7 @@ public class ReviewController {
 		List<Request> requests = requestService.findByParameters(endUser, RequestStatus.ENDED);
 		Boolean found = false;
 		for (Request r : requests) {
-			if (r.getVehicles().get(0).getOwner().getId().equals(renter.getId()))
+			if (r.getAds().get(0).getVehicle().getOwner().getId().equals(renter.getId()))
 				found = true;
 		}
 		if (!found) {
@@ -91,14 +91,15 @@ public class ReviewController {
 		if (renter == null)
 			return new ResponseEntity<List<ReviewDTO>>(HttpStatus.BAD_REQUEST);
 		//System.out.println("##" + user.getUsername() + " " + renter.getReviews().size());
+		List<Review> reviews = reviewService.findAll();
 		List<ReviewDTO> reviewDTOs = new ArrayList<ReviewDTO>();
-		// TODO find error
-		/*for (Review r : renter.getReviews()) {
-			if (!r.isDeleted()) {
+		
+		for (Review r : reviews) {
+			if (!r.isDeleted() && r.getAd().getVehicle().getOwner().getId().equals(renter.getId())) {
 				UserModel endUser = userModelService.findById(r.getEndUser().getIdUser());
 				reviewDTOs.add(new ReviewDTO(r, user.getUsername(), endUser.getUsername()));
 			}
-		}*/
+		}
 		return new ResponseEntity<List<ReviewDTO>>(reviewDTOs, HttpStatus.OK);
 	}
 	
