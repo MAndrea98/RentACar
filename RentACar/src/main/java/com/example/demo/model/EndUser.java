@@ -1,7 +1,9 @@
 package com.example.demo.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -38,26 +40,26 @@ public class EndUser {
 	private String phone;
 	
 	@Column(name="additional_price")
-	private int additionalPrice;
+	private Integer additionalPrice; //Non primitive wrapper type Integer instead of primitive type int, jer dolazi do greske u JSON-u
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> reviews = new ArrayList<Review>();
 	
 	@JsonIgnore
-	@ManyToMany
-	private List<Ad> favorites = new ArrayList<Ad>();
+	@ManyToMany(mappedBy = "favoriteFor")
+	private Set<Ad> favorites = new HashSet<Ad>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Request> requsets = new ArrayList<Request>();
 	
 	public EndUser() {
-		
+		this.additionalPrice = 0;
 	}
 
 	public EndUser(Long idUser, String name, String surname, String address, String phone, List<Review> reviews,
-			List<Ad> favorites, List<Request> requsets) {
+			HashSet<Ad> favorites, List<Request> requsets) {
 		super();
 		this.idUser = idUser;
 		this.name = name;
@@ -126,11 +128,11 @@ public class EndUser {
 		this.reviews = reviews;
 	}
 
-	public List<Ad> getFavorites() {
+	public Set<Ad> getFavorites() {
 		return favorites;
 	}
 
-	public void setFavorites(List<Ad> favorites) {
+	public void setFavorites(Set<Ad> favorites) {
 		this.favorites = favorites;
 	}
 
@@ -142,11 +144,11 @@ public class EndUser {
 		this.requsets = requsets;
 	}
 	
-	public int getAdditionalPrice() {
+	public Integer getAdditionalPrice() {
 		return this.additionalPrice;
 	}
 	
-	public void setAdditionalPrice(int price) {
+	public void setAdditionalPrice(Integer price) {
 		this.additionalPrice = price;
 	}
 	

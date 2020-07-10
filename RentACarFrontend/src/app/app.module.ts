@@ -31,6 +31,7 @@ import { NewAdFormComponent } from './user-page/new-ad-form/new-ad-form.componen
 import { NewVehicleFormComponent } from './user-page/new-vehicle-form/new-vehicle-form.component';
 import { VehicleTableComponent } from './user-page/vehicle-table/vehicle-table.component';
 import { AdTableComponent } from './user-page/ad-table/ad-table.component';
+import { AdListComponent } from './agent-page/ad-list/ad-list.component';
 import { ReviewListComponent } from './admin-page/review-list/review-list.component';
 import { AgentPageComponent } from './agent-page/agent-page.component';
 import { AgentNavComponent } from './agent-nav/agent-nav.component';
@@ -80,7 +81,8 @@ const appRoutes : Routes = [];
     UserCartComponent,
     AgentRegisterComponent,
     CompanyRegisterComponent,
-    CreateAdFormComponent
+    CreateAdFormComponent,
+    AdListComponent
   ],
   imports: [
     BrowserModule,

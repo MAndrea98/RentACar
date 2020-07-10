@@ -18,6 +18,7 @@ import { UserCartComponent } from './user-page/user-cart/user-cart.component';
 import { AgentRegisterComponent } from './agent-register/agent-register.component';
 import { CompanyRegisterComponent } from './company-register/company-register.component';
 import { CreateAdFormComponent } from './agent-page/create-ad-form/create-ad-form.component';
+import { AdListComponent } from './agent-page/ad-list/ad-list.component';
 
 
 
@@ -95,8 +96,12 @@ const routes: Routes = [
     component: CompanyRegisterComponent
   },
   {
-    path:'agentPage/ad/new',
+    path: 'agentPage/ad/new',
     component: CreateAdFormComponent
+  },
+  {
+    path: 'agentPage/ad/list',
+    component: AdListComponent
   }
 ];
 

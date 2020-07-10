@@ -3,6 +3,7 @@ package com.example.demo.model;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,9 +12,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Ad {
@@ -43,20 +48,22 @@ public class Ad {
 	@Column(name="dateTo", nullable = false)
 	private Calendar dateTo;
 
-	@OneToMany(mappedBy="ad", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(mappedBy="ad", cascade = CascadeType.ALL)
 	private List<Review> listOfReviews = new ArrayList<Review>();
 
-	@Column(name="number_of_reviews")
-	private int numberOfReviews = listOfReviews.size();
-
+	@JsonIgnore
 	@ManyToMany
-	private List<EndUser> favoriteFor;
+	@JoinTable(name = "ad_user", joinColumns = @JoinColumn(name="ad_id"),
+		inverseJoinColumns = @JoinColumn(name = "end_user_id"))
+	private Set<EndUser> favoriteFor;
 	
-	@Column(name="mileageLimit")
+	@Column(name="mileageLimit", nullable= true)
 	private int mileageLimit;
 	
 	public Ad() {
-
+		super();
+		
 	}
 
 	public Ad(Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom, 
@@ -70,14 +77,6 @@ public class Ad {
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 		this.mileageLimit = mileageLimit;
-	}
-
-	public int getNumberOfReviews() {
-		return numberOfReviews;
-	}
-
-	public void setNumberOfReviews(int numberOfReviews) {
-		this.numberOfReviews = numberOfReviews;
 	}
 
 	public List<Review> getListOfReviews() {
@@ -144,11 +143,11 @@ public class Ad {
 		this.id = id;
 	}
 
-	public List<EndUser> getFavoriteFor() {
+	public Set<EndUser> getFavoriteFor() {
 		return favoriteFor;
 	}
 
-	public void setFavoriteFor(List<EndUser> favoriteFor) {
+	public void setFavoriteFor(Set<EndUser> favoriteFor) {
 		this.favoriteFor = favoriteFor;
 	}
 
@@ -159,5 +158,8 @@ public class Ad {
 	public void setMileageLimit(int mileageLimit) {
 		this.mileageLimit = mileageLimit;
 	}
-
+	
+	public Integer getNumberOfReviews() {
+		return this.getListOfReviews().size();
+	}
 }

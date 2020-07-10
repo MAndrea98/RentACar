@@ -13,8 +13,8 @@ insert into gas_type (name) values ('Benzin');
 insert into vehicle (owner_id, gear_box, mileage, proposed_mileage, cdw, child_seats_no, model_id, gas_type_id, 
 vehicle_class_id) values (1, '5', 300, 500, true, 2, 1, 1, 1);
 
-insert into ad (vehicle_id, place, date, valid_tru, valid_from, date_from, date_to) 
-values (1, 'Novi Sad', '2020-06-20', '2020-06-21', '2020-06-29', '2020-06-20', '2020-07-14');
+insert into ad (vehicle_id, place, date, valid_tru, valid_from, date_from, date_to, mileage_limit) 
+values (1, 'Novi Sad', '2020-06-20', '2020-06-21', '2020-06-29', '2020-06-20', '2020-07-14', 300);
 
 insert into company (name, address, poslovni_maticni_broj) values ('Kompanija 1', 'Adresa 1', '123');
 

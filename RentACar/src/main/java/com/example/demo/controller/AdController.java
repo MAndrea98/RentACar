@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,8 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,6 +83,12 @@ public class AdController {
 
 	}
 	
+	@GetMapping(value="/all")
+	public ResponseEntity<List<Ad>> findAll() {
+		List<Ad> ret = adService.findAll();
+		return new ResponseEntity<List<Ad>>(ret,HttpStatus.OK);
+	}
+	
 	@PostMapping(value="/discount")
 	public ResponseEntity<Discount> createDiscount(@RequestParam("value") String value,
 												   @RequestParam("validFrom") String validFrom,
@@ -130,17 +139,22 @@ public class AdController {
 		return new ResponseEntity<Discount>(d, HttpStatus.OK);
 		
 	}
+	
+	public LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
+	    return dateToConvert.toInstant()
+	      .atZone(ZoneId.systemDefault())
+	      .toLocalDate();
+	}
 
-	@PostMapping(value="/occupy/{dateFrom}/{dateTo}")
-	public ResponseEntity<String> occupy(@PathVariable("dateFrom") String dateFrom, @PathVariable("dateTo") String dateTo, @RequestBody Ad ad){
+	@PutMapping(value="/occupy/{dateFrom}/{dateTo}/{adId}")
+	public ResponseEntity<String> occupy(@PathVariable("dateFrom") Date dateFrom, @PathVariable("dateTo") Date dateTo, @PathVariable("adId") Long id){
 		
-		if(dateFrom == null || dateTo == null || ad == null) {
+		if(dateFrom == null || dateTo == null || id == null) {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}
 		
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-		LocalDate date1 = LocalDate.parse(dateFrom,dateTimeFormatter);
-		LocalDate date2 = LocalDate.parse(dateFrom,dateTimeFormatter);
+		LocalDate date1 = convertToLocalDateViaInstant(dateFrom);
+		LocalDate date2 = convertToLocalDateViaInstant(dateTo);
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-dd-MM");
 		formatter.format(date1);
@@ -154,6 +168,7 @@ public class AdController {
 		Calendar c2= Calendar.getInstance();
 		c2.set(date2.getYear(), date2.getMonthValue(), date2.getDayOfMonth());
 		
+		Ad ad = adService.findById(id);
 		ad.setDateFrom(c1);
 		ad.setDateTo(c2);
 
@@ -166,6 +181,8 @@ public class AdController {
 				}
 			}
 		}
+		
+		adService.save(ad);
 
 		return new ResponseEntity<String>("",HttpStatus.OK);
 	}

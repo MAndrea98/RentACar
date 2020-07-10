@@ -1,0 +1,55 @@
+<app-agent-nav></app-agent-nav>
+<br/>
+
+  <div class="container">
+    <table class="table-striped" border="1">
+        <thead>
+        <title>Ads</title>
+        <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Date</th>
+        <th scope="col">Date from</th>
+        <th scope="col">Date to</th>
+        <th scope="col">Mileage limit</th>
+        <th scope="col">Place</th>
+        <th scope="col">Valid from</th>
+        <th scope="col">Valid tru</th>
+        <th scope="col">Add discount</th>
+        <th scope="col">Occupy</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let ad of ads">
+          <td>{{ad.id}}</td>
+          <td>{{ad.date}}</td>
+          <td>{{ad.dateFrom}}</td>
+          <td>{{ad.dateTo}}</td>
+          <td>{{ad.mileageLimit}}</td>
+          <td>{{ad.place}}</td>
+          <td>{{ad.validFrom}}</td>
+          <td>{{ad.validTru}}</td>
+          <td><button class="btn-danger" (click)="addDiscount(ad.id)">Add discount</button></td>
+          <td><button class="btn-danger" (click)="occupy(ad.id)">Occupy</button></td>
+        </tr>
+        </tbody>
+      </table>
+
+      <br/><br/>
+
+      <div id="occupyDiv">
+        <div clas="form-group">
+        <label for="dateFrom">From: </label>
+        <ejs-datepicker name="dateFrom" format="yyyy-MM-dd" id="dateFrom" [(ngModel)]="dateFrom">
+        </ejs-datepicker>
+      </div>
+      <div clas="form-group">
+        <label for="dateTo">To: </label>
+        <ejs-datepicker name="dateTo" format="yyyy-MM-dd" id="dateTo" [(ngModel)]="dateTo">
+        </ejs-datepicker>
+      </div>
+    </div>
+  </div>
+
+  
+
+
