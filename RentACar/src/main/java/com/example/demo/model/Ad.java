@@ -73,7 +73,8 @@ public class Ad {
 	private List<Cart> carts = new ArrayList<Cart>();
 	
 	public Ad() {
-
+		this.mileageLimit = 0;
+		this.numberOfReviews = 0;
 	}
 
 	public Ad(Long id, Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom,
@@ -88,6 +89,8 @@ public class Ad {
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 		this.requests = requests;
+		this.mileageLimit = 0;
+		this.numberOfReviews = 0;
 	}
 
 	public List<Request> getRequests() {

@@ -53,7 +53,7 @@ public class EndUser {
 	private List<Request> requsets = new ArrayList<Request>();
 	
 	public EndUser() {
-		
+		this.additionalPrice = 0;
 	}
 
 	public EndUser(Long idUser, String name, String surname, String address, String phone, List<Review> reviews,

@@ -12,8 +12,15 @@
       <li class="nav-item active">
         <a class="nav-link" routerLink="/log_in">Log in</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/agent">Shortcut</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" aria-haspopup="true" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Temp Shrotcuts
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="/adminPage">Admin Page</a>
+          <a class="dropdown-item" routerLink="/userPage">User Page</a>
+          <a class="dropdown-item" routerLink="/agent">Agent Page</a>
+        </div>
       </li>
     </ul>
   </div>

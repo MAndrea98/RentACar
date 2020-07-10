@@ -40,6 +40,11 @@ public class Message {
 	@OneToOne
 	private Request request;
 	
+	public Message() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Message(UserModel sender, UserModel reciever, String subject, String content, Calendar date, Request request) {
 		this.sender = sender;
 		this.reciever = reciever;

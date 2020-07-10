@@ -17,15 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.AdDTO;
 import com.example.demo.dto.CartDTO;
+import com.example.demo.dto.VehicleDTO;
 import com.example.demo.model.Ad;
 import com.example.demo.model.Cart;
 import com.example.demo.model.EndUser;
+import com.example.demo.model.Renter;
 import com.example.demo.model.Request;
 import com.example.demo.model.RequestStatus;
 import com.example.demo.model.Vehicle;
 import com.example.demo.service.AdService;
 import com.example.demo.service.CartService;
 import com.example.demo.service.EndUserService;
+import com.example.demo.service.RenterService;
 import com.example.demo.service.RequestService;
 import com.example.demo.service.VehicleService;
 
@@ -48,6 +51,9 @@ public class VehicleController {
 	
 	@Autowired
 	private AdService adService;
+	
+	@Autowired
+	private RenterService renterService;
 
 	@RequestMapping(value="/get/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Vehicle> getVehicle(@PathVariable("id") Long id) {
@@ -128,5 +134,16 @@ public class VehicleController {
 		}
 		cartService.save(cart);
 		return new ResponseEntity<String>("The requests have been successfully sent.", HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/myVehicles")
+	public ResponseEntity<List<VehicleDTO>> getMyVehicles() {
+		Renter owner = renterService.findByIdUser(2L);
+		List<Vehicle> vehicles = vehicleService.findByOwner(owner);
+		List<VehicleDTO> vehicleDTOs = new ArrayList<VehicleDTO>();
+		for(Vehicle v : vehicles) {
+			vehicleDTOs.add(new VehicleDTO(v));
+		} 
+		return new ResponseEntity<List<VehicleDTO>>(vehicleDTOs, HttpStatus.OK);
 	}
 }

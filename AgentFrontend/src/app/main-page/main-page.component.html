@@ -1,8 +1,16 @@
-<div class = "container" *ngIf="!_router.url.includes('agent')">
+<div class = "container" *ngIf="!_router.url.includes('agent') && !_router.url.includes('userPage') && !_router.url.includes('adminPage')">
   <app-def-nav-bar></app-def-nav-bar>
 </div>
 
 <div class = "container" *ngIf="_router.url.includes('agent')">
+  
+</div>
 
+<div class = "container" *ngIf="_router.url.includes('userPage')">
+  
+</div>
+
+<div class = "container" *ngIf="_router.url.includes('adminPage')">
+  
 </div>
 
