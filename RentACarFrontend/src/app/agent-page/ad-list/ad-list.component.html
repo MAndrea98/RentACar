@@ -42,10 +42,16 @@
         <ejs-datepicker name="dateFrom" format="yyyy-MM-dd" id="dateFrom" [(ngModel)]="dateFrom">
         </ejs-datepicker>
       </div>
+      <br/>
       <div clas="form-group">
         <label for="dateTo">To: </label>
         <ejs-datepicker name="dateTo" format="yyyy-MM-dd" id="dateTo" [(ngModel)]="dateTo">
         </ejs-datepicker>
+      </div>
+      <br/>
+      <div class="form-group">
+        <label for="discount">Discount percent: </label><br/><br/>
+        <input type="number" name="discount" id="discount" [(ngModel)]="discount"/>
       </div>
     </div>
   </div>

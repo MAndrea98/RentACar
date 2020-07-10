@@ -15,6 +15,7 @@ export class AdListComponent implements OnInit {
   dateFrom:Date;
   dateTo:Date;
   router:String;
+  discount:number;
   constructor(public _router: Router, private http: HttpClient) {
     this.router = _router.url;
   }
@@ -42,13 +43,14 @@ export class AdListComponent implements OnInit {
   }
 
   addDiscount(adId): void {
-    let url = "http://localhost:8081/ad/discount/" + adId;
+    let url = "http://localhost:8081/ad/discount/" + adId + "/" + this.discount + "/" + this.dateFrom + "/" + this.dateTo;
     this.http.post(url,null,{responseType:'text'}).subscribe(
       res=>{
-
+        alert('success');
       },
       err =>{
-        
+        alert('Something went wrong');
+        console.log(err.message);
       }
     )
   }
