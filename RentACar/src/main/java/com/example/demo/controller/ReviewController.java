@@ -31,9 +31,9 @@ import com.example.demo.service.RequestService;
 import com.example.demo.service.ReviewService;
 import com.example.demo.service.UserModelService;
 
+@RestController
 @RequestMapping("/review")
 @CrossOrigin("http://localhost:4200")
-@RestController
 public class ReviewController {
 	
 	@Autowired

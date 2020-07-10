@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.AdDTO;
 import com.example.demo.dto.CartDTO;
-import com.example.demo.dto.VehicleDTO;
 import com.example.demo.model.Ad;
 import com.example.demo.model.Cart;
 import com.example.demo.model.EndUser;
@@ -54,6 +54,7 @@ public class VehicleController {
 		Vehicle v = vehicleService.findOne(id);
 		return new ResponseEntity<Vehicle>(v,HttpStatus.OK);
 	}
+	
 	@GetMapping(value = "/addToCart/{id}")
 	public ResponseEntity<CartDTO> addToCart(@PathVariable("id") Long id) {
 		//EndUser endUser = endUserService.findByIdUser(LogedUser.getInstance().getUserId());
@@ -70,40 +71,62 @@ public class VehicleController {
 	}
 
 	@PostMapping(value = "/sendSingleRequest")
-	public ResponseEntity<String> sendRequest(@RequestBody VehicleDTO vehicleDTO) {
+	public ResponseEntity<String> sendRequest(@RequestBody Long idAds) {
 		//EndUser endUser = endUserService.findByIdUser(LogedUser.getInstance().getUserId());
-		// TODO: sendSingle
-		/*
 		EndUser endUser = endUserService.findByIdUser(1L);
 		if (endUser == null)
 			return new ResponseEntity<String>("You don't have permission to do this task.", HttpStatus.BAD_REQUEST);
-		List<Vehicle> vehicles = new ArrayList<Vehicle>();
-		Vehicle v = vehicleService.findById(vehicleDTO.getId());
-		vehicles.add(v);
-		Request request = new Request(vehicles, RequestStatus.PENDING, endUser);
-		requestService.save(request);*/
+		
+		List<Ad> ads = new ArrayList<Ad>();
+		Ad ad = adService.findById(idAds);
+		ads.add(ad);
+		Request request = new Request(ads, RequestStatus.PENDING, endUser);
+		requestService.save(request);
+		Cart cart = cartService.findByEndUserID(endUser.getId());
+		for (int i = 0; i < cart.getAds().size(); i++) {
+			if (cart.getAds().get(i).getId().equals(idAds)) {
+				Ad a = cart.getAds().get(i);
+				cart.getAds().remove(cart.getAds().get(i));
+				a.getCarts().remove(cart);
+				a.getRequests().add(request);
+				adService.save(a);
+			}
+		}
+		cartService.save(cart);
 		return new ResponseEntity<String>("The request has been successfully sent.", HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/sendBundle")
-	public ResponseEntity<String> sendBundle(@RequestBody List<VehicleDTO> vehicleDTOlist) {
+	public ResponseEntity<String> sendBundle(@RequestBody List<AdDTO> adDTOs) {
 		//EndUser endUser = endUserService.findByIdUser(LogedUser.getInstance().getUserId());
-		// TODO: sendBundle
-		/*EndUser endUser = endUserService.findByIdUser(1L);
+		EndUser endUser = endUserService.findByIdUser(1L);
 		if (endUser == null)
 			return new ResponseEntity<String>("You don't have permission to do this task.", HttpStatus.BAD_REQUEST);
-		List<Vehicle> vehicles = new ArrayList<Vehicle>();
-		Vehicle vFirst = vehicleService.findById(vehicleDTOlist.get(0).getId());
-		Long idFirst = vFirst.getOwner().getIdUser();
-		for (VehicleDTO vehicleDTO : vehicleDTOlist) {
-			Vehicle v = vehicleService.findById(vehicleDTO.getId());
-			if (!idFirst.equals(v.getOwner().getIdUser())) {
+		List<Ad> ads = new ArrayList<Ad>();
+		Ad adFirst = adService.findById(adDTOs.get(0).getId());
+		Long idFirst = adFirst.getVehicle().getOwner().getIdUser();
+		for (AdDTO adDTO : adDTOs) {
+			Ad a = adService.findById(adDTO.getId());
+			if (!idFirst.equals(a.getVehicle().getOwner().getIdUser())) {
 				return new ResponseEntity<String>("The owner of vehicles are not the same.", HttpStatus.BAD_REQUEST);
 			}
-			vehicles.add(v);
+			ads.add(a);
 		}
-		Request request = new Request(vehicles, RequestStatus.PENDING, endUser);
-		requestService.save(request);*/
+		Request request = new Request(ads, RequestStatus.PENDING, endUser);
+		requestService.save(request);
+		Cart cart = cartService.findByEndUserID(endUser.getId());
+		for (int i = 0; i < cart.getAds().size(); i++) {
+			for (AdDTO a : adDTOs) {
+				if (cart.getAds().get(i).getId().equals(a.getId())) {
+					Ad ad = cart.getAds().get(i);
+					cart.getAds().remove(cart.getAds().get(i));
+					ad.getCarts().remove(cart);
+					ad.getRequests().add(request);
+					adService.save(ad);
+				}
+			}
+		}
+		cartService.save(cart);
 		return new ResponseEntity<String>("The requests have been successfully sent.", HttpStatus.OK);
 	}
 }

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Message {
@@ -36,8 +37,16 @@ public class Message {
 	@Column(name="deleted", nullable = false)
 	private boolean deleted;
 	
-	public Message() {
-		
+	@OneToOne
+	private Request request;
+	
+	public Message(UserModel sender, UserModel reciever, String subject, String content, Calendar date, Request request) {
+		this.sender = sender;
+		this.reciever = reciever;
+		this.subject = subject;
+		this.content = content;
+		this.date = date;
+		this.request = request;
 	}
 
 	public Message(UserModel sender, UserModel reciever, String subject, String content, Calendar date) {
