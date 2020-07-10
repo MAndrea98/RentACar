@@ -21,7 +21,7 @@ public class Cart {
 	private Long endUserID;
 	
 	@ManyToMany(mappedBy = "carts")
-	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
+	private List<Ad> ads = new ArrayList<Ad>();
 
 	public Cart() {
 		super();
@@ -44,13 +44,15 @@ public class Cart {
 		this.endUserID = endUserID;
 	}
 
-	public List<Vehicle> getVehicles() {
-		return vehicles;
+	public List<Ad> getAds() {
+		return ads;
 	}
 
-	public void setVehicles(List<Vehicle> vehicles) {
-		this.vehicles = vehicles;
+	public void setAds(List<Ad> ads) {
+		this.ads = ads;
 	}
+
+	
 	
 	
 }

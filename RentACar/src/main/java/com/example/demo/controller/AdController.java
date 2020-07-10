@@ -101,12 +101,13 @@ public class AdController {
 		d.setValidFrom(calValidFrom);
 		d.setValidTru(calValidTru);
 		
+		
 		Vehicle v = vehicleService.findById(vehicleIdL);
 		
 		PriceList p = new PriceList();
 		p.setDateFrom(calValidFrom);
 		p.setDateTo(calValidTru);
-		p.setVehicle(v);
+		p.getVehicle().add(v);
 		//p.setPricePerMile(pricePerMile);
 		//p.setCdwPrice(cdwPrice);
 		d.setPriceList(p);
@@ -127,8 +128,8 @@ public class AdController {
 		Vehicle vehicle = ad.getVehicle();
 		List<Request> list = requestService.findAll();
 		for(Request r : list) {
-			for(Vehicle v : r.getVehicles()) {
-				if(v.getId() == vehicle.getId() && r.getStatus() == RequestStatus.PENDING) {
+			for(Ad a : r.getAds()) {
+				if(a.getVehicle().getId() == vehicle.getId() && r.getStatus() == RequestStatus.PENDING) {
 					r.setStatus(RequestStatus.CANCELED);
 				}
 			}

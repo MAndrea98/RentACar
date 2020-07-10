@@ -64,7 +64,7 @@ public class ReviewController {
 		List<Request> requests = requestService.findByParameters(endUser, RequestStatus.ENDED);
 		Boolean found = false;
 		for (Request r : requests) {
-			if (r.getVehicles().get(0).getOwner().getId().equals(renter.getId()))
+			if (r.getAds().get(0).getVehicle().getOwner().getId().equals(renter.getId()))
 				found = true;
 		}
 		if (!found) {

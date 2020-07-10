@@ -27,7 +27,7 @@ public class Request {
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "requests")
-	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
+	private List<Ad> ads = new ArrayList<Ad>();
 
 	@Column(name="status")
 	private RequestStatus status;
@@ -37,11 +37,40 @@ public class Request {
 	}
 
 
-	public Request(List<Vehicle> vehicles, RequestStatus status, EndUser endUser) {
+	public Request(RequestStatus status) {
 		super();
-		this.vehicles = vehicles;
+		this.status = status;
+	}
+
+	public Request(List<Ad> ads, RequestStatus status, EndUser endUser) {
+		super();
+		this.ads = ads;
 		this.status = status;
 		this.endUser = endUser;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public EndUser getEndUser() {
+		return endUser;
+	}
+
+	public void setEndUser(EndUser endUser) {
+		this.endUser = endUser;
+	}
+
+	public List<Ad> getAds() {
+		return ads;
+	}
+
+	public void setAds(List<Ad> ads) {
+		this.ads = ads;
 	}
 
 	public RequestStatus getStatus() {
@@ -50,36 +79,6 @@ public class Request {
 
 	public void setStatus(RequestStatus status) {
 		this.status = status;
-	}
-
-
-	public Long getId() {
-		return id;
-	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
-	public EndUser getEndUser() {
-		return endUser;
-	}
-
-
-	public void setEndUser(EndUser endUser) {
-		this.endUser = endUser;
-	}
-
-
-	public List<Vehicle> getVehicles() {
-		return vehicles;
-	}
-
-
-	public void setVehicles(List<Vehicle> vehicles) {
-		this.vehicles = vehicles;
 	}
 
 
