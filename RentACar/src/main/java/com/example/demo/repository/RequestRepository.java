@@ -11,4 +11,6 @@ import com.example.demo.model.RequestStatus;
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
 	List<Request> findByEndUserAndStatus(EndUser endUser, RequestStatus status);
+
+	List<Request> findByEndUser(EndUser endUser);
 }

@@ -1,14 +1,11 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.consumingwebservice.DeleteMessageRequest;
-import com.example.consumingwebservice.DeleteMessageResponse;
 import com.example.consumingwebservice.EditMessageResponse;
 import com.example.consumingwebservice.GetAllMessageResponse;
 import com.example.consumingwebservice.MessageRP;
@@ -39,7 +34,7 @@ import com.example.demo.service.UserModelService;
 
 @RestController
 @RequestMapping(value = "/message")
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin
 public class MessageController {
 
 	@Autowired
@@ -95,7 +90,7 @@ public class MessageController {
 	public SendMessageResponse sendMessageSOAP(@RequestBody MessageRP request) {
 		return razmenaPorukaClient.sendMessage(request);
 	}
-	
+	/*
 	@GetMapping
 	public ResponseEntity<List<Message>> getAllMessage() {
 		//UserModel user = userModelService.findById(LogedUser.getInstance().getUserId());
@@ -111,12 +106,12 @@ public class MessageController {
 		
 		return new ResponseEntity<List<Message>>(allNotDeletedMessages, HttpStatus.OK);
 	}
-	
+	*/
 	@GetMapping
 	public GetAllMessageResponse getAllMessageSOAP() {
 		return razmenaPorukaClient.getAllMessages();
 	}
-	
+	/*
 	@PutMapping
 	public ResponseEntity<MessageDTO> editMessage(@RequestBody MessageDTO messageDTO) {
 		Message message = messageService.findById(messageDTO.getId());
@@ -125,12 +120,12 @@ public class MessageController {
 		Message m = messageService.save(message);
 		return new ResponseEntity<MessageDTO>(new MessageDTO(m), HttpStatus.OK);
 	}
-	
+	*/
 	@PutMapping
 	public EditMessageResponse editMessageSOAP(@RequestBody MessageRP request ) {
 		return razmenaPorukaClient.editMessage(request);
 	}
-	
+	/*
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<MessageDTO> deleteMessage(@PathVariable("id") Long id) {
 		Message message = messageService.findById(id);
@@ -145,4 +140,5 @@ public class MessageController {
 		request.setMessageId(id);
 		return razmenaPorukaClient.deleteMessage(request.getMessageId());
 	}
+	*/
 }

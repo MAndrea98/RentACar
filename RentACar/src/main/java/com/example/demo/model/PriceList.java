@@ -50,7 +50,8 @@ public class PriceList {
 	
 	
 	public PriceList() {
-		
+		dateFrom = Calendar.getInstance();
+		dateTo = Calendar.getInstance();
 	}
 
 	public Long getId() {

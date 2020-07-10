@@ -1,0 +1,62 @@
+<div class="containter">
+    <app-user-nav></app-user-nav>
+    <br/>
+    <div>
+        <table class="table table-striped table-responsive-md btn-table" border="1">
+            <thead>
+              <title>Vehicles</title>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Photo</th>
+              <th scope="col">Manufacturer</th>
+              <th scope="col">Model</th>
+              <th scope="col">Gas Type</th>
+              <th scope="col">Gear Box</th>
+              <th scope="col">Vehicle Class</th>
+              <th scope="col">Mileage</th>
+              <th scope="col">Proposed Mileage</th>
+              <th scope="col">CDW</th>
+              <th scope="col">Child Seats Number</th>
+              <th scope="col">Owner id</th>
+              <th scope="col">Valid from</th>
+              <th scope="col">Valid tru</th>
+              <th scope="col">Place</th>
+              <th scope="col">Send request</th>
+              <th scope="col">Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let v of cart">
+                <td>{{v.id}}</td>
+                <td></td>
+                <td>{{v.vehicle.model.manufacturer.name}}</td>
+                <td>{{v.vehicle.model.name}}</td>
+                <td>{{v.vehicle.gasType.name}}</td>
+                <td>{{v.vehicle.gearBox}}</td>
+                <td>{{v.vehicle.vehicleClass.name}}</td>
+                <td>{{v.vehicle.mileage}}</td>
+                <td>{{v.vehicle.proposedMileage}}</td>
+                <td>{{v.vehicle.cdw}}</td>
+                <td>{{v.vehicle.childSeatsNo}}</td>
+                <td>{{v.vehicle.owner.id}}</td>
+                <td>{{v.validFrom.toString().substring(0, 10)}}</td>
+                <td>{{v.validTru.toString().substring(0, 10)}}</td>
+                <td>{{v.place}}</td>
+                <td><button class="btn-success" (click) = "sendRequest(v.id)">Send request</button></td>
+                <td><button class="btn-danger" (click) = "removeFromCart(v.id)">Remove</button></td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+      <table>
+        <tr>
+        <td>Select owner id for bundle: </td>
+        <td><select #ownerID>
+          <option *ngFor="let id of ids">{{id}}</option>
+        </select></td>
+        <td><button class="btn-success" (click) = "sendBundle()">Send bundle</button></td>
+        </tr>
+      </table>
+    </div>
+</div>

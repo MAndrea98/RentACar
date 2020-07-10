@@ -31,6 +31,7 @@ public class PriceListController {
 
 	@PostMapping
 	public ResponseEntity<PriceListDTO> addPriceList(@RequestBody PriceListDTO priceListDTO) {
+		System.out.println("####");
 		PriceList priceList = new PriceList();
 		System.out.println(priceListDTO.getDateFrom());
 		priceList.getDateFrom().setTime(priceListDTO.getDateFrom());
@@ -38,6 +39,7 @@ public class PriceListController {
 		priceList.setCdwPrice(priceListDTO.getCdwPrice());
 		priceList.setPricePerMile(priceListDTO.getPricePerMile());
 		PriceList p = priceListService.save(priceList);
+		System.out.println(priceListService.findAll().size());
 		return new ResponseEntity<PriceListDTO>(new PriceListDTO(p), HttpStatus.OK);
 	}
 	
