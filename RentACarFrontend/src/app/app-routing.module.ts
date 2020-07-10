@@ -17,6 +17,7 @@ import { PriceListAgentComponent } from './agent-page/price-list-agent/price-lis
 import { UserCartComponent } from './user-page/user-cart/user-cart.component';
 import {ModelFormComponent} from "./admin-page/model-form/model-form.component";
 import {UserActionTableComponent} from "./admin-page/user-action-table/user-action-table.component";
+import {SignInComponent} from "./default-page/sign-in/sign-in.component";
 
 
 const routes: Routes = [
@@ -91,6 +92,14 @@ const routes: Routes = [
   {
     path:'adminPage/users/action',
     component:UserActionTableComponent
+  },
+  {
+    path:'login',
+    component:SignInComponent
+  },
+  {
+    path:'sign_in',
+    component:SignInComponent
   }
 ];
 
