@@ -32,12 +32,16 @@ public class RequestController {
 	@PostMapping(value = "/{adsIds}")
 	public ResponseEntity<String> saveRequest(@RequestBody Request request, 
 											  @PathVariable("adsIds") String adsIds) {
+		System.out.println(adsIds);
+		System.out.println(request);
 		String[] splitter = adsIds.split("&");
 		for (String s : splitter) {
 			Ad a = adService.findById(Long.parseLong(s));
 			a.getRequests().add(request);
+			request.getAds().add(a);
 			adService.save(a);
 		}
+		request.setId(null);
 		Request r = requestService.save(request);
 		System.out.println(r);
 		return new ResponseEntity<String>("Uspesno", HttpStatus.OK);

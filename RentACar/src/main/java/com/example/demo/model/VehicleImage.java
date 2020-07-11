@@ -7,7 +7,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -17,12 +16,11 @@ public class VehicleImage {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Vehicle vehicle;
 	
-	@Lob
-	@Column(name="image", columnDefinition="bytea")
-	private Byte[] image;
+	@Column(name="image")
+	private String image;
 
 	public VehicleImage() {
 		super();
@@ -45,11 +43,11 @@ public class VehicleImage {
 		this.vehicle = vehicle;
 	}
 
-	public Byte[] getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(Byte[] image) {
+	public void setImage(String image) {
 		this.image = image;
 	} 
 	

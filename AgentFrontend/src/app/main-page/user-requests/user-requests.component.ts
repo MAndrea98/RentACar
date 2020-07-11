@@ -6,6 +6,7 @@ import { ElementRef, OnInit, ViewChild, Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Request } from 'src/app/_model/Request';
+import { VehicleImage } from 'src/app/_model/VehicleImage';
 
 @Component({
     selector: 'app-user-requests',
@@ -51,6 +52,22 @@ export class UserRequestComponent implements OnInit {
             (res:Request[])=> {
                 this.requests = [];
                 this.requests = res;
+                for (let i = 0; i < this.requests.length; i++) {
+                    for (let j = 0; j < this.requests[i].ads.length; j++) {
+                        url = "http://localhost:8081/images/" + this.requests[i].ads[j].vehicle.id;
+                        this.http.get(url).subscribe(
+                            (res1: VehicleImage[]) => {
+                                this.requests[i].ads[j].vehicle.images = [];
+                                this.requests[i].ads[j].vehicle.images = res1;
+                            },
+                            err=> {
+                                alert('Something went wrong 1');
+                                console.log(err.message);
+                            }
+                        )
+                    }
+                    
+                }
             },
             err=> {
                 alert('Something went wrong');
@@ -162,17 +179,27 @@ export class UserRequestComponent implements OnInit {
     sendReview(): void {
         this.review.stars = this.stars.nativeElement.value;
         this.review.content = this.contentReview.nativeElement.value;
-        let url = "http://localhost:8081/review";
-        this.http.post(url, this.review).subscribe(
-            res=>{
-                this.reviewHidden = true;
-                this.getAllRequest();
+        let url = "http://localhost:8081/request/getAds/" + this.review.requestID;
+        this.http.get(url).subscribe(
+            (res1:Ad[])=> {
+                url = "http://localhost:8081/review/" + res1[0].id;
+                this.http.post(url, this.review).subscribe(
+                res=>{
+                    this.reviewHidden = true;
+                    this.getAllRequest();
+                },
+                err=>{
+                    alert('Something went wrong');
+                    console.log(err.message);
+                }
+                )
             },
             err=>{
-                alert('Something went wrong');
+                alert('Something went wrong 3');
                 console.log(err.message);
             }
         )
+        
     }
 
 }

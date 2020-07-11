@@ -3,6 +3,7 @@ import { PriceList } from '../../model/PriceList';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Vehicle } from 'src/app/model/Vehicle';
+import { VehicleImage } from 'src/app/model/VehicleImage';
 
 @Component({
     selector: 'app-price-list-agent',
@@ -103,6 +104,19 @@ export class PriceListAgentComponent implements OnInit {
         (res: Vehicle[]) => {
           this.myVehicles = [];
           this.myVehicles = res;
+          for (let i = 0; i < this.myVehicles.length; i++) {
+            url = "http://localhost:8080/api/izmena-oglasa/images/" + this.myVehicles[i].id;
+            this.http.get(url).subscribe(
+              (res1: VehicleImage[]) => {
+                this.myVehicles[i].images = [];
+                this.myVehicles[i].images = res1;
+              },
+              err=> {
+                  alert('Something went wrong 1');
+                  console.log(err.message);
+              }
+          )
+          }
           this.addVehicleToPriceListVisible = false;
         },
         err=>{
@@ -120,6 +134,19 @@ export class PriceListAgentComponent implements OnInit {
 
     vehicleOf(price: PriceList): void {
       this.vehicles = price.vehicle;
+      for (let i = 0; i < this.vehicles.length; i++) {
+        let url = "http://localhost:8080/api/izmena-oglasa/images/" + this.vehicles[i].id;
+        this.http.get(url).subscribe(
+          (res1: VehicleImage[]) => {
+            this.vehicles[i].images = [];
+            this.vehicles[i].images = res1;
+          },
+          err=> {
+              alert('Something went wrong 1');
+              console.log(err.message);
+          }
+      )
+      }
       this.home();
       this.hiddenVehicle = false;
       this.priceListID = price.id;
@@ -178,6 +205,19 @@ export class PriceListAgentComponent implements OnInit {
           this.home();
           this.getPriceList();
           this.vehicles = res.vehicle;
+          for (let i = 0; i < this.vehicles.length; i++) {
+            let url = "http://localhost:8080/api/izmena-oglasa/images/" + this.vehicles[i].id;
+            this.http.get(url).subscribe(
+              (res1: VehicleImage[]) => {
+                this.vehicles[i].images = [];
+                this.vehicles[i].images = res1;
+              },
+              err=> {
+                  alert('Something went wrong 1');
+                  console.log(err.message);
+              }
+          )
+          }
           this.hiddenVehicle = false;
         },
         err=>{
@@ -277,6 +317,19 @@ export class PriceListAgentComponent implements OnInit {
         (res: PriceList)=>{
           this.getPriceList();
           this.vehicles = res.vehicle;
+          for (let i = 0; i < this.vehicles.length; i++) {
+            let url = "http://localhost:8080/api/izmena-oglasa/images/" + this.vehicles[i].id;
+            this.http.get(url).subscribe(
+              (res1: VehicleImage[]) => {
+                this.vehicles[i].images = [];
+                this.vehicles[i].images = res1;
+              },
+              err=> {
+                  alert('Something went wrong 1');
+                  console.log(err.message);
+              }
+            )
+          }
           this.hiddenVehicle = false;
         },
         err=>{

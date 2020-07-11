@@ -3,6 +3,7 @@ import { Ad } from 'src/app/_model/Ad';
 import { Request } from 'src/app/_model/Request';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { VehicleImage } from 'src/app/_model/VehicleImage';
 
 @Component({
   selector: 'app-all-requests',
@@ -31,6 +32,21 @@ export class AllRequestsComponent implements OnInit {
         (res: Request[])=>{
           this.requests = [];
           this.requests = res;
+          for (let i = 0; i < this.requests.length; i++) {
+            for (let j = 0; j < this.requests[i].ads.length; j++) {
+                url = "http://localhost:8081/images/" + this.requests[i].ads[j].vehicle.id;
+                this.http.get(url).subscribe(
+                    (res1: VehicleImage[]) => {
+                        this.requests[i].ads[j].vehicle.images = [];
+                        this.requests[i].ads[j].vehicle.images = res1;
+                    },
+                    err=> {
+                        alert('Something went wrong 1');
+                        console.log(err.message);
+                    }
+                )
+            }
+          }
         },
         err=>{
           alert('Something went wrong');

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Vehicle } from 'src/app/model/Vehicle';
 import { Ad } from 'src/app/model/Ad';
+import { VehicleImage } from 'src/app/model/VehicleImage';
 
 @Component({
     selector: 'app-user-cart',
@@ -36,6 +37,19 @@ export class UserCartComponent implements OnInit {
                 for (var i: number = 0; i < this.cart.length; i++) {
                     if (!this.ids.includes(this.cart[i].vehicle.owner.id)) {
                         this.ids.push(this.cart[i].vehicle.owner.id);
+                    }
+                    for (let j = 0; j < this.cart.length; j++) {
+                        url = "http://localhost:8080/api/rezervacija-automobila/images/" + this.cart[j].vehicle.id;
+                        this.http.get(url).subscribe(
+                            (res1: VehicleImage[]) => {
+                                this.cart[j].vehicle.images = [];
+                                this.cart[j].vehicle.images = res1;
+                            },
+                            err=> {
+                                alert('Something went wrong 1');
+                                console.log(err.message);
+                            }
+                        )
                     }
                 }
             },

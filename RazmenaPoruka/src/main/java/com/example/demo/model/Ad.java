@@ -48,8 +48,7 @@ public class Ad {
 	
 	@JsonIgnore
 	@ManyToMany( cascade = {
-		    CascadeType.PERSIST,
-		    CascadeType.MERGE
+		    CascadeType.PERSIST
 		})
 	@JoinTable(name = "ads_requests", joinColumns = @JoinColumn(name = "ad_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
 	private List<Request> requests = new ArrayList<Request>();

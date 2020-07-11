@@ -51,7 +51,7 @@ public class Ad {
 	@JsonIgnore
 	@OneToMany(mappedBy="ad", cascade = CascadeType.ALL)
 	private List<Review> listOfReviews = new ArrayList<Review>();
-
+	
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "ad_user", joinColumns = @JoinColumn(name="ad_id"),

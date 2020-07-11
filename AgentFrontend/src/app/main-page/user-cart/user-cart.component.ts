@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Ad } from 'src/app/_model/Ad';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { VehicleImage } from 'src/app/_model/VehicleImage';
 
 @Component({
     selector: 'app-user-cart',
@@ -35,6 +36,19 @@ export class UserCartComponent implements OnInit {
                 for (var i: number = 0; i < this.cart.length; i++) {
                     if (!this.ids.includes(this.cart[i].vehicle.owner.id)) {
                         this.ids.push(this.cart[i].vehicle.owner.id);
+                    }
+                    for (let j = 0; j < this.cart.length; j++) {
+                        url = "http://localhost:8081/images/" + this.cart[j].vehicle.id;
+                        this.http.get(url).subscribe(
+                            (res1: VehicleImage[]) => {
+                                this.cart[j].vehicle.images = [];
+                                this.cart[j].vehicle.images = res1;
+                            },
+                            err=> {
+                                alert('Something went wrong 1');
+                                console.log(err.message);
+                            }
+                        )
                     }
                 }
             },

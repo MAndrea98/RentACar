@@ -102,6 +102,7 @@ public class ReservationController {
 		for (Request r : requests) {
 			requestDTOs.add(new RequestDTO(r));
 		}
+		System.out.println(requestDTOs.get(0).getAds().get(0).getVehicle().getImages().get(0).getImage());
 		return new ResponseEntity<List<RequestDTO>>(requestDTOs, HttpStatus.OK);
 	}
 }

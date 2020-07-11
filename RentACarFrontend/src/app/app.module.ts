@@ -101,7 +101,6 @@ const appRoutes : Routes = [];
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    DatePickerModule,
     BrowserAnimationsModule
   ],
   providers: [],
