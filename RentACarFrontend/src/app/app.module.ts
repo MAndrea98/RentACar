@@ -88,8 +88,7 @@ const appRoutes : Routes = [];
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule,
-    DatePickerModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

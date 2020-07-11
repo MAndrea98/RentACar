@@ -20,7 +20,6 @@ public class VehicleImage {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Vehicle vehicle;
 	
-	@Lob
 	@Column(name="image")
 	private String image;
 

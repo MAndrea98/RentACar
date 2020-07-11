@@ -70,3 +70,13 @@ insert into prices_values (price_list_id, name, price) values (2, 'Po sedistu', 
 insert into price_list_vehicle (price_list_id, vehicle_id) values (1, 1);
 insert into price_list_vehicle (price_list_id, vehicle_id) values (1, 2);
 
+insert into vehicle_image(vehicle_id, image) values (1, 'assets/images/toyota_yaris_1.jpg');
+insert into vehicle_image(vehicle_id, image) values (1, 'assets/images/toyota_yaris_2.jpg');
+insert into vehicle_image(vehicle_id, image) values (1, 'assets/images/toyota_yaris_3.jpg');
+insert into vehicle_image(vehicle_id, image) values (2, 'assets/images/toyota_yaris_21.jpg');
+insert into vehicle_image(vehicle_id, image) values (2, 'assets/images/toyota_yaris_22.jpg');
+insert into vehicle_image(vehicle_id, image) values (3, 'assets/images/getz_1.jpg');
+insert into vehicle_image(vehicle_id, image) values (3, 'assets/images/getz_2.jpg');
+insert into vehicle_image(vehicle_id, image) values (4, 'assets/images/golf_1.jpg');
+insert into vehicle_image(vehicle_id, image) values (4, 'assets/images/golf_2.jpg');
+
