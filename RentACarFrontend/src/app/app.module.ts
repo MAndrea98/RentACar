@@ -31,6 +31,7 @@ import { NewAdFormComponent } from './user-page/new-ad-form/new-ad-form.componen
 import { NewVehicleFormComponent } from './user-page/new-vehicle-form/new-vehicle-form.component';
 import { VehicleTableComponent } from './user-page/vehicle-table/vehicle-table.component';
 import { AdTableComponent } from './user-page/ad-table/ad-table.component';
+import { AdListComponent } from './agent-page/ad-list/ad-list.component';
 import { ReviewListComponent } from './admin-page/review-list/review-list.component';
 import { AgentPageComponent } from './agent-page/agent-page.component';
 import { AgentNavComponent } from './agent-nav/agent-nav.component';
@@ -44,6 +45,8 @@ import { UserRequestComponent } from './user-page/user-requests/user-requests.co
 import { UserMessagesComponent } from './user-page/user-messages/user-messages.component';
 import { AgentRegisterComponent } from './agent-register/agent-register.component';
 import { CompanyRegisterComponent } from './company-register/company-register.component';
+import { CreateAdFormComponent } from './agent-page/create-ad-form/create-ad-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { UserActionTableComponent } from './admin-page/user-action-table/user-action-table.component';
 import { SignInComponent } from './default-page/sign-in/sign-in.component';
@@ -87,16 +90,26 @@ const appRoutes : Routes = [];
     UserMessagesComponent,
     AgentRegisterComponent,
     CompanyRegisterComponent,
+<<<<<<< HEAD
 
     UserActionTableComponent,
     SignInComponent
 
+=======
+    CreateAdFormComponent,
+    AdListComponent
+>>>>>>> F_dodavanje_oglasa
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+<<<<<<< HEAD
+=======
+    DatePickerModule,
+    BrowserAnimationsModule
+>>>>>>> F_dodavanje_oglasa
   ],
   providers: [],
   bootstrap: [AppComponent]

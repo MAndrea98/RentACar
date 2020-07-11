@@ -32,7 +32,7 @@ public class OcenjivanjeIKomentariClient extends WebServiceGatewaySupport {
 	public EditReviewResponse editReview(ReviewDTOOIK review) {
 		EditReviewRequest request = new EditReviewRequest();
 		
-		log.info("Requesting create review status ");
+		log.info("Requesting dit review status ");
 		
 		EditReviewResponse response = (EditReviewResponse) getWebServiceTemplate()
 				 .marshalSendAndReceive("http://localhost:8085/ws/reviews", request,
@@ -44,7 +44,7 @@ public class OcenjivanjeIKomentariClient extends WebServiceGatewaySupport {
 	public DeleteReviewResponse deleteReview(Long id) {
 		DeleteReviewRequest request = new DeleteReviewRequest();
 		
-		log.info("Requesting create review status ");
+		log.info("Requesting delete review status ");
 		
 		DeleteReviewResponse response = (DeleteReviewResponse) getWebServiceTemplate()
 				 .marshalSendAndReceive("http://localhost:8085/ws/reviews", request,
