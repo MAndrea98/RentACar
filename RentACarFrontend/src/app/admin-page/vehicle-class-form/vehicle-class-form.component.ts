@@ -21,14 +21,36 @@ export class VehicleClassFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(localStorage.getItem("vehicleC") != null){
+      let url = "http://localhost:8087/admin/vehicleClass/" + localStorage.getItem("vehicleC");
+      this.http.get(url).subscribe(
+        res=>{this.vClassModel = res as VehicleClass},
+        err=>{alert('Something went wrong'); console.log(err.message);})
+    }
   }
+
 
   sendVehicleClass():void{
     console.log("Sent");
     let url = "http://localhost:8087/admin/vehicleClass";
-    this.http.post(url, this.vClassModel, {responseType:'text'}).subscribe(
-      res=>{alert("VehicleClass added"); location.reload();},
-      err=>{alert("Something went wrong"); console.log(err.message);}
-    )
+
+    if(localStorage.getItem("vehicleC") != null){
+      this.vClassModel.id = Number(localStorage.getItem("vehicleC"));
+      this.http.put(url, this.vClassModel, {responseType:'text'}).subscribe(
+        res=>{alert('Vehicle class changed'); localStorage.removeItem("vehicleC"); location.reload();},
+        err=>{alert('Something went wrong'); console.log(err.message);}
+      )
+    }else {
+      this.http.post(url, this.vClassModel, {responseType: 'text'}).subscribe(
+        res => {
+          alert("VehicleClass added");
+          location.reload();
+        },
+        err => {
+          alert("Something went wrong");
+          console.log(err.message);
+        }
+      )
+    }
   }
 }

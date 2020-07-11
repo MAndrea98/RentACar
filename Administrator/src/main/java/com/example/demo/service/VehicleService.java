@@ -30,4 +30,8 @@ public class VehicleService {
 	public void delete(Vehicle v) {
 		vehicleRepository.delete(v);
 	}
+	
+	public void flush() {
+		vehicleRepository.flush();
+	}
 }

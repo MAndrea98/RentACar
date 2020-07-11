@@ -11,7 +11,7 @@ import {HttpClient} from "@angular/common/http";
 export class VehicleClassTableComponent implements OnInit {
 
   router: String;
-  clm:VehicleClass={
+  cl:VehicleClass={
     name:'',
     id:0
   }
@@ -34,7 +34,7 @@ export class VehicleClassTableComponent implements OnInit {
         let i = 0
         for(let r in res){
 
-          this.classModelList.push(res[i]);
+          this.classModelList.push(res[i] as VehicleClass);
           i++;
         }
 
@@ -60,6 +60,11 @@ export class VehicleClassTableComponent implements OnInit {
       })
 
 
+  }
+
+  editRow(id):void{
+    localStorage.setItem("vehicleC", id);
+    location.href = "adminPage/vehicleClass/add";
   }
 
 }

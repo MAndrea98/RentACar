@@ -29,4 +29,8 @@ public class GasTypeService {
 	public void delete(GasType g) {
 		gasTypeRepository.delete(g);
 	}
+	
+	public void flush() {
+		gasTypeRepository.flush();
+	}
 }

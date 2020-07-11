@@ -15,11 +15,16 @@ import {AgentPageComponent} from "./agent-page/agent-page.component";
 import {ReviewListAgentComponent} from "./agent-page/review-list-agent/review-list-agent.component";
 import { PriceListAgentComponent } from './agent-page/price-list-agent/price-list-agent.compose';
 import { UserCartComponent } from './user-page/user-cart/user-cart.component';
+
 import { RequestListAgentComponent } from './agent-page/request-list-agent/request-list-agent.component';
 import { UserRequestComponent } from './user-page/user-requests/user-requests.component';
 import { UserMessagesComponent } from './user-page/user-messages/user-messages.component';
 import { AgentRegisterComponent } from './agent-register/agent-register.component';
 import { CompanyRegisterComponent } from './company-register/company-register.component';
+
+import {ModelFormComponent} from "./admin-page/model-form/model-form.component";
+import {UserActionTableComponent} from "./admin-page/user-action-table/user-action-table.component";
+import {SignInComponent} from "./default-page/sign-in/sign-in.component";
 
 
 const routes: Routes = [
@@ -106,6 +111,22 @@ const routes: Routes = [
   {
     path: 'companyRegister',
     component: CompanyRegisterComponent
+  },
+  {
+    path:'adminPage/model/add',
+    component:ModelFormComponent
+  },
+  {
+    path:'adminPage/users/action',
+    component:UserActionTableComponent
+  },
+  {
+    path:'login',
+    component:SignInComponent
+  },
+  {
+    path:'sign_in',
+    component:SignInComponent
   }
 ];
 

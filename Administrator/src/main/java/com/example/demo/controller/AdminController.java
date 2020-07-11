@@ -225,9 +225,13 @@ public class AdminController {
 	@PostMapping("/model")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ResponseEntity<String> newModel(@RequestBody Model m){
-		Model m1 = new Model(m);
+		Model m1 = new Model();
+		System.out.println(m.toString());
+		Manufacturer man = manufacturerService.findById(m.getManufacturer().getId()).get();
+		m1.setName(m.getName());
+		m1.setManufacturer(man);
 		modelService.save(m1);
-		
+		modelService.flush();
 		return new ResponseEntity<String>("Model added", HttpStatus.OK);
 	}
 	
@@ -280,6 +284,114 @@ public class AdminController {
 	public ResponseEntity<List<GasType>> getGasType(){
 		return new ResponseEntity<List<GasType>>(gasTypeService.findAll(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/gasType/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<GasType> getGasTypeById(@PathVariable Long id){
+		
+		
+		return new ResponseEntity<GasType>(gasTypeService.findById(id).get(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/vehicle/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<Vehicle> getVehicleById(@PathVariable Long id){
+		return new ResponseEntity<Vehicle>(vehicleService.findById(id).get(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/vehicleClass/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<VehicleClass> getVehicleClassById(@PathVariable Long id){
+		return new ResponseEntity<VehicleClass>(vehicleClassService.findById(id).get(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/model/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<Model> getModelById(@PathVariable Long id){
+		return new ResponseEntity<Model>(modelService.findById(id).get(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/manufacturer/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<Manufacturer> getManufacturerById(@PathVariable Long id){
+		return new ResponseEntity<Manufacturer>(manufacturerService.findById(id).get(), HttpStatus.OK);
+	}
+	
+	
+	@PutMapping("/vehicle")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> editVehicle(@RequestBody Vehicle v){
+		Vehicle oldV = vehicleService.findById(v.getId()).get();
+		oldV.setCdw(v.getCdw());
+		oldV.setChildSeatsNo(v.getChildSeatsNo());
+		oldV.setGasType(v.getGasType());
+		oldV.setGearBox(v.getGearBox());
+		oldV.setMileage(v.getMileage());
+		oldV.setModel(v.getModel());
+		oldV.setOwner(v.getOwner());
+		oldV.setPriceList(v.getPriceList());
+		oldV.setProposedMileage(v.getProposedMileage());
+		oldV.setVehicleClass(v.getVehicleClass());
+		oldV.setVehicleFree(v.getVehicleFree());
+		
+		vehicleService.save(oldV);
+		vehicleService.flush();
+		
+		return new ResponseEntity<String>("Edited vehicle", HttpStatus.OK);
+	}
+	
+	@PutMapping("/vehicleClass")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> editVehicleClass(@RequestBody VehicleClass v){
+		VehicleClass oldV = vehicleClassService.findById(v.getId()).get();
+		oldV.setName(v.getName());
+		
+		vehicleClassService.save(oldV);
+		vehicleClassService.flush();
+		
+		return new ResponseEntity<String>("Edited vehicle class", HttpStatus.OK);
+	}
+	
+	@PutMapping("/model")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> editModel(@RequestBody Model m){
+		Model oldM = modelService.findById(m.getId()).get();
+		
+		oldM.setManufacturer(m.getManufacturer());
+		oldM.setName(m.getName());
+		
+		modelService.save(m);
+		modelService.flush();
+		
+		return new ResponseEntity<String>("Edited model", HttpStatus.OK);
+	}
+	
+	@PutMapping("/manufacturer")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> editManufacturer(@RequestBody Manufacturer m){
+		Manufacturer oldM = manufacturerService.findById(m.getId()).get();
+		
+		oldM.setName(m.getName());
+		manufacturerService.save(m);
+		manufacturerService.flush();
+		
+		return new ResponseEntity<String>("Edited manufacturer", HttpStatus.OK);
+	}
+	
+	@PutMapping("/gasType")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> editGasType(@RequestBody GasType g){
+		System.out.println(g.toString());
+		GasType oldGt = gasTypeService.findById(g.getId()).get();
+		oldGt.setName(g.getName());
+		
+		gasTypeService.save(oldGt);
+		gasTypeService.flush();
+		
+		return new ResponseEntity<String>("Edited gas type", HttpStatus.OK);
+	}
+	
+	
 
 	@DeleteMapping("/vehicle")
 	public ResponseEntity<String> deleteVehicle(Vehicle v){
@@ -329,5 +441,28 @@ public class AdminController {
 	@PutMapping("/definePermission")
 	public ResponseEntity<String> definePermissions() {
 		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/user")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ResponseEntity<List<UserModel>> getUsers(){
+		
+		return new ResponseEntity<List<UserModel>>(userModelService.findAll(), HttpStatus.OK);
+	}
+	
+	@PutMapping("/user/{id}")
+	public ResponseEntity<String> blockUser(@PathVariable Long id){
+		
+		UserModel u = userModelService.findById(id);
+		u.setUloga(UserType.BLOCKED);
+		return new ResponseEntity<String>("User blocked", HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/user/{id}")
+	public ResponseEntity<String> deleteUser(@PathVariable Long id){
+		UserModel u = userModelService.findById(id);
+		u.setUloga(UserType.REMOVED);
+		
+		return new ResponseEntity<String>("User removed", HttpStatus.OK);
 	}
 }

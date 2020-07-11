@@ -1,3 +1,3 @@
-enum UserType{
-
+export enum UserType{
+  END_USER, RENTER, COMPANY, ADMIN, AGENT, NOT_ACTIVE, BLOCKED, REMOVED
 }

@@ -19,7 +19,7 @@ public class Model {
 	@Column(name="name")
 	private String name;
 	
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	private Manufacturer manufacturer;
 	
 	public Model() {
@@ -60,7 +60,12 @@ public class Model {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "Model [id=" + id + ", name=" + name + ", manufacturer=" + manufacturer + "]";
+	}
+	
+	
+	
 }

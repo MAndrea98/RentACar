@@ -17,4 +17,6 @@ public interface ManufacturerRepository extends JpaRepository<Manufacturer, Long
 	public Optional<Manufacturer> findById(Long id);
 	
 	public void delete(Manufacturer m);
+	
+	public void flush();
 }

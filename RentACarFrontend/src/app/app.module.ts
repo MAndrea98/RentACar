@@ -38,12 +38,15 @@ import { ReviewListAgentComponent } from './agent-page/review-list-agent/review-
 import { UserReviewFormComponent } from './user-page/user-review-form/user-review-form.component';
 import { PriceListAgentComponent } from './agent-page/price-list-agent/price-list-agent.compose';
 import { UserCartComponent } from './user-page/user-cart/user-cart.component';
+
 import { RequestListAgentComponent } from './agent-page/request-list-agent/request-list-agent.component';
 import { UserRequestComponent } from './user-page/user-requests/user-requests.component';
 import { UserMessagesComponent } from './user-page/user-messages/user-messages.component';
 import { AgentRegisterComponent } from './agent-register/agent-register.component';
 import { CompanyRegisterComponent } from './company-register/company-register.component';
 
+import { UserActionTableComponent } from './admin-page/user-action-table/user-action-table.component';
+import { SignInComponent } from './default-page/sign-in/sign-in.component';
 
 const appRoutes : Routes = [];
 
@@ -79,10 +82,15 @@ const appRoutes : Routes = [];
     UserReviewFormComponent,
     PriceListAgentComponent,
     UserCartComponent,
+
     UserRequestComponent,
     UserMessagesComponent,
     AgentRegisterComponent,
     CompanyRegisterComponent
+
+    UserActionTableComponent,
+    SignInComponent
+
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,51 @@
+<div class = "container" *ngIf="_router.url.includes('login')">
+  <div class = "row"></div>
+  <div class="offset-3"></div>
+  <div class="col-md-6">
+    <form name = "modelForm" #f="ngForm" (ngSubmit) = "login()"  novalidate>
+    <div class = "form-group">
+      <label for = "name">Username:</label>
+      <input type = "text" id = "lUsername" class = "form-control"  [(ngModel)] = "um.username" name = "username"/>
+    </div>
+    <div class = "form-group">
+      <label for = "name">Password:</label>
+      <input type="password" id = "lPassword" class = "form-control" name = "password"  [(ngModel)] = "um.password">
+    </div>
+  <button type = "submit" class = "btn btn-primary">Log in</button>
+  </form>
+  </div>
+</div>
+
+<div class = "container" *ngIf="_router.url.includes('sign_in')">
+  <div class = "row"></div>
+  <div class="offset-3"></div>
+  <div class="col-md-6">
+    <form name = "modelForm" #f="ngForm" (ngSubmit) = "signup()" novalidate>
+      <div class = "form-group">
+        <label for = "name">Name:</label>
+        <input type = "text" id = "sName" class = "form-control" name = "name"/>
+      </div>
+      <div class = "form-group">
+        <label for = "name">Surname:</label>
+        <input type = "text" id = "sName" class = "form-control" name = "surname"/>
+      </div>
+      <div class = "form-group">
+        <label for = "name">Phone:</label>
+        <input type = "text" id = "sPhone" class = "form-control" name = "phone"/>
+      </div>
+      <div class = "form-group">
+        <label for = "name">Address:</label>
+        <input type = "text" id = "sAddres" class = "form-control" name = "address"/>
+      </div>
+      <div class = "form-group">
+        <label for = "name">Username:</label>
+        <input type = "text" id = "sUsername" class = "form-control" name = "username"/>
+      </div>
+      <div class = "form-group">
+        <label for = "name">Password:</label>
+        <input type = "password" id = "sPassword" class = "form-control" name = "password"/>
+      </div>
+      <button type = "submit" class = "btn btn-primary">Sign Up</button>
+    </form>
+  </div>
+</div>
