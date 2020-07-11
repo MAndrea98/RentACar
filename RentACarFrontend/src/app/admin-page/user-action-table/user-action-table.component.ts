@@ -12,6 +12,7 @@ export class UserActionTableComponent implements OnInit {
 
   userList:UserModel[] = [];
   constructor(private http:HttpClient) { }
+  selection:String = "";
 
   ngOnInit(): void {
     let url = "http://localhost:8087/admin/user";
@@ -33,7 +34,7 @@ export class UserActionTableComponent implements OnInit {
   }
 
   blockUser(id):void{
-    let url = "http://localhost:8087/admin/user/" + id;
+    let url = "http://localhost:8087/admin/user/block/" + id;
     this.http.put(url, null, {responseType:'text'}).subscribe(
       res=>{
         alert("User blocked");
@@ -55,4 +56,16 @@ export class UserActionTableComponent implements OnInit {
     )
   }
 
+  changeUser(id):void{
+    let url = "http://localhost:8087/admin/user/" + id;
+    let u:UserModel;
+    this.http.put(url, this.selection, {responseType:'text'}).subscribe(
+      res=>{
+        alert("User changed");
+        location.reload();
+      },
+      err=>{alert("Something went wrong");
+      console.log(err.message);}
+    )
+  }
 }
