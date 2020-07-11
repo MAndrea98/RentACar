@@ -36,6 +36,33 @@ services:
     ports:
       - 5434:5434
   
+  db-izmena-oglasa:
+    image: postgres
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=IzmenaOglasa
+    ports:
+      - 5435:5435
+  
+  db-logovanje:
+    image: postgres
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=LogovanjeIRegistracija
+    ports:
+      - 5436:5436
+  
+  db-pretraga:
+    image: postgres
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=PretragaIFiltriranje
+    ports:
+      - 5437:5437
+  
   eureka-service:
     build: ./EurekaService
     ports:
@@ -91,6 +118,7 @@ services:
       - 8084:8084
     depends_on:
       - eureka-service
+      - db-izmena-oglasa
 
   logovanje-i-registracija-service:
     build: ./LogovanjeIRegistracija
@@ -100,6 +128,7 @@ services:
       - 8086:8086
     depends_on:
       - eureka-service 
+      - db-logovanje
 
   pretraga-i-filtriranje-oglasa-service:
     build: ./PretragaIFitriranjeOglasa
@@ -109,6 +138,7 @@ services:
       - 8088:8088
     depends_on:
       - eureka-service 
+      - db-pretraga
          
   zuul-proxy:
     build: ./ZuulProxy
