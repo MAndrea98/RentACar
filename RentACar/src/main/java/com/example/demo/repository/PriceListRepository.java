@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.model.PriceList;
 
-public interface PriceListRepository extends JpaRepository<PriceList, Long>{
 
+public interface PriceListRepository extends JpaRepository<PriceList, Long> {
+	
 }
+

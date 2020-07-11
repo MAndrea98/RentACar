@@ -44,6 +44,11 @@ public class GasType {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return "GasType [id=" + id + ", name=" + name + "]";
+	}
 	
 	
 	

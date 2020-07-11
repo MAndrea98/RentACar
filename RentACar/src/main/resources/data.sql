@@ -33,8 +33,13 @@ vehicle_class_id) values (2, '5', 9000, 100000, false, 0, 2, 1, 2);
 insert into vehicle (owner_id, gear_box, mileage, proposed_mileage, cdw, child_seats_no, model_id, gas_type_id, 
 vehicle_class_id) values (1, '5', 400, 600, true, 2, 3, 2, 2);
 
+<<<<<<< HEAD
 insert into ad (vehicle_id, place, date, valid_tru, valid_from, date_from, date_to, mileage_limit, number_of_reviews) 
 values (1, 'Novi Sad', '2020-06-20', '2020-06-21', '2020-06-29', '2020-06-20', '2020-07-14', 0, 5);
+=======
+insert into ad (vehicle_id, place, date, valid_tru, valid_from, date_from, date_to, mileage_limit) 
+values (1, 'Novi Sad', '2020-06-20', '2020-06-21', '2020-06-29', '2020-06-20', '2020-07-14', 300);
+>>>>>>> F_dodavanje_oglasa
 
 insert into ad (vehicle_id, place, date, valid_tru, valid_from, date_from, date_to, mileage_limit, number_of_reviews) 
 values (2, 'Novi Sad', '2020-06-20', '2020-06-21', '2020-06-30', '2020-06-20', '2020-07-16', 100, 0);

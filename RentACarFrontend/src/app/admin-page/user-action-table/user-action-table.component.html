@@ -1,0 +1,25 @@
+<div class="container">
+  <app-admin-nav></app-admin-nav>
+  <br/>
+
+  <table class="table-striped" border="1">
+    <thead>
+      <title>Users</title>
+      <tr>
+        <th scope = "col">Id</th>
+        <th scope = "col">Username</th>
+        <th scope = "col">User Type</th>
+        <th scope = "col" colspan="3">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of userList">
+      <td>{{user.id}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.uloga}}</td>
+      <td><button class = "btn-warning" (click)="blockUser(user.id)">Block</button></td>
+      <td><button class = "btn-danger" (click)="removeUser(user.id)">Remove</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

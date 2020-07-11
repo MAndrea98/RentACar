@@ -29,4 +29,8 @@ public class ModelService {
 	public void delete(Model m) {
 		modelRepository.delete(m);
 	}
+	
+	public void flush() {
+		modelRepository.flush();
+	}
 }

@@ -17,4 +17,6 @@ public interface ModelRepository extends JpaRepository<Model, Long>{
 	public Optional<Model> findById(Long id);
 	
 	public void delete(Model m);
+	
+	public void flush();
 }

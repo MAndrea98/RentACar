@@ -30,4 +30,8 @@ public class ManufacturerService {
 	public void delete(Manufacturer m) {
 		manufacturerRepository.delete(m);
 	}
+	
+	public void flush() {
+		manufacturerRepository.flush();
+	}
 }
