@@ -32,4 +32,8 @@ public class RequestService {
 		return requestRepository.findById(requestID).orElse(null);
 	}
 
+	public List<Request> findByEndUser(EndUser endUser) {
+		return requestRepository.findByEndUser(endUser);
+	}
+
 }

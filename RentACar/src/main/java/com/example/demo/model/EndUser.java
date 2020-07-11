@@ -37,6 +37,9 @@ public class EndUser {
 	@Column(name="phone")
 	private String phone;
 	
+	@Column(name="additional_price")
+	private int additionalPrice;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="endUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> reviews = new ArrayList<Review>();
@@ -50,7 +53,7 @@ public class EndUser {
 	private List<Request> requsets = new ArrayList<Request>();
 	
 	public EndUser() {
-		
+		this.additionalPrice = 0;
 	}
 
 	public EndUser(Long idUser, String name, String surname, String address, String phone, List<Review> reviews,
@@ -64,6 +67,7 @@ public class EndUser {
 		this.reviews = reviews;
 		this.favorites = favorites;
 		this.requsets = requsets;
+		this.additionalPrice = 0;
 	}
 
 	public Long getId() {
@@ -136,6 +140,14 @@ public class EndUser {
 
 	public void setRequsets(List<Request> requsets) {
 		this.requsets = requsets;
+	}
+	
+	public int getAdditionalPrice() {
+		return this.additionalPrice;
+	}
+	
+	public void setAdditionalPrice(int price) {
+		this.additionalPrice = price;
 	}
 	
 	

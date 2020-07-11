@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:tns="http://localhost:8086/api/LogovanjeIRegistracija/"
+targetNamespace="http://localhost:8086/api/LogovanjeIRegistracija/" elementFormDefault="qualified">
+
+  <xs:complexType name="agentLIR">
+    <xs:sequence>
+      <xs:element name="address" type="xs:string" minOccurs="0"/>
+      <xs:element name="company" type="tns:companyLIR" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="phone" type="xs:string" minOccurs="0"/>
+      <xs:element name="renter" type="tns:renterLIR" minOccurs="0"/>
+      <xs:element name="surname" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="companyLIR">
+    <xs:sequence>
+      <xs:element name="address" type="xs:string" minOccurs="0"/>
+      <xs:element name="agents" type="tns:agentLIR" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="renter" type="tns:renterLIR" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="renterLIR">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="idUser" type="xs:long" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userModelLIR">
+    <xs:sequence>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      <xs:element name="permissions" type="tns:permissionsLIR" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="uloga" type="tns:userTypeLIR" minOccurs="0"/>
+      <xs:element name="username" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="adminLIR">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long" minOccurs="0"/>
+      <xs:element name="user" type="tns:userModelLIR" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="endUserLIR">
+    <xs:sequence>
+      <xs:element name="address" type="xs:string" minOccurs="0"/>
+      <xs:element name="idUser" type="xs:long" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="phone" type="xs:string" minOccurs="0"/>
+      <xs:element name="surname" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="permissionsLIR">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CREATE_AD"/>
+      <xs:enumeration value="MODIFY_AD"/>
+      <xs:enumeration value="DELETE_AD"/>
+      <xs:enumeration value="SEND_MESSAGE"/>
+      <xs:enumeration value="SEND_REVIEW"/>
+      <xs:enumeration value="ADMINISTRATOR"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="userTypeLIR">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="END_USER"/>
+      <xs:enumeration value="RENTER"/>
+      <xs:enumeration value="COMPANY"/>
+      <xs:enumeration value="ADMIN"/>
+      <xs:enumeration value="AGENT"/>
+      <xs:enumeration value="NOT_ACTIVE"/>
+      <xs:enumeration value="BLOCKED"/>
+      <xs:enumeration value="REMOVED"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

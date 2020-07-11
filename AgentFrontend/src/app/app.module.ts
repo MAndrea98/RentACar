@@ -12,6 +12,13 @@ import { InboxComponent } from './main-page/inbox/inbox.component';
 import { PricesComponent } from './main-page/prices/prices.component';
 import { NewVehicleComponent } from './main-page/new-vehicle/new-vehicle.component';
 import { VehicleListComponent } from './main-page/vehicle-list/vehicle-list.component';
+import { UserNavComponent } from './main-page/user-nav/user-nav.component';
+import { UserCartComponent } from './main-page/user-cart/user-cart.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AllRequestsComponent } from './main-page/all-requests/all-requests.component';
+import { UserRequestComponent } from './main-page/user-requests/user-requests.component';
+import { AdminNavComponent } from './main-page/admin-nav/admin-nav.component';
+import { AdminReviewComponent } from './main-page/admin-review/admin-review.component';
 
 @NgModule({
   declarations: [
@@ -25,11 +32,18 @@ import { VehicleListComponent } from './main-page/vehicle-list/vehicle-list.comp
     InboxComponent,
     PricesComponent,
     NewVehicleComponent,
-    VehicleListComponent
+    VehicleListComponent,
+    UserNavComponent,
+    UserCartComponent,
+    AllRequestsComponent,
+    UserRequestComponent,
+    AdminNavComponent,
+    AdminReviewComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

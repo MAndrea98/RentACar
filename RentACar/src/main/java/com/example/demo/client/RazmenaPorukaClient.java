@@ -47,6 +47,7 @@ public class RazmenaPorukaClient extends WebServiceGatewaySupport  {
 	public DeleteMessageResponse deleteMessage(Long id) {
 		DeleteMessageRequest request = new DeleteMessageRequest();
 		request.setMessageId(id);
+		System.err.println(id);
 		
 		log.info("Requesting delete message status ");
 		

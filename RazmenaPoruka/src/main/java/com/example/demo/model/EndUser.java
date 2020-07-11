@@ -41,4 +41,11 @@ public class EndUser {
 	public void setIdUser(Long idUser) {
 		this.idUser = idUser;
 	}
+
+	@Override
+	public String toString() {
+		return "EndUser [id=" + id + ", idUser=" + idUser + "]";
+	}
+	
+	
 }

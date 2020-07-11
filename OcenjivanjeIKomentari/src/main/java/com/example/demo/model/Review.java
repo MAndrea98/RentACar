@@ -15,11 +15,11 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private EndUser endUser;
-
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Ad ad;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private EndUser endUser;
 	
 	@Column(name="stars")
 	private int stars;
@@ -109,6 +109,12 @@ public class Review {
 
 	public void setAd(Ad ad) {
 		this.ad = ad;
+	}
+
+	@Override
+	public String toString() {
+		return "Review [id=" + id + ", ad=" + ad + ", endUser=" + endUser + ", stars=" + stars + ", content=" + content
+				+ ", accepted=" + accepted + ", deleted=" + deleted + "]";
 	}
 	
 	

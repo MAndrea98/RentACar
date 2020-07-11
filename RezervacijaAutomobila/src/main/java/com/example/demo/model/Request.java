@@ -22,12 +22,12 @@ public class Request {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private EndUser endUser;
 	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "requests")
-	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
+	private List<Ad> ads = new ArrayList<Ad>();
 	
 	@Column(name="status")
 	private RequestStatus status;
@@ -41,9 +41,9 @@ public class Request {
 		this.status = status;
 	}
 
-	public Request(List<Vehicle> vehicles, RequestStatus status, EndUser endUser) {
+	public Request(List<Ad> ads, RequestStatus status, EndUser endUser) {
 		super();
-		this.vehicles = vehicles;
+		this.ads = ads;
 		this.status = status;
 		this.endUser = endUser;
 	}
@@ -64,12 +64,12 @@ public class Request {
 		this.endUser = endUser;
 	}
 
-	public List<Vehicle> getVehicles() {
-		return vehicles;
+	public List<Ad> getAds() {
+		return ads;
 	}
 
-	public void setVehicles(List<Vehicle> vehicles) {
-		this.vehicles = vehicles;
+	public void setAds(List<Ad> ads) {
+		this.ads = ads;
 	}
 
 	public RequestStatus getStatus() {

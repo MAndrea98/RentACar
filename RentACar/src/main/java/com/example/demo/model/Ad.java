@@ -11,9 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Ad {
@@ -52,13 +56,31 @@ public class Ad {
 	@ManyToMany
 	private List<EndUser> favoriteFor;
 	
+	@Column(name="mileageLimit")
+	private int mileageLimit;
+	
+	@JsonIgnore
+	@ManyToMany( cascade = {
+		    CascadeType.PERSIST,
+		    CascadeType.MERGE
+		})
+	@JoinTable(name = "ads_requests", joinColumns = @JoinColumn(name = "ad_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "request_id", referencedColumnName = "id"))
+	private List<Request> requests = new ArrayList<Request>();
+	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "ads_carts", joinColumns = @JoinColumn(name = "ad_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "cart_id", referencedColumnName = "id"))
+	private List<Cart> carts = new ArrayList<Cart>();
+	
 	public Ad() {
-
+		this.mileageLimit = 0;
+		this.numberOfReviews = 0;
 	}
 
-	public Ad(Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom, 
-			Calendar dateFrom, Calendar dateTo) {
+	public Ad(Long id, Vehicle vehicle, String place, Calendar date, Calendar validTru, Calendar validFrom,
+			Calendar dateFrom, Calendar dateTo, List<Request> requests) {
 		super();
+		this.id = id;
 		this.vehicle = vehicle;
 		this.place = place;
 		this.date = date;
@@ -66,28 +88,66 @@ public class Ad {
 		this.validFrom = validFrom;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
+		this.requests = requests;
+		this.mileageLimit = 0;
+		this.numberOfReviews = 0;
 	}
 
-	public int getNumberOfReviews() {
-		return numberOfReviews;
+	public List<Request> getRequests() {
+		return requests;
+	}
+	public void setRequests(List<Request> requests) {
+		this.requests = requests;
 	}
 
-	public void setNumberOfReviews(int numberOfReviews) {
-		this.numberOfReviews = numberOfReviews;
+	public Long getId() {
+		return id;
 	}
 
-	public List<Review> getListOfReviews() {
-		return listOfReviews;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public void setListOfReviews(List<Review> listOfReviews) {
-		this.listOfReviews = listOfReviews;
-	}
-
-	
 	public Vehicle getVehicle() {
 		return vehicle;
 	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+
+	public Calendar getDate() {
+		return date;
+	}
+
+	public void setDate(Calendar date) {
+		this.date = date;
+	}
+
+	public Calendar getValidTru() {
+		return validTru;
+	}
+
+	public void setValidTru(Calendar validTru) {
+		this.validTru = validTru;
+	}
+
+	public Calendar getValidFrom() {
+		return validFrom;
+	}
+
+	public void setValidFrom(Calendar validFrom) {
+		this.validFrom = validFrom;
+	}
+
 	public Calendar getDateFrom() {
 		return dateFrom;
 	}
@@ -104,42 +164,6 @@ public class Ad {
 		this.dateTo = dateTo;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
-	}
-	public String getPlace() {
-		return place;
-	}
-	public void setPlace(String place) {
-		this.place = place;
-	}
-	public Calendar getDate() {
-		return date;
-	}
-	public void setDate(Calendar date) {
-		this.date = date;
-	}
-	public Calendar getValidTru() {
-		return validTru;
-	}
-	public void setValidTru(Calendar validTru) {
-		this.validTru = validTru;
-	}
-	public Calendar getValidFrom() {
-		return validFrom;
-	}
-	public void setValidFrom(Calendar validFrom) {
-		this.validFrom = validFrom;
-	}
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public List<EndUser> getFavoriteFor() {
 		return favoriteFor;
 	}
@@ -147,5 +171,47 @@ public class Ad {
 	public void setFavoriteFor(List<EndUser> favoriteFor) {
 		this.favoriteFor = favoriteFor;
 	}
+
+	public List<Cart> getCarts() {
+		return carts;
+	}
+
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
+	}
+
+	public List<Review> getListOfReviews() {
+		return listOfReviews;
+	}
+
+	public void setListOfReviews(List<Review> listOfReviews) {
+		this.listOfReviews = listOfReviews;
+	}
+
+	public int getNumberOfReviews() {
+		return numberOfReviews;
+	}
+
+	public void setNumberOfReviews(int numberOfReviews) {
+		this.numberOfReviews = numberOfReviews;
+	}
+
+	public int getMileageLimit() {
+		return mileageLimit;
+	}
+
+	public void setMileageLimit(int mileageLimit) {
+		this.mileageLimit = mileageLimit;
+	}
+
+	@Override
+	public String toString() {
+		return "Ad [id=" + id + ", vehicle=" + vehicle + ", place=" + place + ", date=" + date + ", validTru="
+				+ validTru + ", validFrom=" + validFrom + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo
+				+ ", listOfReviews=" + listOfReviews + ", numberOfReviews=" + numberOfReviews + ", favoriteFor="
+				+ favoriteFor + ", mileageLimit=" + mileageLimit + ", requests=" + requests + ", carts=" + carts + "]";
+	}
+
+	
 
 }

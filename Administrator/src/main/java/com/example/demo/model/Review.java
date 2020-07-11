@@ -18,7 +18,7 @@ public class Review {
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Ad ad;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private EndUser endUser;
 	
 	@Column(name="stars")
@@ -119,6 +119,12 @@ public class Review {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+
+	@Override
+	public String toString() {
+		return "Review [id=" + id + ", ad=" + ad + ", endUser=" + endUser + ", stars=" + stars + ", content=" + content
+				+ ", accepted=" + accepted + ", deleted=" + deleted + "]";
 	}
 	
 	

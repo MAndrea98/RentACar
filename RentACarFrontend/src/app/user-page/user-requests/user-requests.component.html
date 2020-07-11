@@ -1,0 +1,125 @@
+<div class="container">
+    <app-user-nav></app-user-nav>
+    <br/>
+
+    <div>
+        <table class="table table-striped table-responsive-md btn-table" border="1">
+            <thead>
+                <title>Requests</title>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Vehicles</th>
+                    <th scope="col">Permission</th>
+                    <th scope="col">All messages</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let req of requests">
+                    <td>{{req.id}}</td>
+                    <td>{{req.status}}</td>
+                    <td><button class="btn-primary" (click)="vehicles(req)">Vehicles</button></td>
+                    <div [hidden]="req.status!='RESERVED'">
+                        <td>
+                            <button class="btn-primary" (click)="askOwner(req)">Ask owner</button>
+                            <br/>
+                            <button class="btn-primary" (click)="endRenting(req)">End renting</button>
+                        </td>
+                    </div>
+                    <div [hidden]="req.status!='ENDED'">
+                        <td>
+                            <button class="btn-primary" (click)="addComment(req)">Add comment</button>
+                        </td>
+                    </div>
+                    <td><div><button class="btn-primary" (click)="allMessages(req)">All messages</button></div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden] = "hiddenVehicle">
+        <table class="table table-striped table-responsive-md btn-table" border="1">
+            <thead>
+                <title>Vehicles</title>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Manufacturer</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Gas Type</th>
+                    <th scope="col">Gear Box</th>
+                    <th scope="col">Vehicle Class</th>
+                    <th scope="col">Mileage</th>
+                    <th scope="col">Proposed Mileage</th>
+                    <th scope="col">CDW</th>
+                    <th scope="col">Child Seats Number</th>
+                    <th scope="col">Owner id</th>
+                    <th scope="col">Valid from</th>
+                    <th scope="col">Valid tru</th>
+                    <th scope="col">Place</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let a of ads">
+                    <td>{{a.vehicle.id}}</td>
+                    <td></td>
+                    <td>{{a.vehicle.model.manufacturer.name}}</td>
+                    <td>{{a.vehicle.model.name}}</td>
+                    <td>{{a.vehicle.gasType.name}}</td>
+                    <td>{{a.vehicle.gearBox}}</td>
+                    <td>{{a.vehicle.vehicleClass.name}}</td>
+                    <td>{{a.vehicle.mileage}}</td>
+                    <td>{{a.vehicle.proposedMileage}}</td>
+                    <td>{{a.vehicle.cdw}}</td>
+                    <td>{{a.vehicle.childSeatsNo}}</td>
+                    <td>{{a.vehicle.owner.id}}</td>
+                    <td>{{a.validFrom.toString().substring(0, 10)}}</td>
+                    <td>{{a.validTru.toString().substring(0, 10)}}</td>
+                    <td>{{a.place}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden] = "askOwnerHidden">
+        <input #subject type="text" class="form-control" placeholder="Subject"/>
+        <br/>
+        <textarea #text class="form-control" placeholder="Message content..."></textarea>
+        <br/>
+        <button class="btn-primary" (click)="askOwnerSend()">Send message to owner</button>
+    </div>
+    <div [hidden] = "allMessagesHidden">
+        <table class="table table-striped table-responsive-md btn-table" border="1">
+            <thead>
+                <title>Messages</title>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Sender</th>
+                    <th scope="col">Reciever</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Content</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let m of messages">
+                    <td>{{m.id}}</td>
+                    <td>{{m.sender.username}}</td>
+                    <td>{{m.receiver.username}}</td>
+                    <td>{{m.subject}}</td>
+                    <td>{{m.content}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden] = "reviewHidden">
+        <select class="form-control" #stars>
+            <option>5</option>
+            <option>4</option>
+            <option>3</option>
+            <option>2</option>
+            <option>1</option>
+        </select>
+        <br/>
+        <textarea #contentReview class="form-control" placeholder="Review content..."></textarea>
+        <br/>
+        <button class="btn-primary" (click)="sendReview()">Send review</button>
+    </div>
+</div>

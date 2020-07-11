@@ -3,16 +3,16 @@ package com.example.demo.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.model.Ad;
 import com.example.demo.model.EndUser;
 import com.example.demo.model.Request;
 import com.example.demo.model.RequestStatus;
-import com.example.demo.model.Vehicle;
 
 public class RequestDTO {
 	
 	private Long id;
 	private EndUser endUser;
-	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
+	private List<Ad> ads = new ArrayList<Ad>();
 	private RequestStatus status;
 	
 	public RequestDTO() {
@@ -20,16 +20,16 @@ public class RequestDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RequestDTO(Long id, EndUser endUser, List<Vehicle> vehicles, RequestStatus status) {
+	public RequestDTO(Long id, EndUser endUser, List<Ad> ads, RequestStatus status) {
 		super();
 		this.id = id;
 		this.endUser = endUser;
-		this.vehicles = vehicles;
+		this.ads = ads;
 		this.status = status;
 	}
 	
 	public RequestDTO(Request r) {
-		this(r.getId(), r.getEndUser(), r.getVehicles(), r.getStatus());
+		this(r.getId(), r.getEndUser(), r.getAds(), r.getStatus());
 	}
 
 	public Long getId() {
@@ -49,12 +49,12 @@ public class RequestDTO {
 		this.endUser = endUser;
 	}
 
-	public List<Vehicle> getVehicles() {
-		return vehicles;
+	public List<Ad> getAds() {
+		return ads;
 	}
 
-	public void setVehicles(List<Vehicle> vehicles) {
-		this.vehicles = vehicles;
+	public void setAds(List<Ad> ads) {
+		this.ads = ads;
 	}
 
 	public RequestStatus getStatus() {

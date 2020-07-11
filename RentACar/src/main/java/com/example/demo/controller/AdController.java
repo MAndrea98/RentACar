@@ -1,11 +1,14 @@
 package com.example.demo.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,9 +17,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.AdDTO;
 import com.example.demo.model.Ad;
+import com.example.demo.model.Discount;
+import com.example.demo.model.PriceList;
 import com.example.demo.model.Renter;
 import com.example.demo.model.Request;
 import com.example.demo.model.RequestStatus;
@@ -24,8 +30,10 @@ import com.example.demo.model.Review;
 import com.example.demo.model.Search;
 import com.example.demo.model.Vehicle;
 import com.example.demo.service.AdService;
+import com.example.demo.service.DiscountService;
 import com.example.demo.service.RequestService;
 import com.example.demo.service.ReviewService;
+import com.example.demo.service.VehicleService;
 
 @RequestMapping(value="/ad")
 @CrossOrigin("http://localhost:4200/")
@@ -39,6 +47,12 @@ public class AdController {
 
 	@Autowired
 	private ReviewService reviewService;
+	
+	@Autowired
+	private DiscountService discountService;
+	
+	@Autowired
+	private VehicleService vehicleService;
 
 	@PostMapping(value="/create")
 	public ResponseEntity<String> createAd(@RequestBody Ad ad) {
@@ -46,22 +60,65 @@ public class AdController {
 			return new ResponseEntity<String>("",HttpStatus.NO_CONTENT);
 		}
 
-		Ad newAd = new Ad();
-		newAd.setDate(ad.getDate());
-		// TODO obrisan je mileage i free nemestiti za vehicle - sorry :(
-		
-		//newAd.setUser(ad.getUser());
-		newAd.setValidFrom(ad.getValidFrom());
-		newAd.setValidTru(ad.getValidTru());
-		newAd.setVehicle(ad.getVehicle());
-
-		adService.save(newAd);
-		return new ResponseEntity<String>("",HttpStatus.OK);
+		adService.save(ad);
+		return new ResponseEntity<String>("OK",HttpStatus.OK);
 
 	}
+	
+	@PostMapping(value="/discount")
+	public ResponseEntity<Discount> createDiscount(@RequestParam("value") String value,
+												   @RequestParam("validFrom") String validFrom,
+												   @RequestParam("validTru") String validTru,
+												   @RequestParam("vehicleId") String vehicleId
+												   ) {
+		
+		if(value.equals(null) || validFrom.equals(null) || validTru.equals(null) || vehicleId.equals(null)) {
+			return new ResponseEntity<Discount>(HttpStatus.NO_CONTENT);
+		}
+		
+		Double valueD;
+		Discount d = new Discount();
+		Date dateValidFrom;
+		Date dateValidTru;
+		Long vehicleIdL;
+		try {
+			valueD = Double.parseDouble(value);
+			dateValidFrom = new SimpleDateFormat("dd/MM/yyyy").parse(validFrom);
+			dateValidTru = new SimpleDateFormat("dd/MM/yyyy").parse(validTru);
+			vehicleIdL = Long.parseLong(vehicleId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Discount>(HttpStatus.NO_CONTENT);
+		}		
+		
+		Calendar calValidFrom = Calendar.getInstance();
+		calValidFrom.setTime(dateValidFrom);
+		
+		Calendar calValidTru = Calendar.getInstance();
+		calValidFrom.setTime(dateValidTru);
+		
+		d.setValue(valueD);
+		d.setValidFrom(calValidFrom);
+		d.setValidTru(calValidTru);
+		
+		
+		Vehicle v = vehicleService.findById(vehicleIdL);
+		
+		PriceList p = new PriceList();
+		p.setDateFrom(calValidFrom);
+		p.setDateTo(calValidTru);
+		p.getVehicle().add(v);
+		//p.setPricePerMile(pricePerMile);
+		//p.setCdwPrice(cdwPrice);
+		d.setPriceList(p);
+		
+		discountService.save(d);
+		return new ResponseEntity<Discount>(d, HttpStatus.OK);
+		
+	}
 
-	@PostMapping(value="/occupy")
-	public ResponseEntity<String> occupy(@RequestBody Date dateFrom, @RequestBody Date dateTo, @RequestBody Ad ad){
+	@PostMapping(value="/occupy/{dateFrom}/{dateTo}")
+	public ResponseEntity<String> occupy(@PathParam("dateFrom") Date dateFrom, @PathParam("dateTo") Date dateTo, @RequestBody Ad ad){
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(dateFrom);
 		calendar.setTime(dateTo);
@@ -71,8 +128,8 @@ public class AdController {
 		Vehicle vehicle = ad.getVehicle();
 		List<Request> list = requestService.findAll();
 		for(Request r : list) {
-			for(Vehicle v : r.getVehicles()) {
-				if(v.getId() == vehicle.getId() && r.getStatus() == RequestStatus.PENDING) {
+			for(Ad a : r.getAds()) {
+				if(a.getVehicle().getId() == vehicle.getId() && r.getStatus() == RequestStatus.PENDING) {
 					r.setStatus(RequestStatus.CANCELED);
 				}
 			}

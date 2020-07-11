@@ -25,18 +25,19 @@ public class Renter {
 	private Long idUser;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="renter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Request> ordered = new ArrayList<Request>();
+	@OneToMany(mappedBy="owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Vehicle> vehicles = new ArrayList<Vehicle>();
 	
 	public Renter() {
 		
 	}
 
-	public Renter(Long id, Long idUser, List<Request> ordered) {
+
+	public Renter(Long id, Long idUser, List<Vehicle> vehicles) {
 		super();
 		this.id = id;
 		this.idUser = idUser;
-		this.ordered = ordered;
+		this.vehicles = vehicles;
 	}
 
 	public Long getId() {
@@ -55,13 +56,16 @@ public class Renter {
 		this.idUser = idUser;
 	}
 
-	public List<Request> getOrdered() {
-		return ordered;
+
+	public List<Vehicle> getVehicles() {
+		return vehicles;
 	}
 
-	public void setOrdered(List<Request> ordered) {
-		this.ordered = ordered;
+
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
 	}
+	
 
 	
 }

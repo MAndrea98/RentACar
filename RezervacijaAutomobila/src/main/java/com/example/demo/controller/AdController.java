@@ -63,8 +63,8 @@ public class AdController {
 		Vehicle vehicle = ad.getVehicle();
 		List<Request> list = requestService.findAll();
 		for(Request r : list) {
-			for(Vehicle v : r.getVehicles()) {
-				if(v.getId() == vehicle.getId() && r.getStatus() == RequestStatus.PENDING) {
+			for(Ad a : r.getAds()) {
+				if(a.getVehicle().getId() == vehicle.getId() && r.getStatus() == RequestStatus.PENDING) {
 					r.setStatus(RequestStatus.CANCELED);
 				}
 			}
