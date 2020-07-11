@@ -455,6 +455,8 @@ public class AdminController {
 		
 		UserModel u = userModelService.findById(id);
 		u.setUloga(UserType.BLOCKED);
+		userModelService.save(u);
+		userModelService.flush();
 		return new ResponseEntity<String>("User blocked", HttpStatus.OK);
 	}
 	
@@ -462,7 +464,8 @@ public class AdminController {
 	public ResponseEntity<String> deleteUser(@PathVariable Long id){
 		UserModel u = userModelService.findById(id);
 		u.setUloga(UserType.REMOVED);
-		
+		userModelService.save(u);
+		userModelService.flush();
 		return new ResponseEntity<String>("User removed", HttpStatus.OK);
 	}
 }
