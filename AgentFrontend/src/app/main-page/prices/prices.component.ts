@@ -3,6 +3,7 @@ import { PriceList } from 'src/app/_model/PriceList';
 import { Vehicle } from 'src/app/_model/Vehicle';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { VehicleImage } from 'src/app/_model/VehicleImage';
 
 @Component({
   selector: 'app-prices',
@@ -83,19 +84,15 @@ export class PricesComponent implements OnInit {
     getPriceList():void {
       let url = "http://localhost:8081/priceList";
       this.http.get(url).subscribe(
-      res=>{
-        this.priceListModelList = [];
-        let i = 0
-        for(let r in res){
-          this.priceListModelList.push(res[i]);
-          i++;
+        (res:PriceList[])=>{
+          this.priceListModelList = [];
+          this.priceListModelList = res;
+        },
+        err=>{
+          alert('Something went wrong');
+          console.log(err.message);
         }
-      },
-      err=>{
-        alert('Something went wrong');
-        console.log(err.message);
-      }
-    )
+     )
     }
 
     getMyVehicles() {
@@ -104,6 +101,19 @@ export class PricesComponent implements OnInit {
         (res: Vehicle[]) => {
           this.myVehicles = [];
           this.myVehicles = res;
+          for (let i = 0; i < this.myVehicles.length; i++) {
+            url = "http://localhost:8081/images/" + this.myVehicles[i].id;
+            this.http.get(url).subscribe(
+              (res1: VehicleImage[]) => {
+                this.myVehicles[i].images = [];
+                this.myVehicles[i].images = res1;
+              },
+              err=> {
+                  alert('Something went wrong 1');
+                  console.log(err.message);
+              }
+          )
+          }
           this.addVehicleToPriceListVisible = false;
         },
         err=>{
@@ -121,9 +131,24 @@ export class PricesComponent implements OnInit {
 
     vehicleOf(price: PriceList): void {
       this.vehicles = price.vehicle;
+      for (let i = 0; i < this.vehicles.length; i++) {
+        let url = "http://localhost:8081/images/" + this.vehicles[i].id;
+        this.http.get(url).subscribe(
+          (res1: VehicleImage[]) => {
+            this.vehicles[i].images = [];
+            this.vehicles[i].images = res1;
+          },
+          err=> {
+              alert('Something went wrong 1');
+              console.log(err.message);
+          }
+      )
+      }
+      
       this.home();
       this.hiddenVehicle = false;
       this.priceListID = price.id;
+     
     }
 
     addNewPriceForm(): void {
@@ -179,6 +204,19 @@ export class PricesComponent implements OnInit {
           this.home();
           this.getPriceList();
           this.vehicles = res.vehicle;
+          for (let i = 0; i < this.vehicles.length; i++) {
+            let url = "http://localhost:8081/images/" + this.vehicles[i].id;
+            this.http.get(url).subscribe(
+              (res1: VehicleImage[]) => {
+                this.vehicles[i].images = [];
+                this.vehicles[i].images = res1;
+              },
+              err=> {
+                  alert('Something went wrong 1');
+                  console.log(err.message);
+              }
+          )
+          }
           this.hiddenVehicle = false;
         },
         err=>{
@@ -278,6 +316,19 @@ export class PricesComponent implements OnInit {
         (res: PriceList)=>{
           this.getPriceList();
           this.vehicles = res.vehicle;
+            for (let i = 0; i < this.vehicles.length; i++) {
+              let url = "http://localhost:8081/images/" + this.vehicles[i].id;
+              this.http.get(url).subscribe(
+                (res1: VehicleImage[]) => {
+                  this.vehicles[i].images = [];
+                  this.vehicles[i].images = res1;
+                },
+                err=> {
+                    alert('Something went wrong 1');
+                    console.log(err.message);
+                }
+              )
+            }
           this.hiddenVehicle = false;
         },
         err=>{

@@ -9,7 +9,6 @@ import { VehicleFree } from './VehicleFree';
 export class Vehicle{
 
   id: number;
-  images: Array<VehicleImage>;
   owner: Renter;
   model: Model;
   gasType: GasType;
@@ -21,6 +20,7 @@ export class Vehicle{
   childSeatsNo: number;
   vehicleFree: Array<VehicleFree>;
   priceList: Array<PriceList>;
+  images: Array<VehicleImage>;
 
   constructor() {
   }
