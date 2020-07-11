@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -153,6 +154,38 @@ public class AdminController {
 		
 		userModelService.save(u);
 		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
+	@PutMapping("/user/{id}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	public ResponseEntity<String> changeUserType(@RequestBody String s, @PathVariable Long id){
+		
+		UserModel u = userModelService.findById(id);
+		
+		switch(s) {
+		case "Renter":
+			u.setUloga(UserType.RENTER);
+			break;
+		case "Agent":
+			u.setUloga(UserType.AGENT);
+			break;
+		case "Company":
+			u.setUloga(UserType.COMPANY);
+			break;
+		case "Admin":
+			u.setUloga(UserType.ADMIN);
+			break;
+		case "End User":
+			u.setUloga(UserType.END_USER);
+			break;
+		default:
+			u.setUloga(UserType.NOT_ACTIVE);	
+		}
+		
+		userModelService.save(u);
+		userModelService.flush();
+		
+		return new ResponseEntity<String>("User changed", HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deleteUser")
@@ -450,11 +483,13 @@ public class AdminController {
 		return new ResponseEntity<List<UserModel>>(userModelService.findAll(), HttpStatus.OK);
 	}
 	
-	@PutMapping("/user/{id}")
+	@PutMapping("/user/block/{id}")
 	public ResponseEntity<String> blockUser(@PathVariable Long id){
 		
 		UserModel u = userModelService.findById(id);
 		u.setUloga(UserType.BLOCKED);
+		userModelService.save(u);
+		userModelService.flush();
 		return new ResponseEntity<String>("User blocked", HttpStatus.OK);
 	}
 	
@@ -462,7 +497,8 @@ public class AdminController {
 	public ResponseEntity<String> deleteUser(@PathVariable Long id){
 		UserModel u = userModelService.findById(id);
 		u.setUloga(UserType.REMOVED);
-		
+		userModelService.save(u);
+		userModelService.flush();
 		return new ResponseEntity<String>("User removed", HttpStatus.OK);
 	}
 }
