@@ -16,7 +16,7 @@ public class RequestService {
 	private RequestRepository requestRepository;
 
 	public Request save(Request request) {
-		return requestRepository.saveAndFlush(request);
+		return requestRepository.save(request);
 	}
 
 	public List<Request> findAll(){

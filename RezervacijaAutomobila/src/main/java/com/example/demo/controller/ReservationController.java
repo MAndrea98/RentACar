@@ -160,15 +160,15 @@ public class ReservationController {
 
 		RestTemplate restTemplate = new RestTemplate(requestFactory);
 		System.out.println(request.getAds());
-        System.out.println("URL " + url);
-        ResponseEntity<String> emp = restTemplate.postForEntity(url, requestForMessages, String.class);
-        System.out.println("RESPONSE " + emp);
         System.out.println("URL " + url1);
         ResponseEntity<String> emp1 = restTemplate.postForEntity(url1, request, String.class);
         System.out.println("RESPONSE " + emp1);
         ResponseEntity<String> emp2 = restTemplate.postForEntity(url2, requestBody, String.class);
         System.out.println("RESPONSE " + emp2);
         System.out.println("URL " + url2);
+        System.out.println("URL " + url);
+        ResponseEntity<String> emp = restTemplate.postForEntity(url, requestForMessages, String.class);
+        System.out.println("RESPONSE " + emp);
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
