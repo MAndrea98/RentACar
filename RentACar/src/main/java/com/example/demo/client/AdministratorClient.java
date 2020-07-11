@@ -17,7 +17,7 @@ public class AdministratorClient extends WebServiceGatewaySupport {
 	public AcceptCommentResponse acceptComment(ReviewDTOA review) {
 		AcceptCommentRequest request = new AcceptCommentRequest();
 		
-		log.info("Requesting decline review status ");
+		log.info("Requesting decline comment status ");
 		
 		AcceptCommentResponse response  = (AcceptCommentResponse) getWebServiceTemplate()
 				 .marshalSendAndReceive("http://localhost:8087/ws/administrator", request,
@@ -29,7 +29,7 @@ public class AdministratorClient extends WebServiceGatewaySupport {
 	public DeclineCommentResponse declineComment(ReviewDTOA review) {
 		DeclineCommentRequest request = new DeclineCommentRequest();
 		
-		log.info("Requesting decline review status");
+		log.info("Requesting decline comment status");
 		
 		DeclineCommentResponse response  = (DeclineCommentResponse) getWebServiceTemplate()
 				 .marshalSendAndReceive("http://localhost:8087/ws/administrator", request,

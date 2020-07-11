@@ -21,6 +21,8 @@ import { UserRequestComponent } from './user-page/user-requests/user-requests.co
 import { UserMessagesComponent } from './user-page/user-messages/user-messages.component';
 import { AgentRegisterComponent } from './agent-register/agent-register.component';
 import { CompanyRegisterComponent } from './company-register/company-register.component';
+import { CreateAdFormComponent } from './agent-page/create-ad-form/create-ad-form.component';
+import { AdListComponent } from './agent-page/ad-list/ad-list.component';
 
 import {ModelFormComponent} from "./admin-page/model-form/model-form.component";
 import {UserActionTableComponent} from "./admin-page/user-action-table/user-action-table.component";
@@ -127,6 +129,14 @@ const routes: Routes = [
   {
     path:'sign_in',
     component:SignInComponent
+  },
+  {
+    path: 'agentPage/ad/new',
+    component: CreateAdFormComponent
+  },
+  {
+    path: 'agentPage/ad/list',
+    component: AdListComponent
   }
 ];
 

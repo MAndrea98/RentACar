@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.example.demo.model.Renter;
+import com.example.demo.model.Model;
 import com.example.demo.model.Vehicle;
 
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
@@ -17,5 +18,7 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 	Optional<Vehicle> findById(Long id);
 
 	List<Vehicle> findByOwner(Renter owner);
+	
+	Vehicle findByModel(Model m);
 
 }

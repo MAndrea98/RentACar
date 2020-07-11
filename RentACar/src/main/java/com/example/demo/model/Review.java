@@ -15,6 +15,7 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Ad ad;
 

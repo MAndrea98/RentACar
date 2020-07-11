@@ -54,6 +54,14 @@ public class VehicleController {
 	
 	@Autowired
 	private RenterService renterService;
+	
+	
+	// TODO find by Renter id
+	@GetMapping(value="/getAll")
+	public ResponseEntity<List<Vehicle>> getAll() {
+		List<Vehicle> ret = vehicleService.findAll();
+		return new ResponseEntity<List<Vehicle>>(ret,HttpStatus.OK);
+	}
 
 	@RequestMapping(value="/get/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Vehicle> getVehicle(@PathVariable("id") Long id) {

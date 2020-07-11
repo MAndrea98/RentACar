@@ -3,6 +3,7 @@ package com.example.demo.model;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -47,17 +48,21 @@ public class Ad {
 	@Column(name="dateTo", nullable = false)
 	private Calendar dateTo;
 
-	@OneToMany(mappedBy="ad", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(mappedBy="ad", cascade = CascadeType.ALL)
 	private List<Review> listOfReviews = new ArrayList<Review>();
 
-	@Column(name="number_of_reviews")
-	private int numberOfReviews = listOfReviews.size();
-
+	@JsonIgnore
 	@ManyToMany
+	@JoinTable(name = "ad_user", joinColumns = @JoinColumn(name="ad_id"),
+		inverseJoinColumns = @JoinColumn(name = "end_user_id"))
 	private List<EndUser> favoriteFor;
 	
-	@Column(name="mileageLimit")
+	@Column(name="mileageLimit", nullable= true)
 	private int mileageLimit;
+	
+	@Column(name="number_of_reviews")
+	private int numberOfReviews = listOfReviews.size();
 	
 	@JsonIgnore
 	@ManyToMany( cascade = {
@@ -101,7 +106,7 @@ public class Ad {
 	}
 
 	public Long getId() {
-		return id;
+		return id;	
 	}
 
 	public void setId(Long id) {
@@ -211,7 +216,4 @@ public class Ad {
 				+ ", listOfReviews=" + listOfReviews + ", numberOfReviews=" + numberOfReviews + ", favoriteFor="
 				+ favoriteFor + ", mileageLimit=" + mileageLimit + ", requests=" + requests + ", carts=" + carts + "]";
 	}
-
-	
-
 }

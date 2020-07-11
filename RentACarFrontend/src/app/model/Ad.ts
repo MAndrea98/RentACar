@@ -14,6 +14,8 @@ export class Ad{
   favoriteFor: Array<EndUser>;
   requests: Array<Request>;
   carts: Array<Cart>
+  dateFrom: Date;
+  mileageLimit: number;
 
   constructor() {
   }
