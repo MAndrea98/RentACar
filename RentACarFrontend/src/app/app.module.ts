@@ -86,7 +86,7 @@ const appRoutes : Routes = [];
     UserRequestComponent,
     UserMessagesComponent,
     AgentRegisterComponent,
-    CompanyRegisterComponent
+    CompanyRegisterComponent,
 
     UserActionTableComponent,
     SignInComponent
@@ -97,7 +97,6 @@ const appRoutes : Routes = [];
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    DatePickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
