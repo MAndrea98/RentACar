@@ -5,8 +5,9 @@ import {HttpClient} from "@angular/common/http";
 import {Ad} from "../../model/Ad";
 import {Vehicle} from "../../model/Vehicle";
 import {Model} from "../../model/Model";
-import {Renter} from "../../model/Renter";
 import { EndUser } from 'src/app/model/EndUser';
+import { Cart } from 'src/app/model/Cart';
+import { Request } from 'src/app/model/Request';
 
 @Component({
   selector: 'app-create-ad-form',
@@ -17,6 +18,9 @@ export class CreateAdFormComponent implements OnInit {
 
   modelName: String;
   models: Model[] =[];
+  favoriteFor: EndUser[] = [];
+  requests: Request[] = [];
+  carts: Cart[] = [];
   ad: Ad = {
     id:0,
     place:'',
@@ -26,9 +30,10 @@ export class CreateAdFormComponent implements OnInit {
     validFrom: new Date(),
     date: new Date(),
     mileageLimit:0,
-    renter: new Renter(),
-    endUser: new EndUser(),
-    vehicle: new Vehicle()
+    vehicle: new Vehicle(),
+    favoriteFor: this.favoriteFor,
+    requests: this.requests,
+    carts: this.carts
   }
   
 

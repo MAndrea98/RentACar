@@ -50,6 +50,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { UserActionTableComponent } from './admin-page/user-action-table/user-action-table.component';
 import { SignInComponent } from './default-page/sign-in/sign-in.component';
+import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 
 const appRoutes : Routes = [];
 
@@ -90,26 +91,18 @@ const appRoutes : Routes = [];
     UserMessagesComponent,
     AgentRegisterComponent,
     CompanyRegisterComponent,
-<<<<<<< HEAD
-
     UserActionTableComponent,
-    SignInComponent
-
-=======
+    SignInComponent,
     CreateAdFormComponent,
     AdListComponent
->>>>>>> F_dodavanje_oglasa
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-<<<<<<< HEAD
-=======
     DatePickerModule,
     BrowserAnimationsModule
->>>>>>> F_dodavanje_oglasa
   ],
   providers: [],
   bootstrap: [AppComponent]

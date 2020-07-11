@@ -115,7 +115,6 @@ const routes: Routes = [
     component: CompanyRegisterComponent
   },
   {
-<<<<<<< HEAD
     path:'adminPage/model/add',
     component:ModelFormComponent
   },
@@ -130,14 +129,14 @@ const routes: Routes = [
   {
     path:'sign_in',
     component:SignInComponent
-=======
+  },
+  {
     path: 'agentPage/ad/new',
     component: CreateAdFormComponent
   },
   {
     path: 'agentPage/ad/list',
     component: AdListComponent
->>>>>>> F_dodavanje_oglasa
   }
 ];
 

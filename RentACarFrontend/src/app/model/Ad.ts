@@ -11,14 +11,11 @@ export class Ad{
   validTru: Date;
   validFrom: Date;
   dateTo: Date;
-<<<<<<< HEAD
   favoriteFor: Array<EndUser>;
   requests: Array<Request>;
   carts: Array<Cart>
-=======
   dateFrom: Date;
   mileageLimit: number;
->>>>>>> F_dodavanje_oglasa
 
   constructor() {
   }
