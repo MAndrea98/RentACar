@@ -70,6 +70,16 @@ insert into ads_carts (ad_id, cart_id) values (2, 1);
 insert into ads_carts (ad_id, cart_id) values (3, 1);
 insert into ads_carts (ad_id, cart_id) values (4, 1);
 
+insert into vehicle_image(vehicle_id, image) values (1, 'assets/images/toyota_yaris_1.jpg');
+insert into vehicle_image(vehicle_id, image) values (1, 'assets/images/toyota_yaris_2.jpg');
+insert into vehicle_image(vehicle_id, image) values (1, 'assets/images/toyota_yaris_3.jpg');
+insert into vehicle_image(vehicle_id, image) values (2, 'assets/images/toyota_yaris_21.jpg');
+insert into vehicle_image(vehicle_id, image) values (2, 'assets/images/toyota_yaris_22.jpg');
+insert into vehicle_image(vehicle_id, image) values (3, 'assets/images/getz_1.jpg');
+insert into vehicle_image(vehicle_id, image) values (3, 'assets/images/getz_2.jpg');
+insert into vehicle_image(vehicle_id, image) values (4, 'assets/images/golf_1.jpg');
+insert into vehicle_image(vehicle_id, image) values (4, 'assets/images/golf_2.jpg');
+
 
 
 

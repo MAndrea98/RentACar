@@ -47,12 +47,14 @@ public class Ad {
 	@Column(name="dateTo", nullable = false)
 	private Calendar dateTo;
 
+	@JsonIgnore
 	@OneToMany(mappedBy="ad", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Review> listOfReviews = new ArrayList<Review>();
 
 	@Column(name="number_of_reviews")
 	private int numberOfReviews = listOfReviews.size();
 
+	@JsonIgnore
 	@ManyToMany
 	private List<EndUser> favoriteFor;
 	

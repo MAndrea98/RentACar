@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.ReviewDTO;
+import com.example.demo.model.Ad;
 import com.example.demo.model.EndUser;
 import com.example.demo.model.Renter;
 import com.example.demo.model.Report;
@@ -24,6 +25,7 @@ import com.example.demo.model.Request;
 import com.example.demo.model.RequestStatus;
 import com.example.demo.model.Review;
 import com.example.demo.model.UserModel;
+import com.example.demo.service.AdService;
 import com.example.demo.service.EndUserService;
 import com.example.demo.service.RenterService;
 import com.example.demo.service.ReportService;
@@ -54,8 +56,11 @@ public class ReviewController {
 	@Autowired
 	private ReportService reportService;
 	
-	@PostMapping
-	public ResponseEntity<ReviewDTO> createReview(@RequestBody ReviewDTO reviewDTO) {
+	@Autowired
+	private AdService adService;
+	
+	@PostMapping(value = "/{adID}")
+	public ResponseEntity<ReviewDTO> createReview(@RequestBody ReviewDTO reviewDTO, @PathVariable("adID") Long id) {
 		UserModel renterUser = userModelService.findByUsername(reviewDTO.getRenterUsername());
 		UserModel endUserUser = userModelService.findByUsername(reviewDTO.getEndUserUsername());
 		Renter renter = renterService.findByIdUser(renterUser.getId());
@@ -70,12 +75,13 @@ public class ReviewController {
 		if (!found) {
 			return new ResponseEntity<ReviewDTO>(HttpStatus.BAD_REQUEST); 
 		}
+		Ad ad = adService.findById(id);
 		Review review = new Review();
 		review.setEndUser(endUser);
 		review.setContent(reviewDTO.getContent());
 		review.setStars(reviewDTO.getStars());
+		review.setAd(ad);
 		Review r = reviewService.save(review);
-		
 		Report report = new Report(request, review);
 		reportService.save(report);
 		
@@ -126,7 +132,17 @@ public class ReviewController {
 		for (Review r : reviewService.findAll()) {
 			if (!r.isDeleted()) {
 				UserModel endUser = userModelService.findById(r.getEndUser().getIdUser());
-				UserModel renter = userModelService.findById(r.getAd().getVehicle().getOwner().getIdUser());
+				UserModel renter;
+				if (r.getAd() == null)
+					System.out.println("ad");
+				if (r.getAd().getVehicle() == null)
+					System.out.println("vehicle");
+				if (r.getAd().getVehicle().getOwner() == null)
+					System.out.println("owner");
+				if (r.getAd().getVehicle().getOwner().getIdUser() == null)
+					renter = userModelService.findById(2L);
+				else
+					renter = userModelService.findById(r.getAd().getVehicle().getOwner().getIdUser());
 				reviewDTOs.add(new ReviewDTO(r, renter.getUsername(), endUser.getUsername()));
 			}
 		}
