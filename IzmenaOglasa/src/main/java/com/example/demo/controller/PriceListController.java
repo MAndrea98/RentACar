@@ -26,9 +26,6 @@ import com.example.demo.service.PriceListService;
 @CrossOrigin("http://localhost:4200")
 public class PriceListController {
 	
-	// TODO neophodno je izmeniti svaki priceList u programu, potrebno je dodati u skriptu, 
-	// i njega prosiriti na ceo program
-	
 	@Autowired
 	private PriceListService priceListService;
 

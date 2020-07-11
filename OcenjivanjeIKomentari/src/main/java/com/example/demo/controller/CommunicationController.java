@@ -63,4 +63,6 @@ public class CommunicationController {
 		return new ResponseEntity<String>("Prosao", HttpStatus.OK);
 	}
 	
+	
+	
 }

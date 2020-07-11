@@ -17,9 +17,11 @@ import com.example.demo.model.EndUser;
 import com.example.demo.model.Renter;
 import com.example.demo.model.Request;
 import com.example.demo.model.RequestStatus;
+import com.example.demo.model.UserModel;
 import com.example.demo.service.EndUserService;
 import com.example.demo.service.RenterService;
 import com.example.demo.service.RequestService;
+import com.example.demo.service.UserModelService;
 
 @RestController
 @RequestMapping(value = "/request")
@@ -35,9 +37,14 @@ public class RequestController {
 	@Autowired
 	private EndUserService endUserService;
 	
+	@Autowired
+	private UserModelService userModelService;
+	
 	@GetMapping
 	public ResponseEntity<List<RequestDTO>> allMyRequests() {
-		Renter renter = renterService.findById(1L);
+		//UserModel userModel = userModelService.findById(LogedUser.getInstance().getUserId());
+		UserModel userModel = userModelService.findById(2L);
+		Renter renter = renterService.findByUserId(userModel.getId());
 		List<Request> requests = requestService.findAll();
 
 		List<RequestDTO> requestDTOs = new ArrayList<RequestDTO>();
