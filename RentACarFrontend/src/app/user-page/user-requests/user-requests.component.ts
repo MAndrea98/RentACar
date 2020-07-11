@@ -6,6 +6,7 @@ import { Ad } from 'src/app/model/Ad';
 import { Message } from 'src/app/model/Message';
 import { UserModel } from 'src/app/model/UserModel';
 import { ReviewDTO } from 'src/app/model/ReviewDTO';
+import { VehicleImage } from 'src/app/model/VehicleImage';
 
 @Component({
     selector: 'app-user-requests',
@@ -52,6 +53,22 @@ export class UserRequestComponent implements OnInit {
             (res:Request[])=> {
                 this.requests = [];
                 this.requests = res;
+                for (let i = 0; i < this.requests.length; i++) {
+                    for (let j = 0; j < this.requests[i].ads.length; j++) {
+                        url = "http://localhost:8080/api/rezervacija-automobila/images/" + this.requests[i].ads[j].vehicle.id;
+                        this.http.get(url).subscribe(
+                            (res1: VehicleImage[]) => {
+                                this.requests[i].ads[j].vehicle.images = [];
+                                this.requests[i].ads[j].vehicle.images = res1;
+                            },
+                            err=> {
+                                alert('Something went wrong 1');
+                                console.log(err.message);
+                            }
+                        )
+                    }
+                    
+                }
             },
             err=> {
                 alert('Something went wrong');

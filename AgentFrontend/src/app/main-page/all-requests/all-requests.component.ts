@@ -46,8 +46,7 @@ export class AllRequestsComponent implements OnInit {
                     }
                 )
             }
-            
-        }
+          }
         },
         err=>{
           alert('Something went wrong');

@@ -61,7 +61,7 @@
             <tbody>
                 <tr *ngFor="let a of ads">
                     <td>{{a.vehicle.id}}</td>
-                    <td></td>
+                    <td><img src="{{a.vehicle.images[0].image}}"></td>
                     <td>{{a.vehicle.model.manufacturer.name}}</td>
                     <td>{{a.vehicle.model.name}}</td>
                     <td>{{a.vehicle.gasType.name}}</td>
