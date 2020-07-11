@@ -20,6 +20,7 @@ import com.example.demo.model.EndUser;
 import com.example.demo.service.AdService;
 import com.example.demo.service.CartService;
 import com.example.demo.service.EndUserService;
+import com.example.demo.service.UserModelService;
 
 @RestController
 @RequestMapping("/cart")
@@ -34,9 +35,14 @@ public class CartController {
 	
 	@Autowired
 	private AdService adService;
+	
+	@Autowired
+	private UserModelService userModelService;
 
 	@GetMapping
 	public ResponseEntity<List<AdDTO>> myCart() {
+		/*UserModel userModel = userModelService.findById(LogedUser.getInstance().getUserId());
+		EndUser endUser = endUserService.findByIdUser(userModel.getId());*/
 		EndUser endUser = endUserService.findByIdUser(1L);
 		Cart cart =  cartService.findByEndUserID(endUser.getId());
 		List<AdDTO> adDTOs = new ArrayList<AdDTO>();
@@ -48,6 +54,8 @@ public class CartController {
 	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<String> removeFromCart(@PathVariable("id") Long id) {
+		/*UserModel userModel = userModelService.findById(LogedUser.getInstance().getUserId());
+		EndUser endUser = endUserService.findByIdUser(userModel.getId());*/
 		EndUser endUser = endUserService.findByIdUser(1L);
 		Cart cart =  cartService.findByEndUserID(endUser.getId());
 		for (int i = 0 ; i < cart.getAds().size(); i++) {

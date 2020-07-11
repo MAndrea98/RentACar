@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.VehicleDTO;
+import com.example.demo.model.LogedUser;
 import com.example.demo.model.Renter;
 import com.example.demo.model.Vehicle;
 import com.example.demo.service.RenterService;
@@ -38,6 +39,9 @@ public class VehicleController {
 	
 	@GetMapping(value = "/myVehicles")
 	public ResponseEntity<List<VehicleDTO>> getMyVehicles() {
+		/*Renter owner = renterService.findByIdUser(LogedUser.getInstance().getUserId());
+		if(owner == null)
+			return new ResponseEntity<List<VehicleDTO>>(HttpStatus.BAD_REQUEST);*/
 		Renter owner = renterService.findByIdUser(2L);
 		List<Vehicle> vehicles = vehicleService.findByOwner(owner);
 		List<VehicleDTO> vehicleDTOs = new ArrayList<VehicleDTO>();

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.MessageDTO;
 import com.example.demo.model.EndUser;
+import com.example.demo.model.LogedUser;
 import com.example.demo.model.Message;
 import com.example.demo.model.Renter;
 import com.example.demo.model.Request;

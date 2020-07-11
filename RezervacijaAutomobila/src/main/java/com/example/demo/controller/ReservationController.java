@@ -25,6 +25,7 @@ import com.example.demo.dto.RequestDTO;
 import com.example.demo.model.Ad;
 import com.example.demo.model.Cart;
 import com.example.demo.model.EndUser;
+import com.example.demo.model.LogedUser;
 import com.example.demo.model.Request;
 import com.example.demo.model.RequestStatus;
 import com.example.demo.service.AdService;
